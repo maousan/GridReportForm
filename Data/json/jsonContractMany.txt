@@ -1,0 +1,9 @@
+﻿{
+"Table":[
+{"OrderID":10252,"CustomerId":"SUPRD","CompanyName":"福星制衣厂股份有限公司","OrderDate":"1996/7/9 0:00:00","ProductName":"桂花糕","UnitPrice":64.8,"Quantity":40,"Amount":2592},
+{"OrderID":10272,"CustomerId":"RATTC","CompanyName":"学仁贸易","OrderDate":"1996/8/2 0:00:00","ProductName":"桂花糕","UnitPrice":64.8,"Quantity":6,"Amount":388.8},
+{"OrderID":10292,"CustomerId":"TRADH","CompanyName":"亚太公司","OrderDate":"1996/8/28 0:00:00","ProductName":"桂花糕","UnitPrice":64.8,"Quantity":20,"Amount":1296},
+{"OrderID":10372,"CustomerId":"QUEEN","CompanyName":"留学服务中心","OrderDate":"1996/12/4 0:00:00","ProductName":"桂花糕","UnitPrice":64.8,"Quantity":12,"Amount":777.6},
+{"OrderID":10384,"CustomerId":"BERGS","CompanyName":"通恒机械","OrderDate":"1996/12/16 0:00:00","ProductName":"桂花糕","UnitPrice":64.8,"Quantity":28,"Amount":1814.4}
+]
+}

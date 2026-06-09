@@ -1,0 +1,13 @@
+﻿<report>
+
+<row><ID>1</ID><凭证日期>2007-7-8</凭证日期><凭证字号>记-88</凭证字号><Brief>销售收款</Brief><SubName>应收款</SubName><Debit></Debit><Credit>50000</Credit></row>
+<row><ID>1</ID><凭证日期>2007-7-8</凭证日期><凭证字号>记-88</凭证字号><Brief>销售收款</Brief><SubName>预收款</SubName><Debit>30000</Debit><Credit></Credit></row>
+<row><ID>1</ID><凭证日期>2007-7-8</凭证日期><凭证字号>记-88</凭证字号><Brief>销售收款</Brief><SubName>现金</SubName><Debit>20000</Debit><Credit></Credit></row>
+
+<row><ID>2</ID><凭证日期>2007-7-9</凭证日期><凭证字号>记-88</凭证字号><Brief>销售收款2</Brief><SubName>应收款</SubName><Debit></Debit><Credit>5000</Credit></row>
+<row><ID>2</ID><凭证日期>2007-7-9</凭证日期><凭证字号>记-88</凭证字号><Brief>销售收款2</Brief><SubName>预收款</SubName><Debit>3000</Debit><Credit></Credit></row>
+<row><ID>2</ID><凭证日期>2007-7-9</凭证日期><凭证字号>记-88</凭证字号><Brief>销售收款2</Brief><SubName>现金</SubName><Debit>2000</Debit><Credit></Credit></row>
+
+<master><企业名称>锐浪软件测试公司</企业名称><登账人>张三</登账人><签字人>李四</签字人><审核人>王五</审核人><制单人>赵六</制单人></master>
+
+</report>

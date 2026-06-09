@@ -1,0 +1,2186 @@
+﻿<NewDataSet>
+  <Customer>
+    <CustomerID>ALFKI</CustomerID>
+    <CompanyName>三川实业有限公司</CompanyName>
+    <ContactName>刘小姐</ContactName>
+    <ContactTitle>销售代表</ContactTitle>
+    <Address>大崇明路 50 号</Address>
+    <City>天津</City>
+    <Region>华北</Region>
+    <PostalCode>343567</PostalCode>
+    <Country>中国</Country>
+    <Phone>(030) 30074321</Phone>
+    <Fax>(030) 30765452</Fax>
+  </Customer>
+  <Customer>
+    <CustomerID>ANATR</CustomerID>
+    <CompanyName>东南实业</CompanyName>
+    <ContactName>王先生</ContactName>
+    <ContactTitle>物主</ContactTitle>
+    <Address>承德西路 80 号</Address>
+    <City>天津</City>
+    <Region>华北</Region>
+    <PostalCode>234575</PostalCode>
+    <Country>中国</Country>
+    <Phone>(030) 35554729</Phone>
+    <Fax>(030) 35553744</Fax>
+  </Customer>
+  <Customer>
+    <CustomerID>ANTON</CustomerID>
+    <CompanyName>坦森行贸易</CompanyName>
+    <ContactName>王炫皓</ContactName>
+    <ContactTitle>物主</ContactTitle>
+    <Address>黄台北路 780 号</Address>
+    <City>石家庄</City>
+    <Region>华北</Region>
+    <PostalCode>985060</PostalCode>
+    <Country>中国</Country>
+    <Phone>(0321) 5553932</Phone>
+  </Customer>
+  <Customer>
+    <CustomerID>AROUT</CustomerID>
+    <CompanyName>国顶有限公司</CompanyName>
+    <ContactName>方先生</ContactName>
+    <ContactTitle>销售代表</ContactTitle>
+    <Address>天府东街 30 号</Address>
+    <City>深圳</City>
+    <Region>华南</Region>
+    <PostalCode>890879</PostalCode>
+    <Country>中国</Country>
+    <Phone>(0571) 45557788</Phone>
+    <Fax>(0571) 45556750</Fax>
+  </Customer>
+  <Customer>
+    <CustomerID>BERGS</CustomerID>
+    <CompanyName>通恒机械</CompanyName>
+    <ContactName>黄小姐</ContactName>
+    <ContactTitle>采购员</ContactTitle>
+    <Address>东园西甲 30 号</Address>
+    <City>南京</City>
+    <Region>华东</Region>
+    <PostalCode>798089</PostalCode>
+    <Country>中国</Country>
+    <Phone>(0921) 9123465</Phone>
+    <Fax>(0921) 55123467</Fax>
+  </Customer>
+  <Customer>
+    <CustomerID>BLAUS</CustomerID>
+    <CompanyName>森通</CompanyName>
+    <ContactName>王先生</ContactName>
+    <ContactTitle>销售代表</ContactTitle>
+    <Address>常保阁东 80 号</Address>
+    <City>天津</City>
+    <Region>华北</Region>
+    <PostalCode>787045</PostalCode>
+    <Country>中国</Country>
+    <Phone>(030) 30058460</Phone>
+    <Fax>(030)  33008924</Fax>
+  </Customer>
+  <Customer>
+    <CustomerID>BLONP</CustomerID>
+    <CompanyName>国皓</CompanyName>
+    <ContactName>黄雅玲</ContactName>
+    <ContactTitle>市场经理</ContactTitle>
+    <Address>广发北路 10 号</Address>
+    <City>大连</City>
+    <Region>东北</Region>
+    <PostalCode>565479</PostalCode>
+    <Country>中国</Country>
+    <Phone>(0671) 88601531</Phone>
+    <Fax>(0671) 88601532</Fax>
+  </Customer>
+  <Customer>
+    <CustomerID>BOLID</CustomerID>
+    <CompanyName>迈多贸易</CompanyName>
+    <ContactName>陈先生</ContactName>
+    <ContactTitle>物主</ContactTitle>
+    <Address>临翠大街 80 号</Address>
+    <City>西安</City>
+    <Region>西北</Region>
+    <PostalCode>907987</PostalCode>
+    <Country>中国</Country>
+    <Phone>(091) 85552282</Phone>
+    <Fax>(091) 85559199</Fax>
+  </Customer>
+  <Customer>
+    <CustomerID>BONAP</CustomerID>
+    <CompanyName>祥通</CompanyName>
+    <ContactName>刘先生</ContactName>
+    <ContactTitle>物主</ContactTitle>
+    <Address>花园东街 90 号</Address>
+    <City>重庆</City>
+    <Region>西南</Region>
+    <PostalCode>567690</PostalCode>
+    <Country>中国</Country>
+    <Phone>(078) 91244540</Phone>
+    <Fax>(078) 91244541</Fax>
+  </Customer>
+  <Customer>
+    <CustomerID>BOTTM</CustomerID>
+    <CompanyName>广通</CompanyName>
+    <ContactName>王先生</ContactName>
+    <ContactTitle>结算经理</ContactTitle>
+    <Address>平谷嘉石大街 38 号</Address>
+    <City>重庆</City>
+    <Region>西南</Region>
+    <PostalCode>808059</PostalCode>
+    <Country>中国</Country>
+    <Phone>(078) 95554729</Phone>
+    <Fax>(078) 95553745</Fax>
+  </Customer>
+  <Customer>
+    <CustomerID>BSBEV</CustomerID>
+    <CompanyName>光明杂志</CompanyName>
+    <ContactName>谢丽秋</ContactName>
+    <ContactTitle>销售代表</ContactTitle>
+    <Address>黄石路 50 号</Address>
+    <City>深圳</City>
+    <Region>华南</Region>
+    <PostalCode>760908</PostalCode>
+    <Country>中国</Country>
+    <Phone>(0571) 45551212</Phone>
+  </Customer>
+  <Customer>
+    <CustomerID>CACTU</CustomerID>
+    <CompanyName>威航货运有限公司</CompanyName>
+    <ContactName>刘先生</ContactName>
+    <ContactTitle>销售代理</ContactTitle>
+    <Address>经七纬二路 13 号</Address>
+    <City>大连</City>
+    <Region>东北</Region>
+    <PostalCode>120412</PostalCode>
+    <Country>中国</Country>
+    <Phone>(061) 11355555</Phone>
+    <Fax>(061) 11354892</Fax>
+  </Customer>
+  <Customer>
+    <CustomerID>CENTC</CustomerID>
+    <CompanyName>三捷实业</CompanyName>
+    <ContactName>王先生</ContactName>
+    <ContactTitle>市场经理</ContactTitle>
+    <Address>英雄山路 84 号</Address>
+    <City>大连</City>
+    <Region>东北</Region>
+    <PostalCode>130083</PostalCode>
+    <Country>中国</Country>
+    <Phone>(061) 15553392</Phone>
+    <Fax>(061) 15557293</Fax>
+  </Customer>
+  <Customer>
+    <CustomerID>CHOPS</CustomerID>
+    <CompanyName>浩天旅行社</CompanyName>
+    <ContactName>方先生</ContactName>
+    <ContactTitle>物主</ContactTitle>
+    <Address>白广路 314 号</Address>
+    <City>天津</City>
+    <Region>华北</Region>
+    <PostalCode>234254</PostalCode>
+    <Country>中国</Country>
+    <Phone>(030) 30076545</Phone>
+  </Customer>
+  <Customer>
+    <CustomerID>COMMI</CustomerID>
+    <CompanyName>同恒</CompanyName>
+    <ContactName>刘先生</ContactName>
+    <ContactTitle>销售员</ContactTitle>
+    <Address>七一路 37 号</Address>
+    <City>天津</City>
+    <Region>华北</Region>
+    <PostalCode>453466</PostalCode>
+    <Country>中国</Country>
+    <Phone>(030) 35557647</Phone>
+  </Customer>
+  <Customer>
+    <CustomerID>CONSH</CustomerID>
+    <CompanyName>万海</CompanyName>
+    <ContactName>林小姐</ContactName>
+    <ContactTitle>销售代表</ContactTitle>
+    <Address>劳动路 23 号</Address>
+    <City>厦门</City>
+    <Region>华南</Region>
+    <PostalCode>353467</PostalCode>
+    <Country>中国</Country>
+    <Phone>(071) 45552282</Phone>
+    <Fax>(071) 45559199</Fax>
+  </Customer>
+  <Customer>
+    <CustomerID>DRACD</CustomerID>
+    <CompanyName>世邦</CompanyName>
+    <ContactName>黎先生</ContactName>
+    <ContactTitle>采购员</ContactTitle>
+    <Address>光明东路 395 号</Address>
+    <City>海口</City>
+    <Region>华南</Region>
+    <PostalCode>454748</PostalCode>
+    <Country>中国</Country>
+    <Phone>(0241) 10391231</Phone>
+    <Fax>(0241) 10594282</Fax>
+  </Customer>
+  <Customer>
+    <CustomerID>DUMON</CustomerID>
+    <CompanyName>迈策船舶</CompanyName>
+    <ContactName>王俊元</ContactName>
+    <ContactTitle>物主</ContactTitle>
+    <Address>沉香街 329 号</Address>
+    <City>常州</City>
+    <Region>华东</Region>
+    <PostalCode>565474</PostalCode>
+    <Country>中国</Country>
+    <Phone>(056) 40678888</Phone>
+    <Fax>(056) 40678989</Fax>
+  </Customer>
+  <Customer>
+    <CustomerID>EASTC</CustomerID>
+    <CompanyName>中通</CompanyName>
+    <ContactName>林小姐</ContactName>
+    <ContactTitle>销售代理</ContactTitle>
+    <Address>光复北路 895 号</Address>
+    <City>天津</City>
+    <Region>华北</Region>
+    <PostalCode>809784</PostalCode>
+    <Country>中国</Country>
+    <Phone>(030) 35550297</Phone>
+    <Fax>(030) 35553373</Fax>
+  </Customer>
+  <Customer>
+    <CustomerID>ERNSH</CustomerID>
+    <CompanyName>正人资源</CompanyName>
+    <ContactName>谢小姐</ContactName>
+    <ContactTitle>销售经理</ContactTitle>
+    <Address>临江东街 62 号</Address>
+    <City>深圳</City>
+    <Region>华南</Region>
+    <PostalCode>906853</PostalCode>
+    <Country>中国</Country>
+    <Phone>(0571) 76753425</Phone>
+    <Fax>(0571) 76753426</Fax>
+  </Customer>
+  <Customer>
+    <CustomerID>FAMIA</CustomerID>
+    <CompanyName>红阳事业</CompanyName>
+    <ContactName>王先生</ContactName>
+    <ContactTitle>市场助理</ContactTitle>
+    <Address>外滩西路 238 号</Address>
+    <City>深圳</City>
+    <Region>华南</Region>
+    <PostalCode>687759</PostalCode>
+    <Country>中国</Country>
+    <Phone>(0571) 75559857</Phone>
+  </Customer>
+  <Customer>
+    <CustomerID>FISSA</CustomerID>
+    <CompanyName>嘉元实业</CompanyName>
+    <ContactName>刘小姐</ContactName>
+    <ContactTitle>结算经理</ContactTitle>
+    <Address>东湖大街 28 号</Address>
+    <City>天津</City>
+    <Region>华北</Region>
+    <PostalCode>458965</PostalCode>
+    <Country>中国</Country>
+    <Phone>(091) 25559444</Phone>
+    <Fax>(091) 25555593</Fax>
+  </Customer>
+  <Customer>
+    <CustomerID>FOLIG</CustomerID>
+    <CompanyName>嘉业</CompanyName>
+    <ContactName>刘先生</ContactName>
+    <ContactTitle>助理销售代理</ContactTitle>
+    <Address>经三纬二路 8 号</Address>
+    <City>石家庄</City>
+    <Region>华北</Region>
+    <PostalCode>576906</PostalCode>
+    <Country>中国</Country>
+    <Phone>(0321) 20161016</Phone>
+    <Fax>(0321) 20161017</Fax>
+  </Customer>
+  <Customer>
+    <CustomerID>FOLKO</CustomerID>
+    <CompanyName>五洲信托</CompanyName>
+    <ContactName>苏先生</ContactName>
+    <ContactTitle>物主</ContactTitle>
+    <Address>沿江北路 942 号</Address>
+    <City>南京</City>
+    <Region>华东</Region>
+    <PostalCode>876060</PostalCode>
+    <Country>中国</Country>
+    <Phone>(087) 69534671</Phone>
+  </Customer>
+  <Customer>
+    <CustomerID>FRANK</CustomerID>
+    <CompanyName>友恒信托</CompanyName>
+    <ContactName>余小姐</ContactName>
+    <ContactTitle>市场经理</ContactTitle>
+    <Address>经二路 9 号</Address>
+    <City>秦皇岛</City>
+    <Region>华北</Region>
+    <PostalCode>500798</PostalCode>
+    <Country>中国</Country>
+    <Phone>(089) 3877310</Phone>
+    <Fax>(089) 3877451</Fax>
+  </Customer>
+  <Customer>
+    <CustomerID>FRANR</CustomerID>
+    <CompanyName>国银贸易</CompanyName>
+    <ContactName>余小姐</ContactName>
+    <ContactTitle>市场经理</ContactTitle>
+    <Address>辅城街 42 号</Address>
+    <City>南京</City>
+    <Region>华东</Region>
+    <PostalCode>546590</PostalCode>
+    <Country>中国</Country>
+    <Phone>(087) 40322121</Phone>
+    <Fax>(087) 40322120</Fax>
+  </Customer>
+  <Customer>
+    <CustomerID>FRANS</CustomerID>
+    <CompanyName>文成</CompanyName>
+    <ContactName>唐小姐</ContactName>
+    <ContactTitle>销售代表</ContactTitle>
+    <Address>临江街 32 号</Address>
+    <City>常州</City>
+    <Region>华东</Region>
+    <PostalCode>820097</PostalCode>
+    <Country>中国</Country>
+    <Phone>(056) 34988260</Phone>
+    <Fax>(056) 34988261</Fax>
+  </Customer>
+  <Customer>
+    <CustomerID>FURIB</CustomerID>
+    <CompanyName>康浦</CompanyName>
+    <ContactName>王先生</ContactName>
+    <ContactTitle>销售经理</ContactTitle>
+    <Address>授业路 361 号</Address>
+    <City>南京</City>
+    <Region>华东</Region>
+    <PostalCode>964532</PostalCode>
+    <Country>中国</Country>
+    <Phone>(087) 43542534</Phone>
+    <Fax>(087) 43542535</Fax>
+  </Customer>
+  <Customer>
+    <CustomerID>GALED</CustomerID>
+    <CompanyName>东旗</CompanyName>
+    <ContactName>王先生</ContactName>
+    <ContactTitle>市场经理</ContactTitle>
+    <Address>尊石路 238 号</Address>
+    <City>深圳</City>
+    <Region>华南</Region>
+    <PostalCode>411012</PostalCode>
+    <Country>中国</Country>
+    <Phone>(0571) 20334560</Phone>
+    <Fax>(0571) 20334561</Fax>
+  </Customer>
+  <Customer>
+    <CustomerID>GODOS</CustomerID>
+    <CompanyName>建资</CompanyName>
+    <ContactName>陈先生</ContactName>
+    <ContactTitle>销售经理</ContactTitle>
+    <Address>广惠东路 38 号</Address>
+    <City>张家口</City>
+    <Region>华北</Region>
+    <PostalCode>242353</PostalCode>
+    <Country>中国</Country>
+    <Phone>(0922) 5558282</Phone>
+  </Customer>
+  <Customer>
+    <CustomerID>GOURL</CustomerID>
+    <CompanyName>业兴</CompanyName>
+    <ContactName>李柏麟</ContactName>
+    <ContactTitle>销售员</ContactTitle>
+    <Address>淮河路 348 号</Address>
+    <City>上海</City>
+    <Region>华东</Region>
+    <PostalCode>241008</PostalCode>
+    <Country>中国</Country>
+    <Phone>(021) 85559482</Phone>
+  </Customer>
+  <Customer>
+    <CustomerID>GREAL</CustomerID>
+    <CompanyName>仪和贸易</CompanyName>
+    <ContactName>王先生</ContactName>
+    <ContactTitle>市场经理</ContactTitle>
+    <Address>经三纬四路 18 号</Address>
+    <City>北京</City>
+    <Region>华北</Region>
+    <PostalCode>120475</PostalCode>
+    <Country>中国</Country>
+    <Phone>(010) 65557555</Phone>
+  </Customer>
+  <Customer>
+    <CustomerID>GROSR</CustomerID>
+    <CompanyName>光远商贸</CompanyName>
+    <ContactName>陈先生</ContactName>
+    <ContactTitle>物主</ContactTitle>
+    <Address>成川东街 951 号</Address>
+    <City>天津</City>
+    <Region>华北</Region>
+    <PostalCode>122096</PostalCode>
+    <Country>中国</Country>
+    <Phone>(030) 32832951</Phone>
+    <Fax>(030) 32833397</Fax>
+  </Customer>
+  <Customer>
+    <CustomerID>HANAR</CustomerID>
+    <CompanyName>实翼</CompanyName>
+    <ContactName>谢小姐</ContactName>
+    <ContactTitle>结算经理</ContactTitle>
+    <Address>永惠西街 392 号</Address>
+    <City>南昌</City>
+    <Region>华东</Region>
+    <PostalCode>674674</PostalCode>
+    <Country>中国</Country>
+    <Phone>(0211) 5550091</Phone>
+    <Fax>(0211) 5558765</Fax>
+  </Customer>
+  <Customer>
+    <CustomerID>HILAA</CustomerID>
+    <CompanyName>远东开发</CompanyName>
+    <ContactName>王先生</ContactName>
+    <ContactTitle>销售代表</ContactTitle>
+    <Address>崇盛路 82 号</Address>
+    <City>深圳</City>
+    <Region>华南</Region>
+    <PostalCode>498045</PostalCode>
+    <Country>中国</Country>
+    <Phone>(0571) 75551340</Phone>
+    <Fax>(0571) 75551948</Fax>
+  </Customer>
+  <Customer>
+    <CustomerID>HUNGC</CustomerID>
+    <CompanyName>五金机械</CompanyName>
+    <ContactName>苏先生</ContactName>
+    <ContactTitle>销售代表</ContactTitle>
+    <Address>德昌路甲 29 号</Address>
+    <City>大连</City>
+    <Region>东北</Region>
+    <PostalCode>564576</PostalCode>
+    <Country>中国</Country>
+    <Phone>(053) 5556874</Phone>
+    <Fax>(053) 5552376</Fax>
+  </Customer>
+  <Customer>
+    <CustomerID>HUNGO</CustomerID>
+    <CompanyName>师大贸易</CompanyName>
+    <ContactName>苏先生</ContactName>
+    <ContactTitle>销售员</ContactTitle>
+    <Address>黄岗北路 73 号</Address>
+    <City>天津</City>
+    <Region>华北</Region>
+    <PostalCode>683045</PostalCode>
+    <Country>中国</Country>
+    <Phone>(030) 29672542</Phone>
+    <Fax>(030) 29673333</Fax>
+  </Customer>
+  <Customer>
+    <CustomerID>ISLAT</CustomerID>
+    <CompanyName>鑫增贸易</CompanyName>
+    <ContactName>周先生</ContactName>
+    <ContactTitle>市场经理</ContactTitle>
+    <Address>东府大街 31 号</Address>
+    <City>西安</City>
+    <Region>西北</Region>
+    <PostalCode>502255</PostalCode>
+    <Country>中国</Country>
+    <Phone>(091) 65558888</Phone>
+  </Customer>
+  <Customer>
+    <CustomerID>KOENE</CustomerID>
+    <CompanyName>永业房屋</CompanyName>
+    <ContactName>谢丽秋</ContactName>
+    <ContactTitle>销售员</ContactTitle>
+    <Address>东园大路 78 号</Address>
+    <City>重庆</City>
+    <Region>西南</Region>
+    <PostalCode>101057</PostalCode>
+    <Country>中国</Country>
+    <Phone>(025) 55509876</Phone>
+  </Customer>
+  <Customer>
+    <CustomerID>LACOR</CustomerID>
+    <CompanyName>霸力建设</CompanyName>
+    <ContactName>谢小姐</ContactName>
+    <ContactTitle>销售代表</ContactTitle>
+    <Address>东岗大路 9 号</Address>
+    <City>重庆</City>
+    <Region>西南</Region>
+    <PostalCode>048766</PostalCode>
+    <Country>中国</Country>
+    <Phone>(025) 30598410</Phone>
+    <Fax>(025) 30598511</Fax>
+  </Customer>
+  <Customer>
+    <CustomerID>LAMAI</CustomerID>
+    <CompanyName>池春建设</CompanyName>
+    <ContactName>王先生</ContactName>
+    <ContactTitle>销售经理</ContactTitle>
+    <Address>青年南街 291 号</Address>
+    <City>天津</City>
+    <Region>华北</Region>
+    <PostalCode>502564</PostalCode>
+    <Country>中国</Country>
+    <Phone>(030) 61776110</Phone>
+    <Fax>(030) 61776111</Fax>
+  </Customer>
+  <Customer>
+    <CustomerID>LAUGB</CustomerID>
+    <CompanyName>和福建设</CompanyName>
+    <ContactName>刘先生</ContactName>
+    <ContactTitle>市场助理</ContactTitle>
+    <Address>创业西路 238 号</Address>
+    <City>天津</City>
+    <Region>华北</Region>
+    <PostalCode>055654</PostalCode>
+    <Country>中国</Country>
+    <Phone>(030) 15553392</Phone>
+    <Fax>(030) 15557293</Fax>
+  </Customer>
+  <Customer>
+    <CustomerID>LAZYK</CustomerID>
+    <CompanyName>春永建设</CompanyName>
+    <ContactName>王先生</ContactName>
+    <ContactTitle>市场经理</ContactTitle>
+    <Address>劳动辅路 395 号</Address>
+    <City>深圳</City>
+    <Region>华南</Region>
+    <PostalCode>013056</PostalCode>
+    <Country>中国</Country>
+    <Phone>(0571) 35557969</Phone>
+    <Fax>(0571) 35556221</Fax>
+  </Customer>
+  <Customer>
+    <CustomerID>LEHMS</CustomerID>
+    <CompanyName>幸义房屋</CompanyName>
+    <ContactName>刘先生</ContactName>
+    <ContactTitle>销售代表</ContactTitle>
+    <Address>七一路 89 号</Address>
+    <City>南京</City>
+    <Region>华东</Region>
+    <PostalCode>167556</PostalCode>
+    <Country>中国</Country>
+    <Phone>(069) 20245984</Phone>
+    <Fax>(069) 20245874</Fax>
+  </Customer>
+  <Customer>
+    <CustomerID>LETSS</CustomerID>
+    <CompanyName>兴中保险</CompanyName>
+    <ContactName>方先生</ContactName>
+    <ContactTitle>物主</ContactTitle>
+    <Address>豪威西路 238 号</Address>
+    <City>厦门</City>
+    <Region>华南</Region>
+    <PostalCode>750165</PostalCode>
+    <Country>中国</Country>
+    <Phone>(0415) 5555938</Phone>
+  </Customer>
+  <Customer>
+    <CustomerID>LILAS</CustomerID>
+    <CompanyName>富泰人寿</CompanyName>
+    <ContactName>陈先生</ContactName>
+    <ContactTitle>结算经理</ContactTitle>
+    <Address>光伦东路 381 号</Address>
+    <City>天津</City>
+    <Region>华北</Region>
+    <PostalCode>995085</PostalCode>
+    <Country>中国</Country>
+    <Phone>(030) 33116954</Phone>
+    <Fax>(030) 33117256</Fax>
+  </Customer>
+  <Customer>
+    <CustomerID>LINOD</CustomerID>
+    <CompanyName>保信人寿</CompanyName>
+    <ContactName>方先生</ContactName>
+    <ContactTitle>物主</ContactTitle>
+    <Address>创业北路 32 号</Address>
+    <City>海口</City>
+    <Region>华南</Region>
+    <PostalCode>301256</PostalCode>
+    <Country>中国</Country>
+    <Phone>(0899) 3345612</Phone>
+    <Fax>(0899) 3349393</Fax>
+  </Customer>
+  <Customer>
+    <CustomerID>LONEP</CustomerID>
+    <CompanyName>正太实业</CompanyName>
+    <ContactName>林慧音</ContactName>
+    <ContactTitle>销售经理</ContactTitle>
+    <Address>花园西街 28 号</Address>
+    <City>天津</City>
+    <Region>华北</Region>
+    <PostalCode>440875</PostalCode>
+    <Country>中国</Country>
+    <Phone>(030) 25559573</Phone>
+    <Fax>(030) 25559646</Fax>
+  </Customer>
+  <Customer>
+    <CustomerID>MAGAA</CustomerID>
+    <CompanyName>阳林</CompanyName>
+    <ContactName>刘先生</ContactName>
+    <ContactTitle>市场经理</ContactTitle>
+    <Address>城东大街 47 号</Address>
+    <City>深圳</City>
+    <Region>华南</Region>
+    <PostalCode>801056</PostalCode>
+    <Country>中国</Country>
+    <Phone>(0571) 36402300</Phone>
+    <Fax>(0571) 36402311</Fax>
+  </Customer>
+  <Customer>
+    <CustomerID>MAISD</CustomerID>
+    <CompanyName>悦海</CompanyName>
+    <ContactName>陈玉美</ContactName>
+    <ContactTitle>销售代理</ContactTitle>
+    <Address>八一路 384 号</Address>
+    <City>青岛</City>
+    <Region>华东</Region>
+    <PostalCode>054356</PostalCode>
+    <Country>中国</Country>
+    <Phone>(0217) 2012467</Phone>
+    <Fax>(0217) 2012468</Fax>
+  </Customer>
+  <Customer>
+    <CustomerID>MEREP</CustomerID>
+    <CompanyName>华科</CompanyName>
+    <ContactName>吴小姐</ContactName>
+    <ContactTitle>市场助理</ContactTitle>
+    <Address>和光北路 952 号</Address>
+    <City>大连</City>
+    <Region>东北</Region>
+    <PostalCode>280235</PostalCode>
+    <Country>中国</Country>
+    <Phone>(0514) 5558054</Phone>
+    <Fax>(0514) 5558055</Fax>
+  </Customer>
+  <Customer>
+    <CustomerID>MORGK</CustomerID>
+    <CompanyName>仲堂企业</CompanyName>
+    <ContactName>徐文彬</ContactName>
+    <ContactTitle>市场助理</ContactTitle>
+    <Address>创业街 57 号</Address>
+    <City>天津</City>
+    <Region>华北</Region>
+    <PostalCode>440007</PostalCode>
+    <Country>中国</Country>
+    <Phone>(030) 34202376</Phone>
+  </Customer>
+  <Customer>
+    <CustomerID>NORTS</CustomerID>
+    <CompanyName>富同企业</CompanyName>
+    <ContactName>王先生</ContactName>
+    <ContactTitle>销售员</ContactTitle>
+    <Address>广西路 24 号</Address>
+    <City>石家庄</City>
+    <Region>华北</Region>
+    <PostalCode>780008</PostalCode>
+    <Country>中国</Country>
+    <Phone>(031) 5557733</Phone>
+    <Fax>(031) 555-2530</Fax>
+  </Customer>
+  <Customer>
+    <CustomerID>OCEAN</CustomerID>
+    <CompanyName>利合材料</CompanyName>
+    <ContactName>陈先生</ContactName>
+    <ContactTitle>销售代理</ContactTitle>
+    <Address>东临大街 32 号</Address>
+    <City>秦皇岛</City>
+    <Region>华北</Region>
+    <PostalCode>780005</PostalCode>
+    <Country>中国</Country>
+    <Phone>(0117) 1355333</Phone>
+    <Fax>(0117) 1355535</Fax>
+  </Customer>
+  <Customer>
+    <CustomerID>OLDWO</CustomerID>
+    <CompanyName>瑞栈工艺</CompanyName>
+    <ContactName>苏先生</ContactName>
+    <ContactTitle>销售代表</ContactTitle>
+    <Address>创业路 361 号</Address>
+    <City>南京</City>
+    <Region>华东</Region>
+    <PostalCode>825777</PostalCode>
+    <Country>中国</Country>
+    <Phone>(097) 5557584</Phone>
+    <Fax>(097) 555-2880</Fax>
+  </Customer>
+  <Customer>
+    <CustomerID>OTTIK</CustomerID>
+    <CompanyName>一诠精密工业</CompanyName>
+    <ContactName>刘先生</ContactName>
+    <ContactTitle>物主</ContactTitle>
+    <Address>基石路 238 号</Address>
+    <City>深圳</City>
+    <Region>华南</Region>
+    <PostalCode>687578</PostalCode>
+    <Country>中国</Country>
+    <Phone>(0571) 10644327</Phone>
+    <Fax>(0571) 10765721</Fax>
+  </Customer>
+  <Customer>
+    <CustomerID>PARIS</CustomerID>
+    <CompanyName>立日股份有限公司</CompanyName>
+    <ContactName>李柏麟</ContactName>
+    <ContactTitle>物主</ContactTitle>
+    <Address>惠安大路 38 号</Address>
+    <City>石家庄</City>
+    <Region>华北</Region>
+    <PostalCode>502299</PostalCode>
+    <Country>中国</Country>
+    <Phone>(031) 4234226</Phone>
+    <Fax>(031) 4234227</Fax>
+  </Customer>
+  <Customer>
+    <CustomerID>PERIC</CustomerID>
+    <CompanyName>就业广兑</CompanyName>
+    <ContactName>唐小姐</ContactName>
+    <ContactTitle>销售代表</ContactTitle>
+    <Address>淮水路 348 号</Address>
+    <City>天津</City>
+    <Region>华北</Region>
+    <PostalCode>786785</PostalCode>
+    <Country>中国</Country>
+    <Phone>(030) 55223745</Phone>
+    <Fax>(030) 55453745</Fax>
+  </Customer>
+  <Customer>
+    <CustomerID>PICCO</CustomerID>
+    <CompanyName>顶上系统</CompanyName>
+    <ContactName>方先生</ContactName>
+    <ContactTitle>销售经理</ContactTitle>
+    <Address>纬四路 523 号</Address>
+    <City>常州</City>
+    <Region>华东</Region>
+    <PostalCode>907077</PostalCode>
+    <Country>中国</Country>
+    <Phone>(056) 6562722</Phone>
+    <Fax>(056) 6562723</Fax>
+  </Customer>
+  <Customer>
+    <CustomerID>PRINI</CustomerID>
+    <CompanyName>康毅系统</CompanyName>
+    <ContactName>林彩瑜</ContactName>
+    <ContactTitle>销售代表</ContactTitle>
+    <Address>成东大街 951 号</Address>
+    <City>张家口</City>
+    <Region>华北</Region>
+    <PostalCode>801070</PostalCode>
+    <Country>中国</Country>
+    <Phone>(019) 3565634</Phone>
+  </Customer>
+  <Customer>
+    <CustomerID>QUEDE</CustomerID>
+    <CompanyName>兰格英语</CompanyName>
+    <ContactName>王先生</ContactName>
+    <ContactTitle>结算经理</ContactTitle>
+    <Address>广安南街 82 号</Address>
+    <City>北京</City>
+    <Region>华北</Region>
+    <PostalCode>785678</PostalCode>
+    <Country>中国</Country>
+    <Phone>(010) 65554252</Phone>
+    <Fax>(010) 65554545</Fax>
+  </Customer>
+  <Customer>
+    <CustomerID>QUEEN</CustomerID>
+    <CompanyName>留学服务中心</CompanyName>
+    <ContactName>赵小姐</ContactName>
+    <ContactTitle>市场助理</ContactTitle>
+    <Address>定成路 92 号</Address>
+    <City>北京</City>
+    <Region>华北</Region>
+    <PostalCode>785878</PostalCode>
+    <Country>中国</Country>
+    <Phone>(010) 85551189</Phone>
+  </Customer>
+  <Customer>
+    <CustomerID>QUICK</CustomerID>
+    <CompanyName>高上补习班</CompanyName>
+    <ContactName>徐先生</ContactName>
+    <ContactTitle>结算经理</ContactTitle>
+    <Address>广场路 205 号</Address>
+    <City>天津</City>
+    <Region>华北</Region>
+    <PostalCode>787869</PostalCode>
+    <Country>中国</Country>
+    <Phone>(030) 72035188</Phone>
+  </Customer>
+  <Customer>
+    <CustomerID>RANCH</CustomerID>
+    <CompanyName>大东补习班</CompanyName>
+    <ContactName>陈小姐</ContactName>
+    <ContactTitle>销售代表</ContactTitle>
+    <Address>创业东路 38 号</Address>
+    <City>深圳</City>
+    <Region>华南</Region>
+    <PostalCode>837207</PostalCode>
+    <Country>中国</Country>
+    <Phone>(0571) 51235555</Phone>
+    <Fax>(0571) 51235556</Fax>
+  </Customer>
+  <Customer>
+    <CustomerID>RATTC</CustomerID>
+    <CompanyName>学仁贸易</CompanyName>
+    <ContactName>余小姐</ContactName>
+    <ContactTitle>助理销售代表</ContactTitle>
+    <Address>辅城路 601 号</Address>
+    <City>温州</City>
+    <Region>华东</Region>
+    <PostalCode>837209</PostalCode>
+    <Country>中国</Country>
+    <Phone>(055) 5555939</Phone>
+    <Fax>(055) 5553620</Fax>
+  </Customer>
+  <Customer>
+    <CustomerID>REGGC</CustomerID>
+    <CompanyName>建国科技</CompanyName>
+    <ContactName>陈先生</ContactName>
+    <ContactTitle>销售员</ContactTitle>
+    <Address>肥水路 93 号</Address>
+    <City>天津</City>
+    <Region>华北</Region>
+    <PostalCode>345256</PostalCode>
+    <Country>中国</Country>
+    <Phone>(030) 52256721</Phone>
+    <Fax>(030) 52256722</Fax>
+  </Customer>
+  <Customer>
+    <CustomerID>RICAR</CustomerID>
+    <CompanyName>宇欣实业</CompanyName>
+    <ContactName>黄雅玲</ContactName>
+    <ContactTitle>助理销售代理</ContactTitle>
+    <Address>大峪口街 702 号</Address>
+    <City>天津</City>
+    <Region>华北</Region>
+    <PostalCode>101046</PostalCode>
+    <Country>中国</Country>
+    <Phone>(030) 45553412</Phone>
+  </Customer>
+  <Customer>
+    <CustomerID>RICSU</CustomerID>
+    <CompanyName>永大企业</CompanyName>
+    <ContactName>余小姐</ContactName>
+    <ContactTitle>销售经理</ContactTitle>
+    <Address>港务口街 29 号</Address>
+    <City>南京</City>
+    <Region>华东</Region>
+    <PostalCode>478668</PostalCode>
+    <Country>中国</Country>
+    <Phone>(089) 7034214</Phone>
+  </Customer>
+  <Customer>
+    <CustomerID>ROMEY</CustomerID>
+    <CompanyName>德化食品</CompanyName>
+    <ContactName>王先生</ContactName>
+    <ContactTitle>结算经理</ContactTitle>
+    <Address>劝业路 103 号</Address>
+    <City>天津</City>
+    <Region>华北</Region>
+    <PostalCode>871108</PostalCode>
+    <Country>中国</Country>
+    <Phone>(030) 74546200</Phone>
+    <Fax>(030) 77456210</Fax>
+  </Customer>
+  <Customer>
+    <CustomerID>SANTG</CustomerID>
+    <CompanyName>汉光企管</CompanyName>
+    <ContactName>王先生</ContactName>
+    <ContactTitle>物主</ContactTitle>
+    <Address>成前路 116 号</Address>
+    <City>重庆</City>
+    <Region>西南</Region>
+    <PostalCode>027773</PostalCode>
+    <Country>中国</Country>
+    <Phone>(071) 98923542</Phone>
+    <Fax>(071) 98924744</Fax>
+  </Customer>
+  <Customer>
+    <CustomerID>SAVEA</CustomerID>
+    <CompanyName>大钰贸易</CompanyName>
+    <ContactName>胡继尧</ContactName>
+    <ContactTitle>销售代表</ContactTitle>
+    <Address>冠成园路 321 号</Address>
+    <City>重庆</City>
+    <Region>西南</Region>
+    <PostalCode>801023</PostalCode>
+    <Country>中国</Country>
+    <Phone>(071) 85558097</Phone>
+  </Customer>
+  <Customer>
+    <CustomerID>SEVES</CustomerID>
+    <CompanyName>艾德高科技</CompanyName>
+    <ContactName>谢小姐</ContactName>
+    <ContactTitle>销售经理</ContactTitle>
+    <Address>起义路 231 号</Address>
+    <City>天津</City>
+    <Region>华北</Region>
+    <PostalCode>013072</PostalCode>
+    <Country>中国</Country>
+    <Phone>(030) 55657717</Phone>
+    <Fax>(030) 55655646</Fax>
+  </Customer>
+  <Customer>
+    <CustomerID>SIMOB</CustomerID>
+    <CompanyName>百达电子</CompanyName>
+    <ContactName>徐文彬</ContactName>
+    <ContactTitle>物主</ContactTitle>
+    <Address>黄口江路 521 号</Address>
+    <City>天津</City>
+    <Region>华北</Region>
+    <PostalCode>972077</PostalCode>
+    <Country>中国</Country>
+    <Phone>(030) 31123456</Phone>
+    <Fax>(030) 31133557</Fax>
+  </Customer>
+  <Customer>
+    <CustomerID>SPECD</CustomerID>
+    <CompanyName>赐芳股份</CompanyName>
+    <ContactName>刘先生</ContactName>
+    <ContactTitle>市场经理</ContactTitle>
+    <Address>车站东路 831 号</Address>
+    <City>厦门</City>
+    <Region>华南</Region>
+    <PostalCode>899453</PostalCode>
+    <Country>中国</Country>
+    <Phone>(0177) 4755601</Phone>
+    <Fax>(1177) 4755602</Fax>
+  </Customer>
+  <Customer>
+    <CustomerID>SPLIR</CustomerID>
+    <CompanyName>昇昕股份有限公司</CompanyName>
+    <ContactName>谢小姐</ContactName>
+    <ContactTitle>销售经理</ContactTitle>
+    <Address>车站南路 721 号</Address>
+    <City>深圳</City>
+    <Region>华南</Region>
+    <PostalCode>820077</PostalCode>
+    <Country>中国</Country>
+    <Phone>(0571) 35554680</Phone>
+    <Fax>(0571) 35556525</Fax>
+  </Customer>
+  <Customer>
+    <CustomerID>SUPRD</CustomerID>
+    <CompanyName>福星制衣厂股份有限公司</CompanyName>
+    <ContactName>徐先生</ContactName>
+    <ContactTitle>结算经理</ContactTitle>
+    <Address>机场东路 951 号</Address>
+    <City>天津</City>
+    <Region>华北</Region>
+    <PostalCode>050337</PostalCode>
+    <Country>中国</Country>
+    <Phone>(030) 23672220</Phone>
+    <Fax>(030) 23672221</Fax>
+  </Customer>
+  <Customer>
+    <CustomerID>THEBI</CustomerID>
+    <CompanyName>上河工业</CompanyName>
+    <ContactName>谢小姐</ContactName>
+    <ContactTitle>市场经理</ContactTitle>
+    <Address>车站路 631 号</Address>
+    <City>海口</City>
+    <Region>华南</Region>
+    <PostalCode>013077</PostalCode>
+    <Country>中国</Country>
+    <Phone>(053) 5553612</Phone>
+  </Customer>
+  <Customer>
+    <CustomerID>THECR</CustomerID>
+    <CompanyName>新巨企业</CompanyName>
+    <ContactName>成先生</ContactName>
+    <ContactTitle>市场助理</ContactTitle>
+    <Address>车站西路 391 号</Address>
+    <City>成都</City>
+    <Region>西南</Region>
+    <PostalCode>350894</PostalCode>
+    <Country>中国</Country>
+    <Phone>(046) 55565834</Phone>
+    <Fax>(046) 55568083</Fax>
+  </Customer>
+  <Customer>
+    <CustomerID>TOMSP</CustomerID>
+    <CompanyName>东帝望</CompanyName>
+    <ContactName>成先生</ContactName>
+    <ContactTitle>市场经理</ContactTitle>
+    <Address>起义路甲 921 号</Address>
+    <City>青岛</City>
+    <Region>华东</Region>
+    <PostalCode>474747</PostalCode>
+    <Country>中国</Country>
+    <Phone>(0251) 1031259</Phone>
+    <Fax>(0251) 1035695</Fax>
+  </Customer>
+  <Customer>
+    <CustomerID>TORTU</CustomerID>
+    <CompanyName>协昌妮绒有限公司</CompanyName>
+    <ContactName>王先生</ContactName>
+    <ContactTitle>物主</ContactTitle>
+    <Address>长春路 371 号</Address>
+    <City>天津</City>
+    <Region>华北</Region>
+    <PostalCode>507392</PostalCode>
+    <Country>中国</Country>
+    <Phone>(030) 45552933</Phone>
+  </Customer>
+  <Customer>
+    <CustomerID>TRADH</CustomerID>
+    <CompanyName>亚太公司</CompanyName>
+    <ContactName>陈先生</ContactName>
+    <ContactTitle>销售代表</ContactTitle>
+    <Address>石碑路丁 211 号</Address>
+    <City>石家庄</City>
+    <Region>华北</Region>
+    <PostalCode>871102</PostalCode>
+    <Country>中国</Country>
+    <Phone>(031) 55562167</Phone>
+    <Fax>(031) 55562168</Fax>
+  </Customer>
+  <Customer>
+    <CustomerID>TRAIH</CustomerID>
+    <CompanyName>伸格公司</CompanyName>
+    <ContactName>林小姐</ContactName>
+    <ContactTitle>销售员</ContactTitle>
+    <Address>石碑路甲 141 号</Address>
+    <City>深圳</City>
+    <Region>华南</Region>
+    <PostalCode>342356</PostalCode>
+    <Country>中国</Country>
+    <Phone>(0571) 55518257</Phone>
+    <Fax>(0571) 55512174</Fax>
+  </Customer>
+  <Customer>
+    <CustomerID>VAFFE</CustomerID>
+    <CompanyName>中硕贸易</CompanyName>
+    <ContactName>苏先生</ContactName>
+    <ContactTitle>销售经理</ContactTitle>
+    <Address>威成路 321 号</Address>
+    <City>深圳</City>
+    <Region>华南</Region>
+    <PostalCode>837206</PostalCode>
+    <Country>中国</Country>
+    <Phone>(0571) 86213243</Phone>
+    <Fax>(0571) 86223344</Fax>
+  </Customer>
+  <Customer>
+    <CustomerID>VICTE</CustomerID>
+    <CompanyName>千固</CompanyName>
+    <ContactName>苏先生</ContactName>
+    <ContactTitle>销售代理</ContactTitle>
+    <Address>明成西街 471 号</Address>
+    <City>秦皇岛</City>
+    <Region>华北</Region>
+    <PostalCode>598018</PostalCode>
+    <Country>中国</Country>
+    <Phone>(071) 8325486</Phone>
+    <Fax>(071) 8325487</Fax>
+  </Customer>
+  <Customer>
+    <CustomerID>VINET</CustomerID>
+    <CompanyName>山泰企业</CompanyName>
+    <ContactName>黎先生</ContactName>
+    <ContactTitle>结算经理</ContactTitle>
+    <Address>舜井街 561 号</Address>
+    <City>天津</City>
+    <Region>华北</Region>
+    <PostalCode>575909</PostalCode>
+    <Country>中国</Country>
+    <Phone>(030) 26471510</Phone>
+    <Fax>(030) 26471511</Fax>
+  </Customer>
+  <Customer>
+    <CustomerID>WANDK</CustomerID>
+    <CompanyName>凯旋科技</CompanyName>
+    <ContactName>方先生</ContactName>
+    <ContactTitle>销售代表</ContactTitle>
+    <Address>使馆路 371 号</Address>
+    <City>天津</City>
+    <Region>华北</Region>
+    <PostalCode>212400</PostalCode>
+    <Country>中国</Country>
+    <Phone>(030) 71100361</Phone>
+    <Fax>(030) 07115428</Fax>
+  </Customer>
+  <Customer>
+    <CustomerID>WARTH</CustomerID>
+    <CompanyName>升格企业</CompanyName>
+    <ContactName>王俊元</ContactName>
+    <ContactTitle>结算经理</ContactTitle>
+    <Address>黄池路 931 号</Address>
+    <City>石家庄</City>
+    <Region>华北</Region>
+    <PostalCode>974030</PostalCode>
+    <Country>中国</Country>
+    <Phone>(031) 9814655</Phone>
+    <Fax>(031) 9813655</Fax>
+  </Customer>
+  <Customer>
+    <CustomerID>WELLI</CustomerID>
+    <CompanyName>凯诚国际顾问公司</CompanyName>
+    <ContactName>刘先生</ContactName>
+    <ContactTitle>销售经理</ContactTitle>
+    <Address>威刚街 481 号</Address>
+    <City>深圳</City>
+    <Region>华南</Region>
+    <PostalCode>175600</PostalCode>
+    <Country>中国</Country>
+    <Phone>(0571) 35558122</Phone>
+  </Customer>
+  <Customer>
+    <CustomerID>WHITC</CustomerID>
+    <CompanyName>椅天文化事业</CompanyName>
+    <ContactName>方先生</ContactName>
+    <ContactTitle>物主</ContactTitle>
+    <Address>花园西路 831 号</Address>
+    <City>常州</City>
+    <Region>华东</Region>
+    <PostalCode>860954</PostalCode>
+    <Country>中国</Country>
+    <Phone>(026) 5554112</Phone>
+  </Customer>
+  <Customer>
+    <CustomerID>WILMK</CustomerID>
+    <CompanyName>志远有限公司</CompanyName>
+    <ContactName>王小姐</ContactName>
+    <ContactTitle>物主/市场助理</ContactTitle>
+    <Address>光明北路 211 号</Address>
+    <City>张家口</City>
+    <Region>华北</Region>
+    <PostalCode>411019</PostalCode>
+    <Country>中国</Country>
+    <Phone>(023) 9022458</Phone>
+    <Fax>(023) 9022458</Fax>
+  </Customer>
+  <Customer>
+    <CustomerID>WOLZA</CustomerID>
+    <CompanyName>汉典电机</CompanyName>
+    <ContactName>刘先生</ContactName>
+    <ContactTitle>物主</ContactTitle>
+    <Address>潼关路 41 号</Address>
+    <City>天津</City>
+    <Region>华北</Region>
+    <PostalCode>421008</PostalCode>
+    <Country>中国</Country>
+    <Phone>(030) 56427012</Phone>
+    <Fax>(030) 56427012</Fax>
+  </Customer>
+  <Product>
+    <ProductID>56</ProductID>
+    <ProductName>白米</ProductName>
+    <SupplierID>26</SupplierID>
+    <CategoryID>5</CategoryID>
+    <QuantityPerUnit>每袋3公斤</QuantityPerUnit>
+    <UnitPrice>38</UnitPrice>
+    <UnitsInStock>21</UnitsInStock>
+    <UnitsOnOrder>10</UnitsOnOrder>
+    <ReorderLevel>30</ReorderLevel>
+    <Discontinued>false</Discontinued>
+  </Product>
+  <Product>
+    <ProductID>32</ProductID>
+    <ProductName>白奶酪</ProductName>
+    <SupplierID>14</SupplierID>
+    <CategoryID>4</CategoryID>
+    <QuantityPerUnit>每箱12瓶</QuantityPerUnit>
+    <UnitPrice>32</UnitPrice>
+    <UnitsInStock>9</UnitsInStock>
+    <UnitsOnOrder>40</UnitsOnOrder>
+    <ReorderLevel>25</ReorderLevel>
+    <Discontinued>false</Discontinued>
+  </Product>
+  <Product>
+    <ProductID>16</ProductID>
+    <ProductName>饼干</ProductName>
+    <SupplierID>7</SupplierID>
+    <CategoryID>3</CategoryID>
+    <QuantityPerUnit>每箱30盒</QuantityPerUnit>
+    <UnitPrice>17.45</UnitPrice>
+    <UnitsInStock>29</UnitsInStock>
+    <UnitsOnOrder>0</UnitsOnOrder>
+    <ReorderLevel>10</ReorderLevel>
+    <Discontinued>false</Discontinued>
+  </Product>
+  <Product>
+    <ProductID>42</ProductID>
+    <ProductName>糙米</ProductName>
+    <SupplierID>20</SupplierID>
+    <CategoryID>5</CategoryID>
+    <QuantityPerUnit>每袋3公斤</QuantityPerUnit>
+    <UnitPrice>14</UnitPrice>
+    <UnitsInStock>26</UnitsInStock>
+    <UnitsOnOrder>0</UnitsOnOrder>
+    <ReorderLevel>0</ReorderLevel>
+    <Discontinued>true</Discontinued>
+  </Product>
+  <Product>
+    <ProductID>47</ProductID>
+    <ProductName>蛋糕</ProductName>
+    <SupplierID>22</SupplierID>
+    <CategoryID>3</CategoryID>
+    <QuantityPerUnit>每箱24个</QuantityPerUnit>
+    <UnitPrice>9.5</UnitPrice>
+    <UnitsInStock>36</UnitsInStock>
+    <UnitsOnOrder>0</UnitsOnOrder>
+    <ReorderLevel>0</ReorderLevel>
+    <Discontinued>false</Discontinued>
+  </Product>
+  <Product>
+    <ProductID>12</ProductID>
+    <ProductName>德国奶酪</ProductName>
+    <SupplierID>5</SupplierID>
+    <CategoryID>4</CategoryID>
+    <QuantityPerUnit>每箱12瓶</QuantityPerUnit>
+    <UnitPrice>38</UnitPrice>
+    <UnitsInStock>86</UnitsInStock>
+    <UnitsOnOrder>0</UnitsOnOrder>
+    <ReorderLevel>0</ReorderLevel>
+    <Discontinued>false</Discontinued>
+  </Product>
+  <Product>
+    <ProductID>3</ProductID>
+    <ProductName>蕃茄酱</ProductName>
+    <SupplierID>1</SupplierID>
+    <CategoryID>2</CategoryID>
+    <QuantityPerUnit>每箱12瓶</QuantityPerUnit>
+    <UnitPrice>10</UnitPrice>
+    <UnitsInStock>13</UnitsInStock>
+    <UnitsOnOrder>70</UnitsOnOrder>
+    <ReorderLevel>25</ReorderLevel>
+    <Discontinued>false</Discontinued>
+  </Product>
+  <Product>
+    <ProductID>37</ProductID>
+    <ProductName>干贝</ProductName>
+    <SupplierID>17</SupplierID>
+    <CategoryID>8</CategoryID>
+    <QuantityPerUnit>每袋3公斤</QuantityPerUnit>
+    <UnitPrice>26</UnitPrice>
+    <UnitsInStock>11</UnitsInStock>
+    <UnitsOnOrder>50</UnitsOnOrder>
+    <ReorderLevel>25</ReorderLevel>
+    <Discontinued>false</Discontinued>
+  </Product>
+  <Product>
+    <ProductID>20</ProductID>
+    <ProductName>桂花糕</ProductName>
+    <SupplierID>8</SupplierID>
+    <CategoryID>3</CategoryID>
+    <QuantityPerUnit>每箱30盒</QuantityPerUnit>
+    <UnitPrice>81</UnitPrice>
+    <UnitsInStock>40</UnitsInStock>
+    <UnitsOnOrder>0</UnitsOnOrder>
+    <ReorderLevel>0</ReorderLevel>
+    <Discontinued>false</Discontinued>
+  </Product>
+  <Product>
+    <ProductID>58</ProductID>
+    <ProductName>海参</ProductName>
+    <SupplierID>27</SupplierID>
+    <CategoryID>8</CategoryID>
+    <QuantityPerUnit>每袋3公斤</QuantityPerUnit>
+    <UnitPrice>13.25</UnitPrice>
+    <UnitsInStock>62</UnitsInStock>
+    <UnitsOnOrder>0</UnitsOnOrder>
+    <ReorderLevel>20</ReorderLevel>
+    <Discontinued>false</Discontinued>
+  </Product>
+  <Product>
+    <ProductID>65</ProductID>
+    <ProductName>海苔酱</ProductName>
+    <SupplierID>2</SupplierID>
+    <CategoryID>2</CategoryID>
+    <QuantityPerUnit>每箱24瓶</QuantityPerUnit>
+    <UnitPrice>21.05</UnitPrice>
+    <UnitsInStock>76</UnitsInStock>
+    <UnitsOnOrder>0</UnitsOnOrder>
+    <ReorderLevel>0</ReorderLevel>
+    <Discontinued>false</Discontinued>
+  </Product>
+  <Product>
+    <ProductID>7</ProductID>
+    <ProductName>海鲜粉</ProductName>
+    <SupplierID>3</SupplierID>
+    <CategoryID>7</CategoryID>
+    <QuantityPerUnit>每箱30盒</QuantityPerUnit>
+    <UnitPrice>30</UnitPrice>
+    <UnitsInStock>15</UnitsInStock>
+    <UnitsOnOrder>0</UnitsOnOrder>
+    <ReorderLevel>10</ReorderLevel>
+    <Discontinued>false</Discontinued>
+  </Product>
+  <Product>
+    <ProductID>61</ProductID>
+    <ProductName>海鲜酱</ProductName>
+    <SupplierID>29</SupplierID>
+    <CategoryID>2</CategoryID>
+    <QuantityPerUnit>每箱24瓶</QuantityPerUnit>
+    <UnitPrice>28.5</UnitPrice>
+    <UnitsInStock>113</UnitsInStock>
+    <UnitsOnOrder>0</UnitsOnOrder>
+    <ReorderLevel>25</ReorderLevel>
+    <Discontinued>false</Discontinued>
+  </Product>
+  <Product>
+    <ProductID>73</ProductID>
+    <ProductName>海哲皮</ProductName>
+    <SupplierID>17</SupplierID>
+    <CategoryID>8</CategoryID>
+    <QuantityPerUnit>每袋3公斤</QuantityPerUnit>
+    <UnitPrice>15</UnitPrice>
+    <UnitsInStock>101</UnitsInStock>
+    <UnitsOnOrder>0</UnitsOnOrder>
+    <ReorderLevel>5</ReorderLevel>
+    <Discontinued>false</Discontinued>
+  </Product>
+  <Product>
+    <ProductID>44</ProductID>
+    <ProductName>蚝油</ProductName>
+    <SupplierID>20</SupplierID>
+    <CategoryID>2</CategoryID>
+    <QuantityPerUnit>每箱24瓶</QuantityPerUnit>
+    <UnitPrice>19.45</UnitPrice>
+    <UnitsInStock>27</UnitsInStock>
+    <UnitsOnOrder>0</UnitsOnOrder>
+    <ReorderLevel>15</ReorderLevel>
+    <Discontinued>false</Discontinued>
+  </Product>
+  <Product>
+    <ProductID>46</ProductID>
+    <ProductName>蚵</ProductName>
+    <SupplierID>21</SupplierID>
+    <CategoryID>8</CategoryID>
+    <QuantityPerUnit>每袋3公斤</QuantityPerUnit>
+    <UnitPrice>12</UnitPrice>
+    <UnitsInStock>95</UnitsInStock>
+    <UnitsOnOrder>0</UnitsOnOrder>
+    <ReorderLevel>0</ReorderLevel>
+    <Discontinued>false</Discontinued>
+  </Product>
+  <Product>
+    <ProductID>69</ProductID>
+    <ProductName>黑奶酪</ProductName>
+    <SupplierID>15</SupplierID>
+    <CategoryID>4</CategoryID>
+    <QuantityPerUnit>每盒24个</QuantityPerUnit>
+    <UnitPrice>36</UnitPrice>
+    <UnitsInStock>26</UnitsInStock>
+    <UnitsOnOrder>0</UnitsOnOrder>
+    <ReorderLevel>15</ReorderLevel>
+    <Discontinued>false</Discontinued>
+  </Product>
+  <Product>
+    <ProductID>8</ProductID>
+    <ProductName>胡椒粉</ProductName>
+    <SupplierID>3</SupplierID>
+    <CategoryID>2</CategoryID>
+    <QuantityPerUnit>每箱30盒</QuantityPerUnit>
+    <UnitPrice>40</UnitPrice>
+    <UnitsInStock>6</UnitsInStock>
+    <UnitsOnOrder>0</UnitsOnOrder>
+    <ReorderLevel>0</ReorderLevel>
+    <Discontinued>false</Discontinued>
+  </Product>
+  <Product>
+    <ProductID>60</ProductID>
+    <ProductName>花奶酪</ProductName>
+    <SupplierID>28</SupplierID>
+    <CategoryID>4</CategoryID>
+    <QuantityPerUnit>每箱24瓶</QuantityPerUnit>
+    <UnitPrice>34</UnitPrice>
+    <UnitsInStock>19</UnitsInStock>
+    <UnitsOnOrder>0</UnitsOnOrder>
+    <ReorderLevel>0</ReorderLevel>
+    <Discontinued>false</Discontinued>
+  </Product>
+  <Product>
+    <ProductID>21</ProductID>
+    <ProductName>花生</ProductName>
+    <SupplierID>8</SupplierID>
+    <CategoryID>3</CategoryID>
+    <QuantityPerUnit>每箱30包</QuantityPerUnit>
+    <UnitPrice>10</UnitPrice>
+    <UnitsInStock>3</UnitsInStock>
+    <UnitsOnOrder>40</UnitsOnOrder>
+    <ReorderLevel>5</ReorderLevel>
+    <Discontinued>false</Discontinued>
+  </Product>
+  <Product>
+    <ProductID>64</ProductID>
+    <ProductName>黄豆</ProductName>
+    <SupplierID>12</SupplierID>
+    <CategoryID>5</CategoryID>
+    <QuantityPerUnit>每袋3公斤</QuantityPerUnit>
+    <UnitPrice>33.25</UnitPrice>
+    <UnitsInStock>22</UnitsInStock>
+    <UnitsOnOrder>80</UnitsOnOrder>
+    <ReorderLevel>30</ReorderLevel>
+    <Discontinued>false</Discontinued>
+  </Product>
+  <Product>
+    <ProductID>30</ProductID>
+    <ProductName>黄鱼</ProductName>
+    <SupplierID>13</SupplierID>
+    <CategoryID>8</CategoryID>
+    <QuantityPerUnit>每袋3公斤</QuantityPerUnit>
+    <UnitPrice>25.89</UnitPrice>
+    <UnitsInStock>10</UnitsInStock>
+    <UnitsOnOrder>0</UnitsOnOrder>
+    <ReorderLevel>15</ReorderLevel>
+    <Discontinued>false</Discontinued>
+  </Product>
+  <Product>
+    <ProductID>9</ProductID>
+    <ProductName>鸡</ProductName>
+    <SupplierID>4</SupplierID>
+    <CategoryID>6</CategoryID>
+    <QuantityPerUnit>每袋500克</QuantityPerUnit>
+    <UnitPrice>97</UnitPrice>
+    <UnitsInStock>29</UnitsInStock>
+    <UnitsOnOrder>0</UnitsOnOrder>
+    <ReorderLevel>0</ReorderLevel>
+    <Discontinued>true</Discontinued>
+  </Product>
+  <Product>
+    <ProductID>74</ProductID>
+    <ProductName>鸡精</ProductName>
+    <SupplierID>4</SupplierID>
+    <CategoryID>7</CategoryID>
+    <QuantityPerUnit>每盒24个</QuantityPerUnit>
+    <UnitPrice>10</UnitPrice>
+    <UnitsInStock>4</UnitsInStock>
+    <UnitsOnOrder>20</UnitsOnOrder>
+    <ReorderLevel>5</ReorderLevel>
+    <Discontinued>false</Discontinued>
+  </Product>
+  <Product>
+    <ProductID>54</ProductID>
+    <ProductName>鸡肉</ProductName>
+    <SupplierID>25</SupplierID>
+    <CategoryID>6</CategoryID>
+    <QuantityPerUnit>每袋3公斤</QuantityPerUnit>
+    <UnitPrice>7.45</UnitPrice>
+    <UnitsInStock>21</UnitsInStock>
+    <UnitsOnOrder>0</UnitsOnOrder>
+    <ReorderLevel>10</ReorderLevel>
+    <Discontinued>false</Discontinued>
+  </Product>
+  <Product>
+    <ProductID>6</ProductID>
+    <ProductName>酱油</ProductName>
+    <SupplierID>3</SupplierID>
+    <CategoryID>2</CategoryID>
+    <QuantityPerUnit>每箱12瓶</QuantityPerUnit>
+    <UnitPrice>25</UnitPrice>
+    <UnitsInStock>120</UnitsInStock>
+    <UnitsOnOrder>0</UnitsOnOrder>
+    <ReorderLevel>25</ReorderLevel>
+    <Discontinued>false</Discontinued>
+  </Product>
+  <Product>
+    <ProductID>28</ProductID>
+    <ProductName>烤肉酱</ProductName>
+    <SupplierID>12</SupplierID>
+    <CategoryID>7</CategoryID>
+    <QuantityPerUnit>每箱12瓶</QuantityPerUnit>
+    <UnitPrice>45.6</UnitPrice>
+    <UnitsInStock>26</UnitsInStock>
+    <UnitsOnOrder>0</UnitsOnOrder>
+    <ReorderLevel>0</ReorderLevel>
+    <Discontinued>true</Discontinued>
+  </Product>
+  <Product>
+    <ProductID>67</ProductID>
+    <ProductName>矿泉水</ProductName>
+    <SupplierID>16</SupplierID>
+    <CategoryID>1</CategoryID>
+    <QuantityPerUnit>每箱24瓶</QuantityPerUnit>
+    <UnitPrice>14</UnitPrice>
+    <UnitsInStock>52</UnitsInStock>
+    <UnitsOnOrder>0</UnitsOnOrder>
+    <ReorderLevel>10</ReorderLevel>
+    <Discontinued>false</Discontinued>
+  </Product>
+  <Product>
+    <ProductID>77</ProductID>
+    <ProductName>辣椒粉</ProductName>
+    <SupplierID>12</SupplierID>
+    <CategoryID>2</CategoryID>
+    <QuantityPerUnit>每袋3公斤</QuantityPerUnit>
+    <UnitPrice>13</UnitPrice>
+    <UnitsInStock>32</UnitsInStock>
+    <UnitsOnOrder>0</UnitsOnOrder>
+    <ReorderLevel>15</ReorderLevel>
+    <Discontinued>false</Discontinued>
+  </Product>
+  <Product>
+    <ProductID>33</ProductID>
+    <ProductName>浪花奶酪</ProductName>
+    <SupplierID>15</SupplierID>
+    <CategoryID>4</CategoryID>
+    <QuantityPerUnit>每箱12瓶</QuantityPerUnit>
+    <UnitPrice>2.5</UnitPrice>
+    <UnitsInStock>112</UnitsInStock>
+    <UnitsOnOrder>0</UnitsOnOrder>
+    <ReorderLevel>20</ReorderLevel>
+    <Discontinued>false</Discontinued>
+  </Product>
+  <Product>
+    <ProductID>43</ProductID>
+    <ProductName>柳橙汁</ProductName>
+    <SupplierID>20</SupplierID>
+    <CategoryID>1</CategoryID>
+    <QuantityPerUnit>每箱24瓶</QuantityPerUnit>
+    <UnitPrice>46</UnitPrice>
+    <UnitsInStock>17</UnitsInStock>
+    <UnitsOnOrder>10</UnitsOnOrder>
+    <ReorderLevel>25</ReorderLevel>
+    <Discontinued>false</Discontinued>
+  </Product>
+  <Product>
+    <ProductID>13</ProductID>
+    <ProductName>龙虾</ProductName>
+    <SupplierID>6</SupplierID>
+    <CategoryID>8</CategoryID>
+    <QuantityPerUnit>每袋500克</QuantityPerUnit>
+    <UnitPrice>6</UnitPrice>
+    <UnitsInStock>24</UnitsInStock>
+    <UnitsOnOrder>0</UnitsOnOrder>
+    <ReorderLevel>5</ReorderLevel>
+    <Discontinued>false</Discontinued>
+  </Product>
+  <Product>
+    <ProductID>38</ProductID>
+    <ProductName>绿茶</ProductName>
+    <SupplierID>18</SupplierID>
+    <CategoryID>1</CategoryID>
+    <QuantityPerUnit>每箱24瓶</QuantityPerUnit>
+    <UnitPrice>263.5</UnitPrice>
+    <UnitsInStock>17</UnitsInStock>
+    <UnitsOnOrder>0</UnitsOnOrder>
+    <ReorderLevel>15</ReorderLevel>
+    <Discontinued>false</Discontinued>
+  </Product>
+  <Product>
+    <ProductID>68</ProductID>
+    <ProductName>绿豆糕</ProductName>
+    <SupplierID>8</SupplierID>
+    <CategoryID>3</CategoryID>
+    <QuantityPerUnit>每箱24包</QuantityPerUnit>
+    <UnitPrice>12.5</UnitPrice>
+    <UnitsInStock>6</UnitsInStock>
+    <UnitsOnOrder>10</UnitsOnOrder>
+    <ReorderLevel>15</ReorderLevel>
+    <Discontinued>false</Discontinued>
+  </Product>
+  <Product>
+    <ProductID>5</ProductID>
+    <ProductName>麻油</ProductName>
+    <SupplierID>2</SupplierID>
+    <CategoryID>2</CategoryID>
+    <QuantityPerUnit>每箱12瓶</QuantityPerUnit>
+    <UnitPrice>21.35</UnitPrice>
+    <UnitsInStock>0</UnitsInStock>
+    <UnitsOnOrder>0</UnitsOnOrder>
+    <ReorderLevel>0</ReorderLevel>
+    <Discontinued>true</Discontinued>
+  </Product>
+  <Product>
+    <ProductID>35</ProductID>
+    <ProductName>蜜桃汁</ProductName>
+    <SupplierID>16</SupplierID>
+    <CategoryID>1</CategoryID>
+    <QuantityPerUnit>每箱24瓶</QuantityPerUnit>
+    <UnitPrice>18</UnitPrice>
+    <UnitsInStock>20</UnitsInStock>
+    <UnitsOnOrder>0</UnitsOnOrder>
+    <ReorderLevel>15</ReorderLevel>
+    <Discontinued>false</Discontinued>
+  </Product>
+  <Product>
+    <ProductID>26</ProductID>
+    <ProductName>棉花糖</ProductName>
+    <SupplierID>11</SupplierID>
+    <CategoryID>3</CategoryID>
+    <QuantityPerUnit>每箱30盒</QuantityPerUnit>
+    <UnitPrice>31.23</UnitPrice>
+    <UnitsInStock>15</UnitsInStock>
+    <UnitsOnOrder>0</UnitsOnOrder>
+    <ReorderLevel>0</ReorderLevel>
+    <Discontinued>false</Discontinued>
+  </Product>
+  <Product>
+    <ProductID>11</ProductID>
+    <ProductName>民众奶酪</ProductName>
+    <SupplierID>5</SupplierID>
+    <CategoryID>4</CategoryID>
+    <QuantityPerUnit>每袋6包</QuantityPerUnit>
+    <UnitPrice>21</UnitPrice>
+    <UnitsInStock>22</UnitsInStock>
+    <UnitsOnOrder>30</UnitsOnOrder>
+    <ReorderLevel>30</ReorderLevel>
+    <Discontinued>false</Discontinued>
+  </Product>
+  <Product>
+    <ProductID>18</ProductID>
+    <ProductName>墨鱼</ProductName>
+    <SupplierID>9</SupplierID>
+    <CategoryID>8</CategoryID>
+    <QuantityPerUnit>每袋500克</QuantityPerUnit>
+    <UnitPrice>62.5</UnitPrice>
+    <UnitsInStock>42</UnitsInStock>
+    <UnitsOnOrder>0</UnitsOnOrder>
+    <ReorderLevel>0</ReorderLevel>
+    <Discontinued>false</Discontinued>
+  </Product>
+  <Product>
+    <ProductID>76</ProductID>
+    <ProductName>柠檬汁</ProductName>
+    <SupplierID>23</SupplierID>
+    <CategoryID>1</CategoryID>
+    <QuantityPerUnit>每箱24瓶</QuantityPerUnit>
+    <UnitPrice>18</UnitPrice>
+    <UnitsInStock>57</UnitsInStock>
+    <UnitsOnOrder>0</UnitsOnOrder>
+    <ReorderLevel>20</ReorderLevel>
+    <Discontinued>false</Discontinued>
+  </Product>
+  <Product>
+    <ProductID>2</ProductID>
+    <ProductName>牛奶</ProductName>
+    <SupplierID>1</SupplierID>
+    <CategoryID>1</CategoryID>
+    <QuantityPerUnit>每箱24瓶</QuantityPerUnit>
+    <UnitPrice>19</UnitPrice>
+    <UnitsInStock>17</UnitsInStock>
+    <UnitsOnOrder>40</UnitsOnOrder>
+    <ReorderLevel>25</ReorderLevel>
+    <Discontinued>false</Discontinued>
+  </Product>
+  <Product>
+    <ProductID>27</ProductID>
+    <ProductName>牛肉干</ProductName>
+    <SupplierID>11</SupplierID>
+    <CategoryID>3</CategoryID>
+    <QuantityPerUnit>每箱30包</QuantityPerUnit>
+    <UnitPrice>43.9</UnitPrice>
+    <UnitsInStock>49</UnitsInStock>
+    <UnitsOnOrder>0</UnitsOnOrder>
+    <ReorderLevel>30</ReorderLevel>
+    <Discontinued>false</Discontinued>
+  </Product>
+  <Product>
+    <ProductID>75</ProductID>
+    <ProductName>浓缩咖啡</ProductName>
+    <SupplierID>12</SupplierID>
+    <CategoryID>1</CategoryID>
+    <QuantityPerUnit>每箱24瓶</QuantityPerUnit>
+    <UnitPrice>7.75</UnitPrice>
+    <UnitsInStock>125</UnitsInStock>
+    <UnitsOnOrder>0</UnitsOnOrder>
+    <ReorderLevel>25</ReorderLevel>
+    <Discontinued>false</Discontinued>
+  </Product>
+  <Product>
+    <ProductID>22</ProductID>
+    <ProductName>糯米</ProductName>
+    <SupplierID>9</SupplierID>
+    <CategoryID>5</CategoryID>
+    <QuantityPerUnit>每袋3公斤</QuantityPerUnit>
+    <UnitPrice>21</UnitPrice>
+    <UnitsInStock>104</UnitsInStock>
+    <UnitsOnOrder>0</UnitsOnOrder>
+    <ReorderLevel>25</ReorderLevel>
+    <Discontinued>false</Discontinued>
+  </Product>
+  <Product>
+    <ProductID>34</ProductID>
+    <ProductName>啤酒</ProductName>
+    <SupplierID>16</SupplierID>
+    <CategoryID>1</CategoryID>
+    <QuantityPerUnit>每箱24瓶</QuantityPerUnit>
+    <UnitPrice>14</UnitPrice>
+    <UnitsInStock>111</UnitsInStock>
+    <UnitsOnOrder>0</UnitsOnOrder>
+    <ReorderLevel>15</ReorderLevel>
+    <Discontinued>false</Discontinued>
+  </Product>
+  <Product>
+    <ProductID>1</ProductID>
+    <ProductName>苹果汁</ProductName>
+    <SupplierID>1</SupplierID>
+    <CategoryID>1</CategoryID>
+    <QuantityPerUnit>每箱24瓶</QuantityPerUnit>
+    <UnitPrice>18</UnitPrice>
+    <UnitsInStock>39</UnitsInStock>
+    <UnitsOnOrder>0</UnitsOnOrder>
+    <ReorderLevel>10</ReorderLevel>
+    <Discontinued>true</Discontinued>
+  </Product>
+  <Product>
+    <ProductID>24</ProductID>
+    <ProductName>汽水</ProductName>
+    <SupplierID>10</SupplierID>
+    <CategoryID>1</CategoryID>
+    <QuantityPerUnit>每箱12瓶</QuantityPerUnit>
+    <UnitPrice>4.5</UnitPrice>
+    <UnitsInStock>20</UnitsInStock>
+    <UnitsOnOrder>0</UnitsOnOrder>
+    <ReorderLevel>0</ReorderLevel>
+    <Discontinued>true</Discontinued>
+  </Product>
+  <Product>
+    <ProductID>25</ProductID>
+    <ProductName>巧克力</ProductName>
+    <SupplierID>11</SupplierID>
+    <CategoryID>3</CategoryID>
+    <QuantityPerUnit>每箱30盒</QuantityPerUnit>
+    <UnitPrice>14</UnitPrice>
+    <UnitsInStock>76</UnitsInStock>
+    <UnitsOnOrder>0</UnitsOnOrder>
+    <ReorderLevel>30</ReorderLevel>
+    <Discontinued>false</Discontinued>
+  </Product>
+  <Product>
+    <ProductID>66</ProductID>
+    <ProductName>肉松</ProductName>
+    <SupplierID>2</SupplierID>
+    <CategoryID>2</CategoryID>
+    <QuantityPerUnit>每箱24瓶</QuantityPerUnit>
+    <UnitPrice>17</UnitPrice>
+    <UnitsInStock>4</UnitsInStock>
+    <UnitsOnOrder>100</UnitsOnOrder>
+    <ReorderLevel>20</ReorderLevel>
+    <Discontinued>false</Discontinued>
+  </Product>
+  <Product>
+    <ProductID>52</ProductID>
+    <ProductName>三合一麦片</ProductName>
+    <SupplierID>24</SupplierID>
+    <CategoryID>5</CategoryID>
+    <QuantityPerUnit>每箱24包</QuantityPerUnit>
+    <UnitPrice>7</UnitPrice>
+    <UnitsInStock>38</UnitsInStock>
+    <UnitsOnOrder>0</UnitsOnOrder>
+    <ReorderLevel>25</ReorderLevel>
+    <Discontinued>false</Discontinued>
+  </Product>
+  <Product>
+    <ProductID>14</ProductID>
+    <ProductName>沙茶</ProductName>
+    <SupplierID>6</SupplierID>
+    <CategoryID>7</CategoryID>
+    <QuantityPerUnit>每箱12瓶</QuantityPerUnit>
+    <UnitPrice>23.25</UnitPrice>
+    <UnitsInStock>35</UnitsInStock>
+    <UnitsOnOrder>0</UnitsOnOrder>
+    <ReorderLevel>0</ReorderLevel>
+    <Discontinued>false</Discontinued>
+  </Product>
+  <Product>
+    <ProductID>62</ProductID>
+    <ProductName>山渣片</ProductName>
+    <SupplierID>29</SupplierID>
+    <CategoryID>3</CategoryID>
+    <QuantityPerUnit>每箱24包</QuantityPerUnit>
+    <UnitPrice>49.3</UnitPrice>
+    <UnitsInStock>17</UnitsInStock>
+    <UnitsOnOrder>0</UnitsOnOrder>
+    <ReorderLevel>0</ReorderLevel>
+    <Discontinued>false</Discontinued>
+  </Product>
+  <Product>
+    <ProductID>49</ProductID>
+    <ProductName>薯条</ProductName>
+    <SupplierID>23</SupplierID>
+    <CategoryID>3</CategoryID>
+    <QuantityPerUnit>每箱24包</QuantityPerUnit>
+    <UnitPrice>20</UnitPrice>
+    <UnitsInStock>10</UnitsInStock>
+    <UnitsOnOrder>60</UnitsOnOrder>
+    <ReorderLevel>15</ReorderLevel>
+    <Discontinued>false</Discontinued>
+  </Product>
+  <Product>
+    <ProductID>59</ProductID>
+    <ProductName>苏澳奶酪</ProductName>
+    <SupplierID>28</SupplierID>
+    <CategoryID>4</CategoryID>
+    <QuantityPerUnit>每箱24瓶</QuantityPerUnit>
+    <UnitPrice>55</UnitPrice>
+    <UnitsInStock>79</UnitsInStock>
+    <UnitsOnOrder>0</UnitsOnOrder>
+    <ReorderLevel>0</ReorderLevel>
+    <Discontinued>false</Discontinued>
+  </Product>
+  <Product>
+    <ProductID>70</ProductID>
+    <ProductName>苏打水</ProductName>
+    <SupplierID>7</SupplierID>
+    <CategoryID>1</CategoryID>
+    <QuantityPerUnit>每箱24瓶</QuantityPerUnit>
+    <UnitPrice>15</UnitPrice>
+    <UnitsInStock>15</UnitsInStock>
+    <UnitsOnOrder>10</UnitsOnOrder>
+    <ReorderLevel>30</ReorderLevel>
+    <Discontinued>false</Discontinued>
+  </Product>
+  <Product>
+    <ProductID>72</ProductID>
+    <ProductName>酸奶酪</ProductName>
+    <SupplierID>14</SupplierID>
+    <CategoryID>4</CategoryID>
+    <QuantityPerUnit>每箱2个</QuantityPerUnit>
+    <UnitPrice>34.8</UnitPrice>
+    <UnitsInStock>14</UnitsInStock>
+    <UnitsOnOrder>0</UnitsOnOrder>
+    <ReorderLevel>0</ReorderLevel>
+    <Discontinued>false</Discontinued>
+  </Product>
+  <Product>
+    <ProductID>19</ProductID>
+    <ProductName>糖果</ProductName>
+    <SupplierID>8</SupplierID>
+    <CategoryID>3</CategoryID>
+    <QuantityPerUnit>每箱30盒</QuantityPerUnit>
+    <UnitPrice>9.2</UnitPrice>
+    <UnitsInStock>25</UnitsInStock>
+    <UnitsOnOrder>0</UnitsOnOrder>
+    <ReorderLevel>5</ReorderLevel>
+    <Discontinued>false</Discontinued>
+  </Product>
+  <Product>
+    <ProductID>63</ProductID>
+    <ProductName>甜辣酱</ProductName>
+    <SupplierID>7</SupplierID>
+    <CategoryID>2</CategoryID>
+    <QuantityPerUnit>每箱24瓶</QuantityPerUnit>
+    <UnitPrice>43.9</UnitPrice>
+    <UnitsInStock>24</UnitsInStock>
+    <UnitsOnOrder>0</UnitsOnOrder>
+    <ReorderLevel>5</ReorderLevel>
+    <Discontinued>false</Discontinued>
+  </Product>
+  <Product>
+    <ProductID>15</ProductID>
+    <ProductName>味精</ProductName>
+    <SupplierID>6</SupplierID>
+    <CategoryID>2</CategoryID>
+    <QuantityPerUnit>每箱30盒</QuantityPerUnit>
+    <UnitPrice>15.5</UnitPrice>
+    <UnitsInStock>39</UnitsInStock>
+    <UnitsOnOrder>0</UnitsOnOrder>
+    <ReorderLevel>5</ReorderLevel>
+    <Discontinued>false</Discontinued>
+  </Product>
+  <Product>
+    <ProductID>31</ProductID>
+    <ProductName>温馨奶酪</ProductName>
+    <SupplierID>14</SupplierID>
+    <CategoryID>4</CategoryID>
+    <QuantityPerUnit>每箱12瓶</QuantityPerUnit>
+    <UnitPrice>12.5</UnitPrice>
+    <UnitsInStock>0</UnitsInStock>
+    <UnitsOnOrder>70</UnitsOnOrder>
+    <ReorderLevel>20</ReorderLevel>
+    <Discontinued>false</Discontinued>
+  </Product>
+  <Product>
+    <ProductID>40</ProductID>
+    <ProductName>虾米</ProductName>
+    <SupplierID>19</SupplierID>
+    <CategoryID>8</CategoryID>
+    <QuantityPerUnit>每袋3公斤</QuantityPerUnit>
+    <UnitPrice>18.4</UnitPrice>
+    <UnitsInStock>123</UnitsInStock>
+    <UnitsOnOrder>0</UnitsOnOrder>
+    <ReorderLevel>30</ReorderLevel>
+    <Discontinued>false</Discontinued>
+  </Product>
+  <Product>
+    <ProductID>41</ProductID>
+    <ProductName>虾子</ProductName>
+    <SupplierID>19</SupplierID>
+    <CategoryID>8</CategoryID>
+    <QuantityPerUnit>每袋3公斤</QuantityPerUnit>
+    <UnitPrice>9.65</UnitPrice>
+    <UnitsInStock>85</UnitsInStock>
+    <UnitsOnOrder>0</UnitsOnOrder>
+    <ReorderLevel>10</ReorderLevel>
+    <Discontinued>false</Discontinued>
+  </Product>
+  <Product>
+    <ProductID>57</ProductID>
+    <ProductName>小米</ProductName>
+    <SupplierID>26</SupplierID>
+    <CategoryID>5</CategoryID>
+    <QuantityPerUnit>每袋3公斤</QuantityPerUnit>
+    <UnitPrice>19.5</UnitPrice>
+    <UnitsInStock>36</UnitsInStock>
+    <UnitsOnOrder>0</UnitsOnOrder>
+    <ReorderLevel>20</ReorderLevel>
+    <Discontinued>false</Discontinued>
+  </Product>
+  <Product>
+    <ProductID>10</ProductID>
+    <ProductName>蟹</ProductName>
+    <SupplierID>4</SupplierID>
+    <CategoryID>8</CategoryID>
+    <QuantityPerUnit>每袋500克</QuantityPerUnit>
+    <UnitPrice>31</UnitPrice>
+    <UnitsInStock>31</UnitsInStock>
+    <UnitsOnOrder>0</UnitsOnOrder>
+    <ReorderLevel>0</ReorderLevel>
+    <Discontinued>false</Discontinued>
+  </Product>
+  <Product>
+    <ProductID>45</ProductID>
+    <ProductName>雪鱼</ProductName>
+    <SupplierID>21</SupplierID>
+    <CategoryID>8</CategoryID>
+    <QuantityPerUnit>每袋3公斤</QuantityPerUnit>
+    <UnitPrice>9.5</UnitPrice>
+    <UnitsInStock>5</UnitsInStock>
+    <UnitsOnOrder>70</UnitsOnOrder>
+    <ReorderLevel>15</ReorderLevel>
+    <Discontinued>false</Discontinued>
+  </Product>
+  <Product>
+    <ProductID>29</ProductID>
+    <ProductName>鸭肉</ProductName>
+    <SupplierID>12</SupplierID>
+    <CategoryID>6</CategoryID>
+    <QuantityPerUnit>每袋3公斤</QuantityPerUnit>
+    <UnitPrice>123.79</UnitPrice>
+    <UnitsInStock>0</UnitsInStock>
+    <UnitsOnOrder>0</UnitsOnOrder>
+    <ReorderLevel>0</ReorderLevel>
+    <Discontinued>true</Discontinued>
+  </Product>
+  <Product>
+    <ProductID>55</ProductID>
+    <ProductName>鸭肉</ProductName>
+    <SupplierID>25</SupplierID>
+    <CategoryID>6</CategoryID>
+    <QuantityPerUnit>每袋3公斤</QuantityPerUnit>
+    <UnitPrice>24</UnitPrice>
+    <UnitsInStock>115</UnitsInStock>
+    <UnitsOnOrder>0</UnitsOnOrder>
+    <ReorderLevel>20</ReorderLevel>
+    <Discontinued>false</Discontinued>
+  </Product>
+  <Product>
+    <ProductID>4</ProductID>
+    <ProductName>盐</ProductName>
+    <SupplierID>2</SupplierID>
+    <CategoryID>2</CategoryID>
+    <QuantityPerUnit>每箱12瓶</QuantityPerUnit>
+    <UnitPrice>22</UnitPrice>
+    <UnitsInStock>53</UnitsInStock>
+    <UnitsOnOrder>0</UnitsOnOrder>
+    <ReorderLevel>0</ReorderLevel>
+    <Discontinued>false</Discontinued>
+  </Product>
+  <Product>
+    <ProductID>53</ProductID>
+    <ProductName>盐水鸭</ProductName>
+    <SupplierID>24</SupplierID>
+    <CategoryID>6</CategoryID>
+    <QuantityPerUnit>每袋3公斤</QuantityPerUnit>
+    <UnitPrice>32.8</UnitPrice>
+    <UnitsInStock>0</UnitsInStock>
+    <UnitsOnOrder>0</UnitsOnOrder>
+    <ReorderLevel>0</ReorderLevel>
+    <Discontinued>true</Discontinued>
+  </Product>
+  <Product>
+    <ProductID>23</ProductID>
+    <ProductName>燕麦</ProductName>
+    <SupplierID>9</SupplierID>
+    <CategoryID>5</CategoryID>
+    <QuantityPerUnit>每袋3公斤</QuantityPerUnit>
+    <UnitPrice>9</UnitPrice>
+    <UnitsInStock>61</UnitsInStock>
+    <UnitsOnOrder>0</UnitsOnOrder>
+    <ReorderLevel>25</ReorderLevel>
+    <Discontinued>false</Discontinued>
+  </Product>
+  <Product>
+    <ProductID>71</ProductID>
+    <ProductName>义大利奶酪</ProductName>
+    <SupplierID>15</SupplierID>
+    <CategoryID>4</CategoryID>
+    <QuantityPerUnit>每箱2个</QuantityPerUnit>
+    <UnitPrice>21.5</UnitPrice>
+    <UnitsInStock>26</UnitsInStock>
+    <UnitsOnOrder>0</UnitsOnOrder>
+    <ReorderLevel>0</ReorderLevel>
+    <Discontinued>false</Discontinued>
+  </Product>
+  <Product>
+    <ProductID>36</ProductID>
+    <ProductName>鱿鱼</ProductName>
+    <SupplierID>17</SupplierID>
+    <CategoryID>8</CategoryID>
+    <QuantityPerUnit>每袋3公斤</QuantityPerUnit>
+    <UnitPrice>19</UnitPrice>
+    <UnitsInStock>112</UnitsInStock>
+    <UnitsOnOrder>0</UnitsOnOrder>
+    <ReorderLevel>20</ReorderLevel>
+    <Discontinued>false</Discontinued>
+  </Product>
+  <Product>
+    <ProductID>50</ProductID>
+    <ProductName>玉米饼</ProductName>
+    <SupplierID>23</SupplierID>
+    <CategoryID>3</CategoryID>
+    <QuantityPerUnit>每箱24包</QuantityPerUnit>
+    <UnitPrice>16.25</UnitPrice>
+    <UnitsInStock>65</UnitsInStock>
+    <UnitsOnOrder>0</UnitsOnOrder>
+    <ReorderLevel>30</ReorderLevel>
+    <Discontinued>false</Discontinued>
+  </Product>
+  <Product>
+    <ProductID>48</ProductID>
+    <ProductName>玉米片</ProductName>
+    <SupplierID>22</SupplierID>
+    <CategoryID>3</CategoryID>
+    <QuantityPerUnit>每箱24包</QuantityPerUnit>
+    <UnitPrice>12.75</UnitPrice>
+    <UnitsInStock>15</UnitsInStock>
+    <UnitsOnOrder>70</UnitsOnOrder>
+    <ReorderLevel>25</ReorderLevel>
+    <Discontinued>false</Discontinued>
+  </Product>
+  <Product>
+    <ProductID>39</ProductID>
+    <ProductName>运动饮料</ProductName>
+    <SupplierID>18</SupplierID>
+    <CategoryID>1</CategoryID>
+    <QuantityPerUnit>每箱24瓶</QuantityPerUnit>
+    <UnitPrice>18</UnitPrice>
+    <UnitsInStock>69</UnitsInStock>
+    <UnitsOnOrder>0</UnitsOnOrder>
+    <ReorderLevel>5</ReorderLevel>
+    <Discontinued>false</Discontinued>
+  </Product>
+  <Product>
+    <ProductID>17</ProductID>
+    <ProductName>猪肉</ProductName>
+    <SupplierID>7</SupplierID>
+    <CategoryID>6</CategoryID>
+    <QuantityPerUnit>每袋500克</QuantityPerUnit>
+    <UnitPrice>39</UnitPrice>
+    <UnitsInStock>0</UnitsInStock>
+    <UnitsOnOrder>0</UnitsOnOrder>
+    <ReorderLevel>0</ReorderLevel>
+    <Discontinued>true</Discontinued>
+  </Product>
+  <Product>
+    <ProductID>51</ProductID>
+    <ProductName>猪肉干</ProductName>
+    <SupplierID>24</SupplierID>
+    <CategoryID>7</CategoryID>
+    <QuantityPerUnit>每箱24包</QuantityPerUnit>
+    <UnitPrice>53</UnitPrice>
+    <UnitsInStock>20</UnitsInStock>
+    <UnitsOnOrder>0</UnitsOnOrder>
+    <ReorderLevel>10</ReorderLevel>
+    <Discontinued>false</Discontinued>
+  </Product>
+  <Top10Customer>
+    <CustomerID>QUICK</CustomerID>
+    <CompanyName>高上补习班</CompanyName>
+    <SumAmt>117483.39</SumAmt>
+  </Top10Customer>
+  <Top10Customer>
+    <CustomerID>SAVEA</CustomerID>
+    <CompanyName>大钰贸易</CompanyName>
+    <SumAmt>115673.39</SumAmt>
+  </Top10Customer>
+  <Top10Customer>
+    <CustomerID>ERNSH</CustomerID>
+    <CompanyName>正人资源</CompanyName>
+    <SumAmt>113236.68</SumAmt>
+  </Top10Customer>
+  <Top10Customer>
+    <CustomerID>HUNGO</CustomerID>
+    <CompanyName>师大贸易</CompanyName>
+    <SumAmt>57317.39</SumAmt>
+  </Top10Customer>
+  <Top10Customer>
+    <CustomerID>RATTC</CustomerID>
+    <CompanyName>学仁贸易</CompanyName>
+    <SumAmt>52245.9</SumAmt>
+  </Top10Customer>
+  <Top10Customer>
+    <CustomerID>HANAR</CustomerID>
+    <CompanyName>实翼</CompanyName>
+    <SumAmt>34101.15</SumAmt>
+  </Top10Customer>
+  <Top10Customer>
+    <CustomerID>FOLKO</CustomerID>
+    <CompanyName>五洲信托</CompanyName>
+    <SumAmt>32555.55</SumAmt>
+  </Top10Customer>
+  <Top10Customer>
+    <CustomerID>MEREP</CustomerID>
+    <CompanyName>华科</CompanyName>
+    <SumAmt>32203.9</SumAmt>
+  </Top10Customer>
+  <Top10Customer>
+    <CustomerID>KOENE</CustomerID>
+    <CompanyName>永业房屋</CompanyName>
+    <SumAmt>31745.75</SumAmt>
+  </Top10Customer>
+  <Top10Customer>
+    <CustomerID>QUEEN</CustomerID>
+    <CompanyName>留学服务中心</CompanyName>
+    <SumAmt>30226.1</SumAmt>
+  </Top10Customer>
+  <Top10Product>
+    <ProductID>38</ProductID>
+    <ProductName>绿茶</ProductName>
+    <SumQty>149984.2</SumQty>
+  </Top10Product>
+  <Top10Product>
+    <ProductID>29</ProductID>
+    <ProductName>鸭肉</ProductName>
+    <SumQty>87736.4</SumQty>
+  </Top10Product>
+  <Top10Product>
+    <ProductID>59</ProductID>
+    <ProductName>苏澳奶酪</ProductName>
+    <SumQty>76296</SumQty>
+  </Top10Product>
+  <Top10Product>
+    <ProductID>60</ProductID>
+    <ProductName>花奶酪</ProductName>
+    <SumQty>50286</SumQty>
+  </Top10Product>
+  <Top10Product>
+    <ProductID>62</ProductID>
+    <ProductName>山渣片</ProductName>
+    <SumQty>49827.9</SumQty>
+  </Top10Product>
+  <Top10Product>
+    <ProductID>56</ProductID>
+    <ProductName>白米</ProductName>
+    <SumQty>45159.2</SumQty>
+  </Top10Product>
+  <Top10Product>
+    <ProductID>51</ProductID>
+    <ProductName>猪肉干</ProductName>
+    <SumQty>44742.6</SumQty>
+  </Top10Product>
+  <Top10Product>
+    <ProductID>17</ProductID>
+    <ProductName>猪肉</ProductName>
+    <SumQty>35650.2</SumQty>
+  </Top10Product>
+  <Top10Product>
+    <ProductID>18</ProductID>
+    <ProductName>墨鱼</ProductName>
+    <SumQty>31987.5</SumQty>
+  </Top10Product>
+  <Top10Product>
+    <ProductID>28</ProductID>
+    <ProductName>烤肉酱</ProductName>
+    <SumQty>26865.6</SumQty>
+  </Top10Product>
+</NewDataSet>

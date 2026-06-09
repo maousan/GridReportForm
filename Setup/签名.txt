@@ -1,0 +1,1 @@
+C:\Program Files (x86)\Windows Kits\10\App Certification Kit\signtool.exe sign /v  /fd sha1 /f "J:\RiderProjects\wpf-admin\Setup\my.2022.pfx" /p myjl /t http://timestamp.digicert.com $f 

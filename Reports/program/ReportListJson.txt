@@ -1,0 +1,366 @@
+﻿{
+"Reports":[
+{
+"Group": "1.各种类型报表",
+"Items": [
+{"Name":"1a.简单表格", "Data":"Customer"},
+{"Name":"1b.双层表头", "Data":"Customer"},
+{"Name":"1c.锁定列", "Data":"Customer"},
+{"Name":"1d.多栏报表", "Data":"Customer"},
+{"Name":"1e.图像", "Data":""},
+{"Name":"1f.表格中图像与文字", "Data":"Picture"},
+{"Name":"1g.条形码与二维码", "Data":"Customer"},
+{"Name":"1h.RTF格式文本", "Data":"RTFSample"},
+{"Name":"1i.演示部件框自动布局", "Data":"Customer"},
+{"Name":"1j.切分纸张", "Data":"Customer"},
+{"Name":"1k.明细自由编排", "Data":"Customer"},
+{"Name":"1l.交替色显示明细行", "Data":"Customer"},
+{"Name":"1m.邮件标签", "Data":"Customer"},
+{"Name":"1n.追加空白行", "Data":"AppendBlankRow"},
+{"Name":"1o.文字绕行与自动伸展", "Data":"Categories"},
+{"Name":"1p.文字缩小适应", "Data":"Categories"},
+{"Name":"1q.文字跨行显示", "Data":"Categories"}
+]
+},
+
+{
+"Group": "2.分组报表",
+"Items": [
+{"Name":"2a.基本分组", "Data":"SaleDetail"},
+{"Name":"2b.依据多个字段分组", "Data":"Customer"},
+{"Name":"2c.多级分组", "Data":"Customer"},
+{"Name":"2d.分组单元格合并", "Data":"Customer"},
+{"Name":"2e.自定义分组单元格合并", "Data":"Customer"},
+{"Name":"2f.多级分组单元格合并", "Data":"Customer"},
+{"Name":"2g.页分组", "Data":"PageGroup"},
+{"Name":"2h.分组节显示列线", "Data":"SaleDetail"},
+{"Name":"2i.分组节不打印边框线", "Data":"SaleDetail"},
+{"Name":"2j.分组头新页重复", "Data":"SaleDetail"},
+{"Name":"2k.分组重启页号", "Data":"Customer"},
+{"Name":"2l.分组按统计排序", "Data":"SaleDetail"},
+{"Name":"2m.多栏分组不分栏", "Data":"SaleDetail"}
+]
+},
+
+{
+"Group": "3.交叉报表",
+"Items": [
+{"Name":"3a.交叉表起步", "Data":"CrossTab"},
+{"Name":"3b.交叉表横向合计", "Data":"CrossTab"},
+{"Name":"3c.交叉表纵向合计", "Data":"CrossTab"},
+{"Name":"3d.交叉表横向百分比", "Data":"CrossTab"},
+{"Name":"3e.交叉表纵向百分比", "Data":"CrossTab"},
+{"Name":"3f.交叉表按日交叉", "Data":"CrossTabByDay"},
+{"Name":"3g.交叉表按月交叉", "Data":"CrossTabByMonth"},
+{"Name":"3h.交叉表横向平均", "Data":"CrossTab"},
+{"Name":"3i.交叉表纵向单元格合并", "Data":"CrossTab"},
+{"Name":"3j.交叉表多数据列(1)", "Data":"CrossTab"},
+{"Name":"3k.交叉表多数据列(2)", "Data":"CrossTab"},
+{"Name":"3l.交叉表自定义统计", "Data":"CrossTab"},
+{"Name":"3m.交叉表横向小计(1)", "Data":"CrossTabSubtotal"},
+{"Name":"3n.交叉表横向小计(2)", "Data":"CrossTabSubtotal"},
+{"Name":"3o.交叉表横向显示表格", "Data":"Customer"},
+{"Name":"3p.交叉表按年月交叉", "Data":"CrossTabYearMonth"},
+{"Name":"3q.日历报表", "Data":"CrossTabCalendar"},
+{"Name":"3q-1.日历报表(不按月分组)", "Data":"CrossTabCalendar"},
+{"Name":"3q-2.日历报表(按项目按月分组)", "Data":"CrossTabCalendar"},
+{"Name":"3q-3.日历报表(按项目不按月分组)", "Data":"CrossTabCalendar"}
+]
+},
+
+{
+"Group": "4.子报表(嵌套报表)",
+"Items": [
+{"Name":"4a.演示子报表", "Data":"Subreport-4a"},
+{"Name":"4b.独立子报表", "Data":"Subreport-4b"},
+{"Name":"4c.子报表实现表中表", "Data":"Subreport-4c"},
+{"Name":"4d.子报表主子关联", "Data":"Subreport-4d"},
+{"Name":"4e.子报表嵌套子报表", "Data":"Subreport-4e"}
+]
+},
+
+{
+"Group": "5.各种常见类型报表",
+"Items": [
+{"Name":"5a.表达式运算", "Data":"SaleDetail"},
+{"Name":"5b.显示行号序号", "Data":"Customer"},
+{"Name":"5c.层高不等多层表头", "Data":"Customer"},
+{"Name":"5d.文字方向与间距", "Data":""},
+{"Name":"5e.HTML标签", "Data":""},
+{"Name":"5f.无边框表格", "Data":"Customer"},
+{"Name":"5g.无行线表格", "Data":"Customer"},
+{"Name":"5h.对齐列改进导出Excel", "Data":"SaleDetail"},
+{"Name":"5i.导航书签", "Data":"Customer"},
+{"Name":"5j.财务金额线", "Data":"SaleDetail"},
+{"Name":"5k.标签文字", "Data":""},
+{"Name":"5l.伸展列适应文字", "Data":"Customer"},
+{"Name":"5m.电子印章", "Data":"Customer"},
+{"Name":"5n.水印背景", "Data":"Customer"},
+{"Name":"5o.水印文字", "Data":"Customer"},
+{"Name":"5p.整数枚举文字格式化", "Data":"OrderCustomer"}
+]
+},
+
+{
+"Group": "6.灵活打印与票据套打",
+"Items": [
+{"Name":"6a.合同打印(单份_RTF)", "Data":"ContractOne"},
+{"Name":"6b.合同打印(多份_RTF)", "Data":"ContractMany"},
+{"Name":"6c.合同打印(单份_综合文字框)", "Data":"ContractOne"},
+{"Name":"6d.合同打印(多份_综合文字框)", "Data":"ContractMany"},
+{"Name":"6e.发票套打", "Data":"InvoiceOne"},
+{"Name":"6f.发票成批套打", "Data":"InvoiceMany"},
+{"Name":"6g.快递单套打", "Data":"EmployeeOne"},
+{"Name":"6h.支票套打", "Data":""},
+{"Name":"6i.多联票据", "Data":"InvoiceMany"},
+{"Name":"6j.多联票据非复写纸", "Data":"InvoiceMany"},
+{"Name":"6k.多背景图套打", "Data":""},
+{"Name":"6l.POS小票打印", "Data":"InvoiceMany"},
+{"Name":"6m.横向分页在一页", "Data":"Customer5"},
+{"Name":"6n.镜像页面边距", "Data":"Customer"}
+]
+},
+
+{
+"Group": "7.报表脚本",
+"Items": [
+{"Name":"7-1a.脚本.追加空白记录", "Data":"7-1a"},
+{"Name":"7-1b.脚本.设置特殊显示文字", "Data":"Product"},
+{"Name":"7-1c.脚本.文字按条件突出显示", "Data":"SaleDetail"},
+{"Name":"7-1d.脚本.整行突出显示", "Data":"SaleSumByProduct"},
+{"Name":"7-1e.脚本.两行显示一次行线", "Data":"Customer"},
+{"Name":"7-1f.脚本.页脚首页不显示", "Data":"RTFSample"},
+{"Name":"7-1g.脚本.镜像页边距并奇偶页眉页脚", "Data":"Customer"},
+{"Name":"7-1h.脚本.按条件隐藏数据行", "Data":"SaleSumByProduct"},
+{"Name":"7-1i.脚本.数据导出默认参数", "Data":"Customer"},
+
+{"Name":"7-2a.脚本.计算字段", "Data":"7-2a"},
+{"Name":"7-2b.脚本.累计求和(收发存)", "Data":"SaleByProduct"},
+{"Name":"7-2c.脚本.占列分组不重复求和", "Data":"7-2c"},
+{"Name":"7-2d.脚本.每页重复报表尾实现页小计", "Data":"7-2d"},
+{"Name":"7-2e.脚本.四舍五入(脚本与表达式)", "Data":"7-2e"},
+{"Name":"7-2f.脚本.自定义统计(计算字段)", "Data":"7-2f"},
+{"Name":"7-2g.脚本.自定义统计(参数辅助计算)", "Data":"7-2g"},
+
+{"Name":"7-3a.脚本.自绘突出行线", "Data":"7-3a"},
+{"Name":"7-3b.脚本.部件框自定义绘制", "Data":""},
+{"Name":"7-3c.脚本.部件框自绘(饼图与弧线)", "Data":""},
+{"Name":"7-3d.脚本.图像自定义绘制", "Data":"Categories"},
+{"Name":"7-3e.脚本.自定义条件分组", "Data":"7-3e"},
+{"Name":"7-3f.脚本.按首字母分组", "Data":"7-3f"},
+{"Name":"7-3g.脚本.表格续打(套打)", "Data":"7-3g"}
+]
+},
+
+{
+"Group": "8.图表(Chart)",
+"Items": [
+{"Name":"8a.图表.序列组簇图", "Data":""},
+{"Name":"8b.图表.XY数据型图", "Data":"Chart8b"},
+{"Name":"8c.图表.三维(3D)", "Data":""},
+{"Name":"8d.图表.数据源数据", "Data":"Chart8d"},
+{"Name":"8e.图表.脚本.显示基准线", "Data":""},
+{"Name":"8f.图表.日期时间轴", "Data":""},
+{"Name":"8i.图表在分组-数据来自本身数据包", "Data":""}
+]
+},
+
+{
+"Group": "9.自由表格",
+"Items": [
+{"Name":"9a.自由表格", "Data":"EmployeeOne"},
+{"Name":"9b.自由表格并明细网格", "Data":"FreeGridwithDetailGrid"}
+]
+},
+
+{
+"Group": "报表组件对象模型",
+"Items": [
+{"Name":"a0.报表组件对象模型", "Data":""},
+{"Name":"a1.报表事件运行过程", "Data":""}
+]
+},
+
+{
+"Group": "进阶报表：打印",
+"Dir": "More",
+"Items": [
+{"Name":"打印：发票成批打印且按页统计", "Data":""},
+{"Name":"打印：分单按页统计", "Data":""},
+{"Name":"打印：脚本-按需显示此页无正文", "Data":"ContractOne"},
+{"Name":"打印：脚本-表格最后页空白画斜线", "Data":""},
+{"Name":"打印：脚本-查询时隐藏-打印时显示", "Data":"Customer"},
+{"Name":"打印：脚本-分组记录后空白画斜线(多栏)", "Data":""},
+{"Name":"打印：脚本-分组记录后空白画斜线", "Data":""},
+{"Name":"打印：脚本-浮动部件框实现装订线", "Data":"Customer"},
+{"Name":"打印：脚本-合同骑缝章", "Data":"ContractOne"},
+{"Name":"打印：页分割并多栏实现多版面", "Data":"SaleDetail"}
+]
+},
+
+{
+"Group": "进阶报表：分组",
+"Dir": "More",
+"Items": [
+{"Name":"分组：脚本-报表尾串接显示分组统计", "Data":"SaleDetail"},
+{"Name":"分组：脚本-分组串接显示明细项(页分组)", "Data":"SaleDetail"},
+{"Name":"分组：脚本-分组尾串接显示明细项", "Data":"SaleDetail"},
+{"Name":"分组：脚本-分组字段值为空单独分组", "Data":""},
+{"Name":"分组：脚本-汉字数字序号", "Data":"CategoryProductOrderDetail"},
+{"Name":"分组：脚本-四级分组序号并分组汉字序号", "Data":"CountryRegionCityCustomer"},
+{"Name":"分组：脚本-下级分组项数", "Data":"Customer"},
+{"Name":"分组：脚本-一页时隐藏页分组", "Data":"ProductOrder"},
+{"Name":"分组：脚本-隐藏单行分组尾行", "Data":"CityCustomer"},
+{"Name":"分组：脚本-字段只在首笔显示", "Data":"RegionCityCustomer"},
+{"Name":"分组：页分组加每页行号", "Data":"SaleDetail"}
+]
+},
+
+{
+"Group": "进阶报表：交叉表",
+"Dir": "More",
+"Items": [
+{"Name":"交叉表：交叉汇总后计算表达式", "Data":"CrossTab"},
+{"Name":"交叉表：脚本-标记计数", "Data":"CrossTab"},
+{"Name":"交叉表：脚本-计算字段 周小计", "Data":""},
+{"Name":"交叉表：脚本-空值显示为0", "Data":"CrossTab"},
+{"Name":"交叉表：脚本-控制动态列突出显示", "Data":"CrossTab"},
+{"Name":"交叉表：脚本-特定列颜色突出", "Data":"CrossTab"},
+{"Name":"交叉表：脚本-隐藏单行分组尾行", "Data":"CrossTab"}
+]
+},
+
+{
+"Group": "进阶报表：明細表格",
+"Dir": "More",
+"Items": [
+{"Name":"明細表格：脚本-按条件控制列的可见性", "Data":"Customer"},
+{"Name":"明細表格：脚本-多行交替色显示明细行", "Data":"Customer"},
+{"Name":"明細表格：脚本-根据记录数调整行高满页打印", "Data":"Customer"},
+{"Name":"明細表格：脚本-偶数表格行线", "Data":"Customer"},
+{"Name":"明細表格：脚本-文字缩进且隐藏单行分组明细", "Data":"ProductOrder"},
+{"Name":"明細表格：脚本-无明细数据隐藏表格标题行", "Data":"Empty"},
+{"Name":"明細表格：脚本-自动隐藏无数据列", "Data":""},
+{"Name":"明細表格：脚本-自由格文字按条件突出显示", "Data":"SaleDetail"}
+]
+},
+
+{
+"Group": "进阶报表：日期时间",
+"Dir": "More",
+"Items": [
+{"Name":"日期时间：脚本-求整数天数", "Data":""},
+{"Name":"日期时间：脚本-日期汉字显示", "Data":""},
+{"Name":"日期时间：脚本-随机数随机日期", "Data":""},
+{"Name":"日期时间：脚本-字符串转换为日期", "Data":""}
+]
+},
+
+{
+"Group": "进阶报表：数据导出",
+"Dir": "More",
+"Items": [
+{"Name":"数据导出：脚本-背景图导出PDF", "Data":"InvoiceOne"},
+{"Name":"数据导出：脚本-设置PDF安全性参数", "Data":"Customer"}
+]
+},
+
+{
+"Group": "进阶报表：统计",
+"Dir": "More",
+"Items": [
+{"Name":"统计：分组求百分比(综合文字框表达式)", "Data":"SaleDetail"},
+{"Name":"统计：分组中最大值对应的其它显示值", "Data":"SaleDetail"},
+{"Name":"统计：脚本-页分组显示累计(有普通分组)", "Data":"SaleDetail"},
+{"Name":"统计：明细求百分比(综合文字框表达式)", "Data":"SaleDetail"},
+{"Name":"统计：页分组显示普通分组的合计", "Data":"SaleDetail"},
+{"Name":"统计：占列式分组头中统计", "Data":"SaleDetail"}
+]
+},
+
+{
+"Group": "进阶报表：图表",
+"Dir": "More",
+"Items": [
+{"Name":"图表：脚本-载入明细表格数据", "Data":"DetailFillChart"}
+]
+},
+
+{
+"Group": "进阶报表：子报表",
+"Dir": "More",
+"Items": [
+{"Name":"子报表：带明细标签", "Data":"Subreport-4c"},
+{"Name":"子报表：脚本-两个表格且限定页行数", "Data":"TwoTimes"},
+{"Name":"子报表：脚本-两个表格且限定页行数并分组", "Data":"TwoTimes"},
+{"Name":"子报表：脚本-主表记录填入子表", "Data":"Customer"},
+{"Name":"子报表：脚本-子表统计数据传递父表", "Data":"Subreport-4a"}
+]
+},
+
+{
+"Group": "进阶报表：自绘脚本",
+"Dir": "More",
+"Items": [
+{"Name":"自绘脚本：绘制曲线与图形", "Data":""},
+{"Name":"自绘脚本：绘制系统图像", "Data":""},
+{"Name":"自绘脚本：进度条", "Data":""},
+{"Name":"自绘脚本：进度条-交叉表", "Data":""},
+{"Name":"自绘脚本：进度条-交叉表-分步骤", "Data":""},
+{"Name":"自绘脚本：明细表格行错位", "Data":"Customer"},
+{"Name":"自绘脚本：文字拆分到多个部件框显示", "Data":""}
+]
+},
+
+{
+"Group": "进阶报表：其它",
+"Dir": "More",
+"Items": [
+{"Name":"其它：HTML标签在画线行上填文字", "Data":""},
+{"Name":"其它：RTF文本框设计动态表格", "Data":""},
+{"Name":"其它：大写金额元变圆", "Data":""},
+{"Name":"其它：非金额大写", "Data":""},
+{"Name":"其它：模拟7形表头", "Data":""},
+{"Name":"其它：四舍六入五成双", "Data":"SaleDetail"}
+]
+},
+
+{
+"Group": "行业报表：ERP财务",
+"Dir": "行业报表\\ERP财务",
+"Items": [
+{"Name":"承上页启下页(分组累计.脚本)", "Data":""},
+{"Name":"多栏明细账(交叉表.脚本)", "Data":""},
+{"Name":"明细帐", "Data":""},
+{"Name":"凭证(借贷同字段)", "Data":""},
+{"Name":"凭证(切分纸张)", "Data":""},
+{"Name":"凭证", "Data":""},
+{"Name":"凭证A4纸套打", "Data":""},
+{"Name":"资产负债表", "Data":""}
+]
+},
+
+{
+"Group": "行业报表：建筑工程",
+"Dir": "行业报表\\建筑工程",
+"Items": [
+{"Name":"分部分项工程量清单与计价表", "Data":""},
+{"Name":"综合单价构成分析表", "Data":""}
+]
+},
+
+{
+"Group": "行业报表：医院医疗",
+"Dir": "行业报表\\医院医疗",
+"Items": [
+{"Name":"护理记录单-表格最后页空白画斜线", "Data":""},
+{"Name":"门诊处方笺-分组记录后空白画斜线", "Data":""},
+{"Name":"门诊中药处方-分组记录后空白画斜线(多栏)", "Data":""},
+{"Name":"卫生室处方笺", "Data":""},
+{"Name":"医院体温记录单(脚本)", "Data":""},
+{"Name":"医嘱单-同组数据括号", "Data":""}
+]
+},
+
+]
+}

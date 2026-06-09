@@ -1,0 +1,479 @@
+﻿<NewDataSet>
+  <Table>
+    <OrderID>10248</OrderID>
+    <CustomerId>VINET</CustomerId>
+    <CompanyName>山泰企业</CompanyName>
+    <OrderDate>1996-07-04T00:00:00+08:00</OrderDate>
+    <Freight>32.38</Freight>
+    <ShipVia>3</ShipVia>
+    <ShipAddress>光明北路 124 号</ShipAddress>
+  </Table>
+  <Table>
+    <OrderID>10249</OrderID>
+    <CustomerId>TOMSP</CustomerId>
+    <CompanyName>东帝望</CompanyName>
+    <OrderDate>1996-07-05T00:00:00+08:00</OrderDate>
+    <Freight>11.61</Freight>
+    <ShipVia>1</ShipVia>
+    <ShipAddress>青年东路 543 号</ShipAddress>
+  </Table>
+  <Table>
+    <OrderID>10250</OrderID>
+    <CustomerId>HANAR</CustomerId>
+    <CompanyName>实翼</CompanyName>
+    <OrderDate>1996-07-08T00:00:00+08:00</OrderDate>
+    <Freight>65.83</Freight>
+    <ShipVia>2</ShipVia>
+    <ShipAddress>光化街 22 号</ShipAddress>
+  </Table>
+  <Table>
+    <OrderID>10251</OrderID>
+    <CustomerId>VICTE</CustomerId>
+    <CompanyName>千固</CompanyName>
+    <OrderDate>1996-07-08T00:00:00+08:00</OrderDate>
+    <Freight>41.34</Freight>
+    <ShipVia>1</ShipVia>
+    <ShipAddress>清林桥 68 号</ShipAddress>
+  </Table>
+  <Table>
+    <OrderID>10252</OrderID>
+    <CustomerId>SUPRD</CustomerId>
+    <CompanyName>福星制衣厂股份有限公司</CompanyName>
+    <OrderDate>1996-07-09T00:00:00+08:00</OrderDate>
+    <Freight>51.3</Freight>
+    <ShipVia>2</ShipVia>
+    <ShipAddress>东管西林路 87 号</ShipAddress>
+  </Table>
+  <Table>
+    <OrderID>10253</OrderID>
+    <CustomerId>HANAR</CustomerId>
+    <CompanyName>实翼</CompanyName>
+    <OrderDate>1996-07-10T00:00:00+08:00</OrderDate>
+    <Freight>58.17</Freight>
+    <ShipVia>2</ShipVia>
+    <ShipAddress>新成东 96 号</ShipAddress>
+  </Table>
+  <Table>
+    <OrderID>10254</OrderID>
+    <CustomerId>CHOPS</CustomerId>
+    <CompanyName>浩天旅行社</CompanyName>
+    <OrderDate>1996-07-11T00:00:00+08:00</OrderDate>
+    <Freight>22.98</Freight>
+    <ShipVia>2</ShipVia>
+    <ShipAddress>汉正东街 12 号</ShipAddress>
+  </Table>
+  <Table>
+    <OrderID>10255</OrderID>
+    <CustomerId>RICSU</CustomerId>
+    <CompanyName>永大企业</CompanyName>
+    <OrderDate>1996-07-12T00:00:00+08:00</OrderDate>
+    <Freight>148.33</Freight>
+    <ShipVia>3</ShipVia>
+    <ShipAddress>白石路 116 号</ShipAddress>
+  </Table>
+  <Table>
+    <OrderID>10256</OrderID>
+    <CustomerId>WELLI</CustomerId>
+    <CompanyName>凯诚国际顾问公司</CompanyName>
+    <OrderDate>1996-07-15T00:00:00+08:00</OrderDate>
+    <Freight>13.97</Freight>
+    <ShipVia>2</ShipVia>
+    <ShipAddress>山大北路 237 号</ShipAddress>
+  </Table>
+  <Table>
+    <OrderID>10257</OrderID>
+    <CustomerId>HILAA</CustomerId>
+    <CompanyName>远东开发</CompanyName>
+    <OrderDate>1996-07-16T00:00:00+08:00</OrderDate>
+    <Freight>81.91</Freight>
+    <ShipVia>3</ShipVia>
+    <ShipAddress>清华路 78 号</ShipAddress>
+  </Table>
+  <Table>
+    <OrderID>10258</OrderID>
+    <CustomerId>ERNSH</CustomerId>
+    <CompanyName>正人资源</CompanyName>
+    <OrderDate>1996-07-17T00:00:00+08:00</OrderDate>
+    <Freight>140.51</Freight>
+    <ShipVia>1</ShipVia>
+    <ShipAddress>经三纬四路 48 号</ShipAddress>
+  </Table>
+  <Table>
+    <OrderID>10259</OrderID>
+    <CustomerId>CENTC</CustomerId>
+    <CompanyName>三捷实业</CompanyName>
+    <OrderDate>1996-07-18T00:00:00+08:00</OrderDate>
+    <Freight>3.25</Freight>
+    <ShipVia>3</ShipVia>
+    <ShipAddress>青年西路甲 245 号</ShipAddress>
+  </Table>
+  <Table>
+    <OrderID>10260</OrderID>
+    <CustomerId>OTTIK</CustomerId>
+    <CompanyName>一诠精密工业</CompanyName>
+    <OrderDate>1996-07-19T00:00:00+08:00</OrderDate>
+    <Freight>55.09</Freight>
+    <ShipVia>1</ShipVia>
+    <ShipAddress>海淀区明成路甲 8 号</ShipAddress>
+  </Table>
+  <Table>
+    <OrderID>10261</OrderID>
+    <CustomerId>QUEDE</CustomerId>
+    <CompanyName>兰格英语</CompanyName>
+    <OrderDate>1996-07-19T00:00:00+08:00</OrderDate>
+    <Freight>3.05</Freight>
+    <ShipVia>2</ShipVia>
+    <ShipAddress>花园北街 754 号</ShipAddress>
+  </Table>
+  <Table>
+    <OrderID>10262</OrderID>
+    <CustomerId>RATTC</CustomerId>
+    <CompanyName>学仁贸易</CompanyName>
+    <OrderDate>1996-07-22T00:00:00+08:00</OrderDate>
+    <Freight>48.29</Freight>
+    <ShipVia>3</ShipVia>
+    <ShipAddress>浦东临江北路 43 号</ShipAddress>
+  </Table>
+  <Table>
+    <OrderID>10263</OrderID>
+    <CustomerId>ERNSH</CustomerId>
+    <CompanyName>正人资源</CompanyName>
+    <OrderDate>1996-07-23T00:00:00+08:00</OrderDate>
+    <Freight>146.06</Freight>
+    <ShipVia>3</ShipVia>
+    <ShipAddress>复兴路 12 号</ShipAddress>
+  </Table>
+  <Table>
+    <OrderID>10264</OrderID>
+    <CustomerId>FOLKO</CustomerId>
+    <CompanyName>五洲信托</CompanyName>
+    <OrderDate>1996-07-24T00:00:00+08:00</OrderDate>
+    <Freight>3.67</Freight>
+    <ShipVia>3</ShipVia>
+    <ShipAddress>石景山路 462 号</ShipAddress>
+  </Table>
+  <Table>
+    <OrderID>10265</OrderID>
+    <CustomerId>BLONP</CustomerId>
+    <CompanyName>国皓</CompanyName>
+    <OrderDate>1996-07-25T00:00:00+08:00</OrderDate>
+    <Freight>55.28</Freight>
+    <ShipVia>1</ShipVia>
+    <ShipAddress>学院路甲 66 号</ShipAddress>
+  </Table>
+  <Table>
+    <OrderID>10266</OrderID>
+    <CustomerId>WARTH</CustomerId>
+    <CompanyName>升格企业</CompanyName>
+    <OrderDate>1996-07-26T00:00:00+08:00</OrderDate>
+    <Freight>25.73</Freight>
+    <ShipVia>3</ShipVia>
+    <ShipAddress>幸福大街 83 号</ShipAddress>
+  </Table>
+  <Table>
+    <OrderID>10267</OrderID>
+    <CustomerId>FRANK</CustomerId>
+    <CompanyName>友恒信托</CompanyName>
+    <OrderDate>1996-07-29T00:00:00+08:00</OrderDate>
+    <Freight>208.58</Freight>
+    <ShipVia>1</ShipVia>
+    <ShipAddress>黄河西口大街 324 号</ShipAddress>
+  </Table>
+  <Table>
+    <OrderID>10268</OrderID>
+    <CustomerId>GROSR</CustomerId>
+    <CompanyName>光远商贸</CompanyName>
+    <OrderDate>1996-07-30T00:00:00+08:00</OrderDate>
+    <Freight>66.29</Freight>
+    <ShipVia>3</ShipVia>
+    <ShipAddress>泰山路 72 号</ShipAddress>
+  </Table>
+  <Table>
+    <OrderID>10269</OrderID>
+    <CustomerId>WHITC</CustomerId>
+    <CompanyName>椅天文化事业</CompanyName>
+    <OrderDate>1996-07-31T00:00:00+08:00</OrderDate>
+    <Freight>4.56</Freight>
+    <ShipVia>1</ShipVia>
+    <ShipAddress>即墨路 452 号</ShipAddress>
+  </Table>
+  <Table>
+    <OrderID>10270</OrderID>
+    <CustomerId>WARTH</CustomerId>
+    <CompanyName>升格企业</CompanyName>
+    <OrderDate>1996-08-01T00:00:00+08:00</OrderDate>
+    <Freight>136.54</Freight>
+    <ShipVia>1</ShipVia>
+    <ShipAddress>朝阳区光华路 523 号</ShipAddress>
+  </Table>
+  <Table>
+    <OrderID>10271</OrderID>
+    <CustomerId>SPLIR</CustomerId>
+    <CompanyName>昇昕股份有限公司</CompanyName>
+    <OrderDate>1996-08-01T00:00:00+08:00</OrderDate>
+    <Freight>4.54</Freight>
+    <ShipVia>2</ShipVia>
+    <ShipAddress>山东路 645 号</ShipAddress>
+  </Table>
+  <Table>
+    <OrderID>10272</OrderID>
+    <CustomerId>RATTC</CustomerId>
+    <CompanyName>学仁贸易</CompanyName>
+    <OrderDate>1996-08-02T00:00:00+08:00</OrderDate>
+    <Freight>98.03</Freight>
+    <ShipVia>2</ShipVia>
+    <ShipAddress>海淀区学院路 31 号</ShipAddress>
+  </Table>
+  <Table>
+    <OrderID>10273</OrderID>
+    <CustomerId>QUICK</CustomerId>
+    <CompanyName>高上补习班</CompanyName>
+    <OrderDate>1996-08-05T00:00:00+08:00</OrderDate>
+    <Freight>76.07</Freight>
+    <ShipVia>3</ShipVia>
+    <ShipAddress>八一路 43 号</ShipAddress>
+  </Table>
+  <Table>
+    <OrderID>10274</OrderID>
+    <CustomerId>VINET</CustomerId>
+    <CompanyName>山泰企业</CompanyName>
+    <OrderDate>1996-08-06T00:00:00+08:00</OrderDate>
+    <Freight>6.01</Freight>
+    <ShipVia>1</ShipVia>
+    <ShipAddress>丰台区方庄北路 87 号</ShipAddress>
+  </Table>
+  <Table>
+    <OrderID>10275</OrderID>
+    <CustomerId>MAGAA</CustomerId>
+    <CompanyName>阳林</CompanyName>
+    <OrderDate>1996-08-07T00:00:00+08:00</OrderDate>
+    <Freight>26.93</Freight>
+    <ShipVia>1</ShipVia>
+    <ShipAddress>宣武区琉璃厂东大街 45 号</ShipAddress>
+  </Table>
+  <Table>
+    <OrderID>10276</OrderID>
+    <CustomerId>TORTU</CustomerId>
+    <CompanyName>协昌妮绒有限公司</CompanyName>
+    <OrderDate>1996-08-08T00:00:00+08:00</OrderDate>
+    <Freight>13.84</Freight>
+    <ShipVia>3</ShipVia>
+    <ShipAddress>四方区广林东路 6 号</ShipAddress>
+  </Table>
+  <Table>
+    <OrderID>10277</OrderID>
+    <CustomerId>MORGK</CustomerId>
+    <CompanyName>仲堂企业</CompanyName>
+    <OrderDate>1996-08-09T00:00:00+08:00</OrderDate>
+    <Freight>125.77</Freight>
+    <ShipVia>3</ShipVia>
+    <ShipAddress>南开北路 3 号</ShipAddress>
+  </Table>
+  <Table>
+    <OrderID>10278</OrderID>
+    <CustomerId>BERGS</CustomerId>
+    <CompanyName>通恒机械</CompanyName>
+    <OrderDate>1996-08-12T00:00:00+08:00</OrderDate>
+    <Freight>92.69</Freight>
+    <ShipVia>2</ShipVia>
+    <ShipAddress>广汇东区甲 2 号</ShipAddress>
+  </Table>
+  <Table>
+    <OrderID>10279</OrderID>
+    <CustomerId>LEHMS</CustomerId>
+    <CompanyName>幸义房屋</CompanyName>
+    <OrderDate>1996-08-13T00:00:00+08:00</OrderDate>
+    <Freight>25.83</Freight>
+    <ShipVia>2</ShipVia>
+    <ShipAddress>黄岛区新技术开发区 65 号</ShipAddress>
+  </Table>
+  <Table>
+    <OrderID>10280</OrderID>
+    <CustomerId>BERGS</CustomerId>
+    <CompanyName>通恒机械</CompanyName>
+    <OrderDate>1996-08-14T00:00:00+08:00</OrderDate>
+    <Freight>8.98</Freight>
+    <ShipVia>1</ShipVia>
+    <ShipAddress>江北开发区 7 号</ShipAddress>
+  </Table>
+  <Table>
+    <OrderID>10281</OrderID>
+    <CustomerId>ROMEY</CustomerId>
+    <CompanyName>德化食品</CompanyName>
+    <OrderDate>1996-08-14T00:00:00+08:00</OrderDate>
+    <Freight>2.94</Freight>
+    <ShipVia>1</ShipVia>
+    <ShipAddress>陕西路 423 号</ShipAddress>
+  </Table>
+  <Table>
+    <OrderID>10282</OrderID>
+    <CustomerId>ROMEY</CustomerId>
+    <CompanyName>德化食品</CompanyName>
+    <OrderDate>1996-08-15T00:00:00+08:00</OrderDate>
+    <Freight>12.69</Freight>
+    <ShipVia>1</ShipVia>
+    <ShipAddress>广东路 867 号</ShipAddress>
+  </Table>
+  <Table>
+    <OrderID>10283</OrderID>
+    <CustomerId>LILAS</CustomerId>
+    <CompanyName>富泰人寿</CompanyName>
+    <OrderDate>1996-08-16T00:00:00+08:00</OrderDate>
+    <Freight>84.81</Freight>
+    <ShipVia>3</ShipVia>
+    <ShipAddress>冀北路 23 号</ShipAddress>
+  </Table>
+  <Table>
+    <OrderID>10284</OrderID>
+    <CustomerId>LEHMS</CustomerId>
+    <CompanyName>幸义房屋</CompanyName>
+    <OrderDate>1996-08-19T00:00:00+08:00</OrderDate>
+    <Freight>76.56</Freight>
+    <ShipVia>1</ShipVia>
+    <ShipAddress>市中区绮丽路 54 号</ShipAddress>
+  </Table>
+  <Table>
+    <OrderID>10285</OrderID>
+    <CustomerId>QUICK</CustomerId>
+    <CompanyName>高上补习班</CompanyName>
+    <OrderDate>1996-08-20T00:00:00+08:00</OrderDate>
+    <Freight>76.83</Freight>
+    <ShipVia>2</ShipVia>
+    <ShipAddress>新技术开发工业区 32 号</ShipAddress>
+  </Table>
+  <Table>
+    <OrderID>10286</OrderID>
+    <CustomerId>QUICK</CustomerId>
+    <CompanyName>高上补习班</CompanyName>
+    <OrderDate>1996-08-21T00:00:00+08:00</OrderDate>
+    <Freight>229.24</Freight>
+    <ShipVia>3</ShipVia>
+    <ShipAddress>新技术开发工业区 66 号</ShipAddress>
+  </Table>
+  <Table>
+    <OrderID>10287</OrderID>
+    <CustomerId>RICAR</CustomerId>
+    <CompanyName>宇欣实业</CompanyName>
+    <OrderDate>1996-08-22T00:00:00+08:00</OrderDate>
+    <Freight>12.76</Freight>
+    <ShipVia>3</ShipVia>
+    <ShipAddress>曙光路东区 45 号</ShipAddress>
+  </Table>
+  <Table>
+    <OrderID>10288</OrderID>
+    <CustomerId>REGGC</CustomerId>
+    <CompanyName>建国科技</CompanyName>
+    <OrderDate>1996-08-23T00:00:00+08:00</OrderDate>
+    <Freight>7.45</Freight>
+    <ShipVia>1</ShipVia>
+    <ShipAddress>东城区和平里甲 45 号</ShipAddress>
+  </Table>
+  <Table>
+    <OrderID>10289</OrderID>
+    <CustomerId>BSBEV</CustomerId>
+    <CompanyName>光明杂志</CompanyName>
+    <OrderDate>1996-08-26T00:00:00+08:00</OrderDate>
+    <Freight>22.77</Freight>
+    <ShipVia>3</ShipVia>
+    <ShipAddress>金陵大街 54 号</ShipAddress>
+  </Table>
+  <Table>
+    <OrderID>10290</OrderID>
+    <CustomerId>COMMI</CustomerId>
+    <CompanyName>同恒</CompanyName>
+    <OrderDate>1996-08-27T00:00:00+08:00</OrderDate>
+    <Freight>79.7</Freight>
+    <ShipVia>1</ShipVia>
+    <ShipAddress>富成路 476 号</ShipAddress>
+  </Table>
+  <Table>
+    <OrderID>10291</OrderID>
+    <CustomerId>QUEDE</CustomerId>
+    <CompanyName>兰格英语</CompanyName>
+    <OrderDate>1996-08-27T00:00:00+08:00</OrderDate>
+    <Freight>6.4</Freight>
+    <ShipVia>2</ShipVia>
+    <ShipAddress>花园区花园路 76 号</ShipAddress>
+  </Table>
+  <Table>
+    <OrderID>10292</OrderID>
+    <CustomerId>TRADH</CustomerId>
+    <CompanyName>亚太公司</CompanyName>
+    <OrderDate>1996-08-28T00:00:00+08:00</OrderDate>
+    <Freight>1.35</Freight>
+    <ShipVia>2</ShipVia>
+    <ShipAddress>历下区浪潮路 97 号</ShipAddress>
+  </Table>
+  <Table>
+    <OrderID>10293</OrderID>
+    <CustomerId>TORTU</CustomerId>
+    <CompanyName>协昌妮绒有限公司</CompanyName>
+    <OrderDate>1996-08-29T00:00:00+08:00</OrderDate>
+    <Freight>21.18</Freight>
+    <ShipVia>3</ShipVia>
+    <ShipAddress>历下区浪潮路 2 号</ShipAddress>
+  </Table>
+  <Table>
+    <OrderID>10294</OrderID>
+    <CustomerId>RATTC</CustomerId>
+    <CompanyName>学仁贸易</CompanyName>
+    <OrderDate>1996-08-30T00:00:00+08:00</OrderDate>
+    <Freight>147.26</Freight>
+    <ShipVia>2</ShipVia>
+    <ShipAddress>西城区新开胡同 54 号</ShipAddress>
+  </Table>
+  <Table>
+    <OrderID>10295</OrderID>
+    <CustomerId>VINET</CustomerId>
+    <CompanyName>山泰企业</CompanyName>
+    <OrderDate>1996-09-02T00:00:00+08:00</OrderDate>
+    <Freight>1.15</Freight>
+    <ShipVia>2</ShipVia>
+    <ShipAddress>海淀区明成大街 29 号</ShipAddress>
+  </Table>
+  <Table>
+    <OrderID>10296</OrderID>
+    <CustomerId>LILAS</CustomerId>
+    <CompanyName>富泰人寿</CompanyName>
+    <OrderDate>1996-09-03T00:00:00+08:00</OrderDate>
+    <Freight>0.12</Freight>
+    <ShipVia>1</ShipVia>
+    <ShipAddress>市南区联合大街 245 号</ShipAddress>
+  </Table>
+  <Table>
+    <OrderID>10297</OrderID>
+    <CustomerId>BLONP</CustomerId>
+    <CompanyName>国皓</CompanyName>
+    <OrderDate>1996-09-04T00:00:00+08:00</OrderDate>
+    <Freight>5.74</Freight>
+    <ShipVia>2</ShipVia>
+    <ShipAddress>城东路 762 号</ShipAddress>
+  </Table>
+  <Table>
+    <OrderID>10298</OrderID>
+    <CustomerId>HUNGO</CustomerId>
+    <CompanyName>师大贸易</CompanyName>
+    <OrderDate>1996-09-05T00:00:00+08:00</OrderDate>
+    <Freight>168.22</Freight>
+    <ShipVia>2</ShipVia>
+    <ShipAddress>和平路 794 号</ShipAddress>
+  </Table>
+  <Table>
+    <OrderID>10299</OrderID>
+    <CustomerId>RICAR</CustomerId>
+    <CompanyName>宇欣实业</CompanyName>
+    <OrderDate>1996-09-06T00:00:00+08:00</OrderDate>
+    <Freight>29.76</Freight>
+    <ShipVia>2</ShipVia>
+    <ShipAddress>光明路 6 号</ShipAddress>
+  </Table>
+  <Table>
+    <OrderID>10300</OrderID>
+    <CustomerId>MAGAA</CustomerId>
+    <CompanyName>阳林</CompanyName>
+    <OrderDate>1996-09-09T00:00:00+08:00</OrderDate>
+    <Freight>17.68</Freight>
+    <ShipVia>2</ShipVia>
+    <ShipAddress>广渠路东街 42 号</ShipAddress>
+  </Table>
+</NewDataSet>

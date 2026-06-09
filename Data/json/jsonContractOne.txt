@@ -1,0 +1,5 @@
+﻿{
+"Table":[
+{"OrderID":10252,"CustomerId":"SUPRD","CompanyName":"福星制衣厂股份有限公司","OrderDate":"1996/7/9 0:00:00","ProductName":"桂花糕","UnitPrice":64.8,"Quantity":40,"Amount":2592}
+]
+}

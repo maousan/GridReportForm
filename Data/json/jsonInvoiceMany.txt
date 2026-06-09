@@ -1,0 +1,18 @@
+﻿{
+"Table":[
+{"OrderID":10255,"CustomerId":"RICSU","CompanyName":"永大企业","Address":"港务口街 29 号","OrderDate":"1996/7/12 0:00:00","Remark":"余小姐(089) 7034214","ProductID":2,"ProductName":"牛奶","UnitPrice":15.2,"Quantity":20,"Amount":304},
+{"OrderID":10255,"CustomerId":"RICSU","CompanyName":"永大企业","Address":"港务口街 29 号","OrderDate":"1996/7/12 0:00:00","Remark":"余小姐(089) 7034214","ProductID":16,"ProductName":"饼干","UnitPrice":13.9,"Quantity":35,"Amount":486.5},
+{"OrderID":10255,"CustomerId":"RICSU","CompanyName":"永大企业","Address":"港务口街 29 号","OrderDate":"1996/7/12 0:00:00","Remark":"余小姐(089) 7034214","ProductID":36,"ProductName":"鱿鱼","UnitPrice":15.2,"Quantity":25,"Amount":380},
+{"OrderID":10255,"CustomerId":"RICSU","CompanyName":"永大企业","Address":"港务口街 29 号","OrderDate":"1996/7/12 0:00:00","Remark":"余小姐(089) 7034214","ProductID":59,"ProductName":"苏澳奶酪","UnitPrice":44,"Quantity":30,"Amount":1320},
+{"OrderID":10256,"CustomerId":"WELLI","CompanyName":"凯诚国际顾问公司","Address":"威刚街 481 号","OrderDate":"1996/7/15 0:00:00","Remark":"刘先生(0571) 35558122","ProductID":53,"ProductName":"盐水鸭","UnitPrice":26.2,"Quantity":15,"Amount":393},
+{"OrderID":10256,"CustomerId":"WELLI","CompanyName":"凯诚国际顾问公司","Address":"威刚街 481 号","OrderDate":"1996/7/15 0:00:00","Remark":"刘先生(0571) 35558122","ProductID":77,"ProductName":"辣椒粉","UnitPrice":10.4,"Quantity":12,"Amount":124.8},
+{"OrderID":10257,"CustomerId":"HILAA","CompanyName":"远东开发","Address":"崇盛路 82 号","OrderDate":"1996/7/16 0:00:00","Remark":"王先生(0571) 75551340","ProductID":27,"ProductName":"牛肉干","UnitPrice":35.1,"Quantity":25,"Amount":877.5},
+{"OrderID":10257,"CustomerId":"HILAA","CompanyName":"远东开发","Address":"崇盛路 82 号","OrderDate":"1996/7/16 0:00:00","Remark":"王先生(0571) 75551340","ProductID":39,"ProductName":"运动饮料","UnitPrice":14.4,"Quantity":6,"Amount":86.4},
+{"OrderID":10257,"CustomerId":"HILAA","CompanyName":"远东开发","Address":"崇盛路 82 号","OrderDate":"1996/7/16 0:00:00","Remark":"王先生(0571) 75551340","ProductID":77,"ProductName":"辣椒粉","UnitPrice":10.4,"Quantity":15,"Amount":156},
+{"OrderID":10258,"CustomerId":"ERNSH","CompanyName":"正人资源","Address":"临江东街 62 号","OrderDate":"1996/7/17 0:00:00","Remark":"谢小姐(0571) 76753425","ProductID":2,"ProductName":"牛奶","UnitPrice":15.2,"Quantity":50,"Amount":760},
+{"OrderID":10258,"CustomerId":"ERNSH","CompanyName":"正人资源","Address":"临江东街 62 号","OrderDate":"1996/7/17 0:00:00","Remark":"谢小姐(0571) 76753425","ProductID":5,"ProductName":"麻油","UnitPrice":17,"Quantity":65,"Amount":1105},
+{"OrderID":10258,"CustomerId":"ERNSH","CompanyName":"正人资源","Address":"临江东街 62 号","OrderDate":"1996/7/17 0:00:00","Remark":"谢小姐(0571) 76753425","ProductID":32,"ProductName":"白奶酪","UnitPrice":25.6,"Quantity":6,"Amount":153.6},
+{"OrderID":10259,"CustomerId":"CENTC","CompanyName":"三捷实业","Address":"英雄山路 84 号","OrderDate":"1996/7/18 0:00:00","Remark":"王先生(061) 15553392","ProductID":21,"ProductName":"花生","UnitPrice":8,"Quantity":10,"Amount":80},
+{"OrderID":10259,"CustomerId":"CENTC","CompanyName":"三捷实业","Address":"英雄山路 84 号","OrderDate":"1996/7/18 0:00:00","Remark":"王先生(061) 15553392","ProductID":37,"ProductName":"干贝","UnitPrice":20.8,"Quantity":1,"Amount":20.8}
+]
+}

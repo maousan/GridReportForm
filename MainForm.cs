@@ -9,6 +9,7 @@ using System.Linq;
 using System.Reactive.Linq;
 using System.Reactive;
 using System.Threading.Tasks;
+using System.Reflection;
 
 namespace GridReportForm
 {
@@ -41,6 +42,7 @@ namespace GridReportForm
         private ContextMenuStrip mainContextMenuStrip;
         private ToolStripMenuItem autoStartToolStripMenuItem;
         private ToolStripMenuItem checkUpdateToolStripMenuItem;
+        private ToolStripMenuItem aboutToolStripMenuItem;
         private ToolStripMenuItem appDirectoryToolStripMenuItem;
         private ToolStripMenuItem exitToolStripMenuItem;
         private System.ComponentModel.IContainer components;
@@ -182,6 +184,7 @@ namespace GridReportForm
             this.mainContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.autoStartToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.checkUpdateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.appDirectoryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.label1 = new AntdUI.Label();
@@ -234,9 +237,10 @@ namespace GridReportForm
             this.autoStartToolStripMenuItem,
             this.checkUpdateToolStripMenuItem,
             this.appDirectoryToolStripMenuItem,
-            this.exitToolStripMenuItem});
+            this.exitToolStripMenuItem,
+            this.aboutToolStripMenuItem});
             this.mainContextMenuStrip.Name = "mainContextMenuStrip";
-            this.mainContextMenuStrip.Size = new System.Drawing.Size(125, 92);
+            this.mainContextMenuStrip.Size = new System.Drawing.Size(125, 114);
             // 
             // autoStartToolStripMenuItem
             // 
@@ -252,6 +256,13 @@ namespace GridReportForm
             this.checkUpdateToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
             this.checkUpdateToolStripMenuItem.Text = "检查更新";
             this.checkUpdateToolStripMenuItem.Click += new System.EventHandler(this.checkUpdateToolStripMenuItem_Click);
+            // 
+            // aboutToolStripMenuItem
+            // 
+            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
+            this.aboutToolStripMenuItem.Text = "关于";
+            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
             // appDirectoryToolStripMenuItem
             // 
@@ -704,6 +715,18 @@ namespace GridReportForm
         private async void checkUpdateToolStripMenuItem_Click(object sender, EventArgs e)
         {
             await CheckForApplicationUpdateAsync(true);
+        }
+
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Version version = Assembly.GetExecutingAssembly().GetName().Version ?? new Version(0, 0, 0, 0);
+            string message =
+                $"程序名称：报表助手\r\n" +
+                $"当前版本：{ApplicationUpdateService.FormatVersion(version)}\r\n" +
+                $"程序目录：{AppDomain.CurrentDomain.BaseDirectory}";
+
+            logger.Info("About dialog opened. Version={Version}", version);
+            MessageBox.Show(message, "关于报表助手", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void appDirectoryToolStripMenuItem_Click(object sender, EventArgs e)

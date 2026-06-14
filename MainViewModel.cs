@@ -22,6 +22,9 @@ namespace GridReportForm
         private string _cloudDeviceId;
         private string _cloudDeviceName;
         private bool _allowPreview;
+        private bool _discoveryEnabled;
+        private int _discoveryPort;
+        private string _discoveryAllowedOrigins;
         private FileIniDataParser parser = new FileIniDataParser();
         private string configFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "config.ini");
 
@@ -54,6 +57,9 @@ namespace GridReportForm
                 CloudDeviceName = Environment.MachineName;
             }
             AllowPreview = ReadBool("AllowPreview", false);
+            DiscoveryEnabled = ReadBool("DiscoveryEnabled", true);
+            DiscoveryPort = int.Parse(ReadString("DiscoveryPort", "9294"));
+            DiscoveryAllowedOrigins = ReadString("DiscoveryAllowedOrigins", "127.0.0.1");
             logger.Info("Application config loaded. CloudEnabled={CloudEnabled}, ServerUrl={ServerUrl}, DeviceId={DeviceId}, DeviceName={DeviceName}, HasToken={HasToken}, AllowPreview={AllowPreview}", CloudEnabled, CloudServerUrl, CloudDeviceId, CloudDeviceName, !string.IsNullOrWhiteSpace(CloudDeviceToken), AllowPreview);
         }
 
@@ -175,6 +181,49 @@ namespace GridReportForm
             {
                 this.RaiseAndSetIfChanged(ref _allowPreview, value);
                 WriteString("AllowPreview", value.ToString());
+            }
+        }
+
+        /// <summary>
+        /// Whether the local HTTP device discovery service (docs/adr/0009) is started.
+        /// Changing this writes config.ini; the running service picks it up on next restart
+        /// or when the user clicks the "apply" button on the main window.
+        /// </summary>
+        public bool DiscoveryEnabled
+        {
+            get => _discoveryEnabled;
+            set
+            {
+                this.RaiseAndSetIfChanged(ref _discoveryEnabled, value);
+                WriteString("DiscoveryEnabled", value.ToString());
+            }
+        }
+
+        /// <summary>
+        /// Port the local discovery service listens on (default 9294).
+        /// </summary>
+        public int DiscoveryPort
+        {
+            get => _discoveryPort;
+            set
+            {
+                this.RaiseAndSetIfChanged(ref _discoveryPort, value);
+                WriteString("DiscoveryPort", value.ToString());
+            }
+        }
+
+        /// <summary>
+        /// Comma/semicolon-separated business system origins allowed to call the
+        /// discovery service (e.g. "http://biz.example.com"). Empty rejects all
+        /// browser callers; non-browser local callers (no Origin header) are still allowed.
+        /// </summary>
+        public string DiscoveryAllowedOrigins
+        {
+            get => _discoveryAllowedOrigins;
+            set
+            {
+                this.RaiseAndSetIfChanged(ref _discoveryAllowedOrigins, value ?? "");
+                WriteString("DiscoveryAllowedOrigins", value ?? "");
             }
         }
 

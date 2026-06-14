@@ -284,6 +284,10 @@
     <Compile Include="CloudActivationClient.cs" />
     <Compile Include="CloudModels.cs" />
     <Compile Include="CloudWebSocketTransport.cs" />
+    <Compile Include="DiscoveryForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LocalDiscoveryServer.cs" />
     <Compile Include="Helper.cs" />
     <Compile Include="HttpClientUtils.cs" />
     <Compile Include="MainViewModel.cs" />

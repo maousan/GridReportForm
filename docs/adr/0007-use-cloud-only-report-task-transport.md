@@ -9,3 +9,5 @@ The local helper no longer registers or handles the `gridreport://` URL protocol
 The active cloud task commands are limited to `print` and controlled `preview`. Printer discovery is handled by printer-report messages, and template maintenance is handled through the Admin system.
 
 This decision supersedes the earlier URL protocol and dual-transport decisions for the current implementation.
+
+The prohibition on direct frontend-to-helper connections is narrowly amended by [0009](0009-add-local-device-discovery-service.md), which allows a read-only local HTTP query for device discovery only — not task delivery. Task delivery remains cloud-only.

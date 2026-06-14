@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.Windows.Forms;
@@ -22,6 +23,7 @@ namespace GridReportForm
         private readonly RegistryKey registryKey;
         private readonly ReportTaskExecutor taskExecutor;
         private readonly CloudWebSocketTransport cloudTransport;
+        private LocalDiscoveryServer discoveryServer;
         private readonly ApplicationUpdateService updateService = new ApplicationUpdateService();
         private bool updateCheckRunning;
 
@@ -45,6 +47,7 @@ namespace GridReportForm
         private ToolStripMenuItem aboutToolStripMenuItem;
         private ToolStripMenuItem appDirectoryToolStripMenuItem;
         private ToolStripMenuItem exitToolStripMenuItem;
+        private ToolStripMenuItem discoverySettingsToolStripMenuItem;
         private System.ComponentModel.IContainer components;
         static object lockDesignForm = new object();
         private AntdUI.Select defaultPrinterSelect;
@@ -85,7 +88,19 @@ namespace GridReportForm
             this.taskExecutor = new ReportTaskExecutor(this, () => ViewModel.AllowPreview);
             this.cloudTransport = new CloudWebSocketTransport(CreateCloudOptions, taskExecutor.Execute);
             this.cloudTransport.StatusChanged += CloudTransport_StatusChanged;
+            this.discoveryServer = new LocalDiscoveryServer(
+                ViewModel.DiscoveryPort,
+                ParseOrigins(ViewModel.DiscoveryAllowedOrigins),
+                BuildDiscoveryInfo);
             Init();
+            if (ViewModel.DiscoveryEnabled)
+            {
+                discoveryServer.Start();
+            }
+            else
+            {
+                logger.Info("Local discovery server disabled on startup.");
+            }
             if (ViewModel.CloudEnabled)
             {
                 logger.Info("Cloud mode enabled on startup. DeviceId={DeviceId}, DeviceName={DeviceName}, HasToken={HasToken}, ServerUrl={ServerUrl}", ViewModel.CloudDeviceId, ViewModel.CloudDeviceName, !string.IsNullOrWhiteSpace(ViewModel.CloudDeviceToken), ViewModel.CloudServerUrl);
@@ -168,6 +183,7 @@ namespace GridReportForm
             }
             base.Dispose( disposing );
             cloudTransport?.Dispose();
+            discoveryServer?.Dispose();
 		}
 
 		#region Windows 窗体设计器生成的代码
@@ -187,6 +203,7 @@ namespace GridReportForm
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.appDirectoryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.discoverySettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.label1 = new AntdUI.Label();
             this.cloudServerUrlInput = new AntdUI.Input();
             this.deviceTokenLabel = new AntdUI.Label();
@@ -237,8 +254,9 @@ namespace GridReportForm
             this.autoStartToolStripMenuItem,
             this.checkUpdateToolStripMenuItem,
             this.appDirectoryToolStripMenuItem,
-            this.exitToolStripMenuItem,
-            this.aboutToolStripMenuItem});
+            this.discoverySettingsToolStripMenuItem,
+            this.aboutToolStripMenuItem,
+            this.exitToolStripMenuItem});
             this.mainContextMenuStrip.Name = "mainContextMenuStrip";
             this.mainContextMenuStrip.Size = new System.Drawing.Size(125, 114);
             // 
@@ -263,7 +281,14 @@ namespace GridReportForm
             this.aboutToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
             this.aboutToolStripMenuItem.Text = "关于";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
-            // 
+            //
+            // discoverySettingsToolStripMenuItem
+            //
+            this.discoverySettingsToolStripMenuItem.Name = "discoverySettingsToolStripMenuItem";
+            this.discoverySettingsToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
+            this.discoverySettingsToolStripMenuItem.Text = "本地发现";
+            this.discoverySettingsToolStripMenuItem.Click += new System.EventHandler(this.discoverySettingsToolStripMenuItem_Click);
+            //
             // appDirectoryToolStripMenuItem
             // 
             this.appDirectoryToolStripMenuItem.Name = "appDirectoryToolStripMenuItem";
@@ -424,9 +449,9 @@ namespace GridReportForm
             this.allowPreviewCheckbox.Size = new System.Drawing.Size(135, 24);
             this.allowPreviewCheckbox.TabIndex = 115;
             this.allowPreviewCheckbox.Text = "允许云端预览";
-            // 
+            //
             // printerSectionLabel
-            // 
+            //
             this.printerSectionLabel.Location = new System.Drawing.Point(9, 548);
             this.printerSectionLabel.Name = "printerSectionLabel";
             this.printerSectionLabel.Size = new System.Drawing.Size(110, 24);
@@ -727,6 +752,18 @@ namespace GridReportForm
 
             logger.Info("About dialog opened. Version={Version}", version);
             MessageBox.Show(message, "关于报表助手", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void discoverySettingsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            logger.Info("Discovery settings dialog opened.");
+            using (DiscoveryForm form = new DiscoveryForm(
+                ViewModel,
+                () => discoveryServer != null && discoveryServer.IsRunning,
+                RestartDiscoveryServer))
+            {
+                form.ShowDialog(this);
+            }
         }
 
         private void appDirectoryToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1156,6 +1193,50 @@ namespace GridReportForm
                 DeviceName = ViewModel.CloudDeviceName,
                 AllowPreview = ViewModel.AllowPreview
             };
+        }
+
+        private DiscoveryInfo BuildDiscoveryInfo()
+        {
+            return new DiscoveryInfo
+            {
+                DeviceId = ViewModel.CloudDeviceId,
+                DeviceName = ViewModel.CloudDeviceName,
+                DefaultPrinter = MyLocalPrinter.DefaultPrinter(),
+                Printers = MyLocalPrinter.GetLocalPrinters(),
+                Online = cloudTransport != null && cloudTransport.Status == "已连接"
+            };
+        }
+
+        private static List<string> ParseOrigins(string raw)
+        {
+            List<string> origins = new List<string>();
+            if (string.IsNullOrWhiteSpace(raw))
+            {
+                return origins;
+            }
+            foreach (string part in raw.Split(',', ';'))
+            {
+                string trimmed = part.Trim();
+                if (trimmed.Length > 0)
+                {
+                    origins.Add(trimmed);
+                }
+            }
+            return origins;
+        }
+
+        private void RestartDiscoveryServer()
+        {
+            logger.Info("Discovery server restart requested. Enabled={Enabled}, Port={Port}, AllowedOrigins={AllowedOrigins}", ViewModel.DiscoveryEnabled, ViewModel.DiscoveryPort, ViewModel.DiscoveryAllowedOrigins);
+            discoveryServer?.Dispose();
+            discoveryServer = new LocalDiscoveryServer(
+                ViewModel.DiscoveryPort,
+                ParseOrigins(ViewModel.DiscoveryAllowedOrigins),
+                BuildDiscoveryInfo);
+            if (ViewModel.DiscoveryEnabled)
+            {
+                discoveryServer.Start();
+            }
         }
 
         private void CloudTransport_StatusChanged(string status)

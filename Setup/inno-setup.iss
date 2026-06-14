@@ -97,6 +97,13 @@ Name: "{autodesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; Tasks: de
 
 [Run]
 Filename: "{app}\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"; Flags: nowait postinstall skipifsilent
+; Reserve the local device discovery HTTP urlacl (docs/adr/0009) so the helper
+; can listen on 127.0.0.1:9294 without elevated privileges at runtime.
+Filename: "{sys}\netsh.exe"; Parameters: "http add urlacl url=http://127.0.0.1:9294/ user=Everyone"; Flags: runhidden; StatusMsg: "正在注册本地发现服务端口..."
+
+[UninstallRun]
+; Release the discovery urlacl reserved during install.
+Filename: "{sys}\netsh.exe"; Parameters: "http delete urlacl url=http://127.0.0.1:9294/"; Flags: runhidden
 ;Filename: "regsvr32"; Parameters:"""{app}\grdes6.dll"""
 ;Filename: "regsvr32"; Parameters:"""{app}\gregn6.dll"""
 

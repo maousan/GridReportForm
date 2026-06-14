@@ -1,4 +1,3 @@
-using Newtonsoft.Json.Linq;
 using System;
 using System.IO;
 using System.Net;
@@ -9,7 +8,8 @@ namespace GridReportForm
 {
     internal class ApplicationUpdateService
     {
-        private const string LatestReleaseUrl = "https://api.github.com/repos/maousan/GridReportForm/releases/latest";
+        private const string LatestReleaseUrl = "https://github.com/maousan/GridReportForm/releases/latest";
+        private const string ReleaseDownloadBaseUrl = "https://github.com/maousan/GridReportForm/releases/download";
         private const string InstallerNamePrefix = "ReportHelperSetup-";
         private const string InstallerNameSuffix = ".exe";
         private static readonly NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
@@ -19,41 +19,30 @@ namespace GridReportForm
             Version currentVersion = GetCurrentVersion();
             logger.Info("Checking application update. CurrentVersion={CurrentVersion}, LatestReleaseUrl={LatestReleaseUrl}", currentVersion, LatestReleaseUrl);
 
-            using (WebClient client = CreateGitHubClient())
+            Uri latestReleaseUri = await ResolveLatestReleaseUriAsync();
+            string tagName = ExtractTagName(latestReleaseUri);
+            Version latestVersion;
+            if (!TryParseReleaseVersion(tagName, out latestVersion))
             {
-                string response = await client.DownloadStringTaskAsync(LatestReleaseUrl);
-                JObject release = JObject.Parse(response);
-                string tagName = release.Value<string>("tag_name");
-                Version latestVersion;
-                if (!TryParseReleaseVersion(tagName, out latestVersion))
-                {
-                    return ApplicationUpdateCheckResult.Unavailable(currentVersion, $"GitHub Release tag 无法识别：{tagName}");
-                }
-
-                if (CompareVersions(latestVersion, currentVersion) <= 0)
-                {
-                    logger.Info("Application is up to date. CurrentVersion={CurrentVersion}, LatestVersion={LatestVersion}", currentVersion, latestVersion);
-                    return ApplicationUpdateCheckResult.NoUpdate(currentVersion, latestVersion);
-                }
-
-                string expectedAssetName = $"{InstallerNamePrefix}{FormatVersion(latestVersion)}{InstallerNameSuffix}";
-                JToken expectedAsset = FindAsset(release, expectedAssetName);
-                if (expectedAsset == null)
-                {
-                    logger.Warn("Latest release does not contain expected installer asset. LatestVersion={LatestVersion}, ExpectedAssetName={ExpectedAssetName}", latestVersion, expectedAssetName);
-                    return ApplicationUpdateCheckResult.Unavailable(currentVersion, $"未找到更新安装包：{expectedAssetName}", latestVersion);
-                }
-
-                string downloadUrl = expectedAsset.Value<string>("browser_download_url");
-                if (string.IsNullOrWhiteSpace(downloadUrl))
-                {
-                    logger.Warn("Installer asset download url is empty. LatestVersion={LatestVersion}, AssetName={AssetName}", latestVersion, expectedAssetName);
-                    return ApplicationUpdateCheckResult.Unavailable(currentVersion, $"安装包下载地址为空：{expectedAssetName}", latestVersion);
-                }
-
-                logger.Info("Application update available. CurrentVersion={CurrentVersion}, LatestVersion={LatestVersion}, AssetName={AssetName}", currentVersion, latestVersion, expectedAssetName);
-                return ApplicationUpdateCheckResult.Available(currentVersion, latestVersion, expectedAssetName, downloadUrl);
+                return ApplicationUpdateCheckResult.Unavailable(currentVersion, $"GitHub Release tag 无法识别：{tagName}");
             }
+
+            if (CompareVersions(latestVersion, currentVersion) <= 0)
+            {
+                logger.Info("Application is up to date. CurrentVersion={CurrentVersion}, LatestVersion={LatestVersion}", currentVersion, latestVersion);
+                return ApplicationUpdateCheckResult.NoUpdate(currentVersion, latestVersion);
+            }
+
+            string expectedAssetName = $"{InstallerNamePrefix}{FormatVersion(latestVersion)}{InstallerNameSuffix}";
+            string downloadUrl = $"{ReleaseDownloadBaseUrl}/{tagName}/{expectedAssetName}";
+            if (!await AssetExistsAsync(downloadUrl))
+            {
+                logger.Warn("Latest release does not contain expected installer asset. LatestVersion={LatestVersion}, ExpectedAssetName={ExpectedAssetName}", latestVersion, expectedAssetName);
+                return ApplicationUpdateCheckResult.Unavailable(currentVersion, $"未找到更新安装包：{expectedAssetName}", latestVersion);
+            }
+
+            logger.Info("Application update available. CurrentVersion={CurrentVersion}, LatestVersion={LatestVersion}, AssetName={AssetName}", currentVersion, latestVersion, expectedAssetName);
+            return ApplicationUpdateCheckResult.Available(currentVersion, latestVersion, expectedAssetName, downloadUrl);
         }
 
         public async Task<string> DownloadInstallerAsync(ApplicationUpdateInfo update)
@@ -93,9 +82,58 @@ namespace GridReportForm
         {
             WebClient client = new WebClient();
             client.Encoding = System.Text.Encoding.UTF8;
-            client.Headers[HttpRequestHeader.Accept] = "application/vnd.github+json";
             client.Headers[HttpRequestHeader.UserAgent] = "GridReportForm";
             return client;
+        }
+
+        private static async Task<Uri> ResolveLatestReleaseUriAsync()
+        {
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(LatestReleaseUrl);
+            request.AllowAutoRedirect = true;
+            request.Method = "HEAD";
+            request.UserAgent = "GridReportForm";
+            using (WebResponse response = await request.GetResponseAsync())
+            {
+                return response.ResponseUri;
+            }
+        }
+
+        private static async Task<bool> AssetExistsAsync(string downloadUrl)
+        {
+            try
+            {
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(downloadUrl);
+                request.AllowAutoRedirect = false;
+                request.Method = "HEAD";
+                request.UserAgent = "GridReportForm";
+                using (HttpWebResponse response = (HttpWebResponse)await request.GetResponseAsync())
+                {
+                    return response.StatusCode == HttpStatusCode.OK
+                        || response.StatusCode == HttpStatusCode.Found
+                        || response.StatusCode == HttpStatusCode.Redirect;
+                }
+            }
+            catch (WebException exception)
+            {
+                HttpWebResponse response = exception.Response as HttpWebResponse;
+                if (response != null && response.StatusCode == HttpStatusCode.NotFound)
+                {
+                    return false;
+                }
+                throw;
+            }
+        }
+
+        private static string ExtractTagName(Uri releaseUri)
+        {
+            string marker = "/releases/tag/";
+            string path = releaseUri.AbsolutePath;
+            int index = path.IndexOf(marker, StringComparison.OrdinalIgnoreCase);
+            if (index < 0)
+            {
+                return null;
+            }
+            return Uri.UnescapeDataString(path.Substring(index + marker.Length));
         }
 
         private static Version GetCurrentVersion()
@@ -125,23 +163,6 @@ namespace GridReportForm
             Version normalizedLeft = new Version(left.Major, left.Minor, left.Build < 0 ? 0 : left.Build);
             Version normalizedRight = new Version(right.Major, right.Minor, right.Build < 0 ? 0 : right.Build);
             return normalizedLeft.CompareTo(normalizedRight);
-        }
-
-        private static JToken FindAsset(JObject release, string expectedAssetName)
-        {
-            JArray assets = release.Value<JArray>("assets");
-            if (assets == null)
-            {
-                return null;
-            }
-            foreach (JToken asset in assets)
-            {
-                if (string.Equals(asset.Value<string>("name"), expectedAssetName, StringComparison.OrdinalIgnoreCase))
-                {
-                    return asset;
-                }
-            }
-            return null;
         }
 
         private static void ValidateUpdateInfo(ApplicationUpdateInfo update)

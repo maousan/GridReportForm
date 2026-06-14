@@ -22,6 +22,6 @@ The helper must ask the user before downloading and installing an available upda
 
 Initial installer validation is intentionally lightweight: the download must succeed, the downloaded file must be non-empty, the asset name must match the expected installer naming convention, and the asset URL must come from the selected GitHub Release asset. Cryptographic hash validation and code-signing enforcement are deferred.
 
-The GitHub update source is fixed to the project repository `maousan/GridReportForm`. The helper resolves `https://github.com/maousan/GridReportForm/releases/latest` to the latest release tag and then derives the installer asset URL from the release tag and asset naming convention. It avoids the GitHub REST API for routine update checks so public clients are not blocked by anonymous REST API rate limits. The repository is not exposed as an end-user setting.
+The GitHub update source is fixed to the project repository `maousan/GridReportForm`. The helper reads `https://github.com/maousan/GridReportForm/releases.atom`, uses the first release entry as the latest release, and then derives the installer asset URL from the release tag and asset naming convention. It avoids the GitHub REST API for routine update checks so public clients are not blocked by anonymous REST API rate limits. The repository is not exposed as an end-user setting.
 
 The manual update check entry is placed in the tray context menu. The compact main window remains focused on activation, cloud connection, settings, and printer management.

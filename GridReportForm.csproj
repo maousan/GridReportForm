@@ -235,6 +235,7 @@
     <Reference Include="System.Xml">
       <Name>System.XML</Name>
     </Reference>
+    <Reference Include="System.Xml.Linq" />
     <COMReference Include="Axgrdes6Lib">
       <Guid>{C5A16330-A084-48C9-BC0F-0D0B37A14123}</Guid>
       <VersionMajor>6</VersionMajor>

@@ -4,12 +4,13 @@ using System.Net;
 using System.Net.Cache;
 using System.Reflection;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace GridReportForm
 {
     internal class ApplicationUpdateService
     {
-        private const string LatestReleaseUrl = "https://github.com/maousan/GridReportForm/releases/latest";
+        private const string ReleaseFeedUrl = "https://github.com/maousan/GridReportForm/releases.atom";
         private const string ReleaseDownloadBaseUrl = "https://github.com/maousan/GridReportForm/releases/download";
         private const string InstallerNamePrefix = "ReportHelperSetup-";
         private const string InstallerNameSuffix = ".exe";
@@ -18,7 +19,7 @@ namespace GridReportForm
         public async Task<ApplicationUpdateCheckResult> CheckLatestAsync()
         {
             Version currentVersion = GetCurrentVersion();
-            logger.Info("Checking application update. CurrentVersion={CurrentVersion}, LatestReleaseUrl={LatestReleaseUrl}", currentVersion, LatestReleaseUrl);
+            logger.Info("Checking application update. CurrentVersion={CurrentVersion}, ReleaseFeedUrl={ReleaseFeedUrl}", currentVersion, ReleaseFeedUrl);
 
             Uri latestReleaseUri = await ResolveLatestReleaseUriAsync();
             string tagName = ExtractTagName(latestReleaseUri);
@@ -89,21 +90,19 @@ namespace GridReportForm
 
         private static async Task<Uri> ResolveLatestReleaseUriAsync()
         {
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(LatestReleaseUrl);
-            request.AllowAutoRedirect = false;
-            request.CachePolicy = new RequestCachePolicy(RequestCacheLevel.NoCacheNoStore);
-            request.Headers[HttpRequestHeader.CacheControl] = "no-cache";
-            request.Headers[HttpRequestHeader.Pragma] = "no-cache";
-            request.Method = "GET";
-            request.UserAgent = "GridReportForm";
-            using (HttpWebResponse response = (HttpWebResponse)await request.GetResponseAsync())
+            using (WebClient client = CreateGitHubClient())
             {
-                string location = response.Headers[HttpResponseHeader.Location];
-                if (string.IsNullOrWhiteSpace(location))
+                string feed = await client.DownloadStringTaskAsync(ReleaseFeedUrl);
+                XDocument document = XDocument.Parse(feed);
+                XNamespace atom = "http://www.w3.org/2005/Atom";
+                XElement entry = document.Root?.Element(atom + "entry");
+                XElement link = entry?.Element(atom + "link");
+                string href = link?.Attribute("href")?.Value;
+                if (string.IsNullOrWhiteSpace(href))
                 {
-                    return response.ResponseUri;
+                    throw new MessageHandleException("GitHub Release Feed 未返回有效版本信息");
                 }
-                return new Uri(location);
+                return new Uri(href);
             }
         }
 

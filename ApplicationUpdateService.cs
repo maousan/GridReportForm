@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using System.Net;
+using System.Net.Cache;
 using System.Reflection;
 using System.Threading.Tasks;
 
@@ -89,12 +90,20 @@ namespace GridReportForm
         private static async Task<Uri> ResolveLatestReleaseUriAsync()
         {
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(LatestReleaseUrl);
-            request.AllowAutoRedirect = true;
-            request.Method = "HEAD";
+            request.AllowAutoRedirect = false;
+            request.CachePolicy = new RequestCachePolicy(RequestCacheLevel.NoCacheNoStore);
+            request.Headers[HttpRequestHeader.CacheControl] = "no-cache";
+            request.Headers[HttpRequestHeader.Pragma] = "no-cache";
+            request.Method = "GET";
             request.UserAgent = "GridReportForm";
-            using (WebResponse response = await request.GetResponseAsync())
+            using (HttpWebResponse response = (HttpWebResponse)await request.GetResponseAsync())
             {
-                return response.ResponseUri;
+                string location = response.Headers[HttpResponseHeader.Location];
+                if (string.IsNullOrWhiteSpace(location))
+                {
+                    return response.ResponseUri;
+                }
+                return new Uri(location);
             }
         }
 
@@ -104,6 +113,9 @@ namespace GridReportForm
             {
                 HttpWebRequest request = (HttpWebRequest)WebRequest.Create(downloadUrl);
                 request.AllowAutoRedirect = false;
+                request.CachePolicy = new RequestCachePolicy(RequestCacheLevel.NoCacheNoStore);
+                request.Headers[HttpRequestHeader.CacheControl] = "no-cache";
+                request.Headers[HttpRequestHeader.Pragma] = "no-cache";
                 request.Method = "HEAD";
                 request.UserAgent = "GridReportForm";
                 using (HttpWebResponse response = (HttpWebResponse)await request.GetResponseAsync())

@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "报表助手"
-#define MyAppVersion "1.0.1"
+#define MyAppVersion "1.0.2"
 #define MyAppPublisher "广州市每一角落连锁经营管理有限公司"
 #define MyAppExeName "GridReportForm.exe"
 #define MyAppAssocName MyAppName + ""

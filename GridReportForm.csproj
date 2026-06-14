@@ -110,8 +110,8 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AntdUI, Version=2.0.0.0, Culture=neutral, PublicKeyToken=0e24e5118ea3d6af, processorArchitecture=MSIL">
-      <HintPath>packages\AntdUI.2.0.0\lib\net46\AntdUI.dll</HintPath>
+    <Reference Include="AntdUI, Version=2.3.0.0, Culture=neutral, PublicKeyToken=0e24e5118ea3d6af, processorArchitecture=MSIL">
+      <HintPath>packages\AntdUI.2.3.0\lib\net48\AntdUI.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="BouncyCastle.Crypto, Version=1.8.9.0, Culture=neutral, PublicKeyToken=0e99375e54769942">
@@ -126,18 +126,8 @@
     <Reference Include="DynamicData, Version=9.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\DynamicData.9.1.2\lib\net462\DynamicData.dll</HintPath>
     </Reference>
-    <Reference Include="Fleck, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\Fleck.1.2.0\lib\net45\Fleck.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="INIFileParser, Version=2.5.2.0, Culture=neutral, PublicKeyToken=79af7b307b65cf3c, processorArchitecture=MSIL">
       <HintPath>packages\ini-parser.2.5.2\lib\net20\INIFileParser.dll</HintPath>
-    </Reference>
-    <Reference Include="log4net, Version=3.1.0.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
-      <HintPath>packages\log4net.3.1.0\lib\net462\log4net.dll</HintPath>
-    </Reference>
-    <Reference Include="log4net.Ext.Json, Version=3.0.3.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\log4net.Ext.Json.3.0.3\lib\net462\log4net.Ext.Json.dll</HintPath>
     </Reference>
     <Reference Include="Masuit.Tools.Net45, Version=2.5.9.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\Masuit.Tools.Net45.2025.2.0\lib\net45\Masuit.Tools.Net45.dll</HintPath>
@@ -151,6 +141,9 @@
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="NLog, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <HintPath>packages\NLog.5.3.4\lib\net46\NLog.dll</HintPath>
     </Reference>
     <Reference Include="Pharmacist.Common, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\Pharmacist.Common.2.0.8\lib\netstandard2.0\Pharmacist.Common.dll</HintPath>
@@ -166,6 +159,10 @@
     </Reference>
     <Reference Include="Splat, Version=15.3.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\Splat.15.3.1\lib\netstandard2.0\Splat.dll</HintPath>
+    </Reference>
+    <Reference Include="websocket-sharp">
+      <HintPath>packages\WebSocketSharp.1.0.3-rc11\lib\websocket-sharp.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System">
       <Name>System</Name>
@@ -282,6 +279,10 @@
     <Compile Include="AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="ApplicationUpdateService.cs" />
+    <Compile Include="CloudActivationClient.cs" />
+    <Compile Include="CloudModels.cs" />
+    <Compile Include="CloudWebSocketTransport.cs" />
     <Compile Include="Helper.cs" />
     <Compile Include="HttpClientUtils.cs" />
     <Compile Include="MainViewModel.cs" />
@@ -290,6 +291,7 @@
     <Compile Include="PrintForm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="ReportTaskExecutor.cs" />
     <Compile Include="DesignForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -310,7 +312,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="SocketService.cs" />
     <Compile Include="Task.cs" />
     <Content Include="favicon.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -364,7 +365,7 @@
     <None Include="config.ini">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="log4net.config">
+    <None Include="NLog.config">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

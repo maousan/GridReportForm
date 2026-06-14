@@ -7,9 +7,7 @@ using gregn6Lib;
 using System.Diagnostics.Eventing.Reader;
 using System.Security.Policy;
 using System.IO;
-using Fleck;
 using Newtonsoft.Json.Linq;
-using Newtonsoft.Json;
 
 namespace GridReportForm
 {
@@ -18,7 +16,7 @@ namespace GridReportForm
     /// </summary>
     public class DesignForm : System.Windows.Forms.Form
     {
-        private static readonly log4net.ILog logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
         private System.Windows.Forms.ToolTip toolTip1;
         private System.ComponentModel.IContainer components;
         private string template;
@@ -33,12 +31,10 @@ namespace GridReportForm
         private AntdUI.Button openButton;
         private AntdUI.Button saveAsButton;
 
-        public IWebSocketConnection Socket { get; set; }
         //定义Grid++Report报表主对象
         private GridppReport Report = new GridppReport();
 
         public DesignForm(
-            IWebSocketConnection socket = null,
             string template = "", 
             string source = "",
             JObject extInfo = null)
@@ -47,13 +43,13 @@ namespace GridReportForm
             this.template = template;
             this.source = source;
             this.extInfo = extInfo;
-            this.Socket = socket;
             CreateFolder();
             openFileDialog.InitialDirectory = tmpFolderPath;
         }
 
         private void DesignForm_Load(object sender, EventArgs e)
         {
+            logger.Info("Design form loaded. Template={Template}, HasSource={HasSource}", template, !string.IsNullOrWhiteSpace(source));
             if (!string.IsNullOrEmpty(template))
             {
                 if (template.StartsWith("http"))
@@ -61,10 +57,12 @@ namespace GridReportForm
                     Uri uri = new Uri(template);
                     //string fileName = System.IO.Path.GetFileName(uri.LocalPath);
                     string fileName = CreateTemplateFile();
+                    logger.Info("Downloading design template. Url={Url}, FileName={FileName}", template, fileName);
                     HttpClientUtils.DownloadFile(template, fileName);
                     template = fileName;
                 }
                 openFileDialog.FileName = template;
+                logger.Debug("Loading design template. Template={Template}", template);
                 Report.LoadFromFile(template);
             }
             if (!string.IsNullOrEmpty(source))
@@ -73,11 +71,13 @@ namespace GridReportForm
                 if (source.StartsWith("http"))
                 {
                     Report.QuerySQL = "";
+                    logger.Debug("Loading design data from url. DataUrl={DataUrl}", source);
                     Report.LoadDataFromURL(source);
                 }
                 else
                 {
                     //生成临时的json文件
+                    logger.Debug("Creating design data temp file.");
                     Report.QuerySQL = CreateDataFile(source);
                 }
             }
@@ -332,24 +332,6 @@ namespace GridReportForm
 
         private void RemoteSave(string fileName)
         {
-            if (this.Socket != null)
-            {
-                object obj = new
-                {
-                    //保证消息的唯一性
-                    ticketId = Guid.NewGuid().ToString(),
-                    success = true,
-                    code = 200,
-                    type = "save-report",
-                    data = new
-                    {
-                        id = extInfo.Value<string>("id"),
-                        name = extInfo.Value<string>("name"),
-                        report = File.ReadAllText(fileName)
-                    }
-                };
-                Socket.Send(JObject.FromObject(obj).ToString(0, Array.Empty<JsonConverter>()));
-            }
         }
     }
 }

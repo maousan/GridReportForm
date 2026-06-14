@@ -15,11 +15,23 @@ namespace GridReportForm
 {
     internal class HttpClientUtils
     {
+        private static readonly NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
+
         public static void DownloadFile(string url, string filePath)
         {
             using (WebClient client = new WebClient())
             {
-                client.DownloadFile(url, filePath);
+                try
+                {
+                    logger.Info("Downloading file. Url={Url}, FilePath={FilePath}", url, filePath);
+                    client.DownloadFile(url, filePath);
+                    logger.Info("File downloaded. Url={Url}, FilePath={FilePath}", url, filePath);
+                }
+                catch (Exception exception)
+                {
+                    logger.Error(exception, "File download failed. Url={Url}, FilePath={FilePath}", url, filePath);
+                    throw;
+                }
             }
         }
     }

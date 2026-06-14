@@ -1,21 +1,14 @@
 using System;
+using System.Diagnostics;
 using System.Drawing;
 using System.Windows.Forms;
 using gregn6Lib;
-using Fleck;
 using ReactiveUI;
-using System.Threading;
-using System.Collections.Generic;
 using Microsoft.Win32;
-using System.Drawing.Printing;
-using Newtonsoft.Json.Linq;
-using Newtonsoft.Json;
-using Masuit.Tools;
-using System.Collections.Specialized;
 using System.Linq;
 using System.Reactive.Linq;
-using System.Text.RegularExpressions;
 using System.Reactive;
+using System.Threading.Tasks;
 
 namespace GridReportForm
 {
@@ -24,13 +17,12 @@ namespace GridReportForm
 	/// </summary>
 	public class MainForm : Form, IViewFor<MainViewModel>
     {
-        private static readonly log4net.ILog logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-        private WebSocketServer server;
-        private readonly AutoResetEvent taskEvent;
-        private readonly AutoResetEvent taskDesignEvent;
-        private readonly PrintDocument printDocument;
+        private static readonly NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
         private readonly RegistryKey registryKey;
-        private static bool designOpened = false;
+        private readonly ReportTaskExecutor taskExecutor;
+        private readonly CloudWebSocketTransport cloudTransport;
+        private readonly ApplicationUpdateService updateService = new ApplicationUpdateService();
+        private bool updateCheckRunning;
 
 
         object IViewFor.ViewModel
@@ -47,35 +39,37 @@ namespace GridReportForm
 		private System.Windows.Forms.ImageList imageList1;
         private NotifyIcon mainNotifyIcon;
         private ContextMenuStrip mainContextMenuStrip;
+        private ToolStripMenuItem autoStartToolStripMenuItem;
+        private ToolStripMenuItem checkUpdateToolStripMenuItem;
+        private ToolStripMenuItem appDirectoryToolStripMenuItem;
         private ToolStripMenuItem exitToolStripMenuItem;
-        private AntdUI.FlowPanel flowPanel1;
-        private AntdUI.Tabs tabs1;
-        private AntdUI.TabPage tabPage1;
-        private AntdUI.Panel panel1;
-        private AntdUI.Label socketCountLabel;
-        private AntdUI.Label label1;
-        private AntdUI.Button toggleButton;
-        private AntdUI.Label label2;
-        private AntdUI.InputNumber portInput;
-        private AntdUI.TabPage tabPage2;
-        private AntdUI.Label label3;
-        private AntdUI.Alert alertState;
-        private AntdUI.Button button1;
-        private AntdUI.Panel panel2;
-        private AntdUI.In.FlowLayoutPanel flowLayoutPanel1;
-        private AntdUI.Checkbox autoStartUpCheckbox;
-        private AntdUI.Checkbox autoUpdateCheckbox;
-        private AntdUI.Checkbox startServerOnLaunchCheckbox;
         private System.ComponentModel.IContainer components;
         static object lockDesignForm = new object();
         private AntdUI.Select defaultPrinterSelect;
-        private AntdUI.Label label4;
-        private AntdUI.FlowPanel flowPanel2;
-        private AntdUI.Radio radioExit;
-        private AntdUI.Radio radioTray;
         private AntdUI.Label label5;
-        private AntdUI.Checkbox notifyOnConnectCheckbox;
-        static DesignForm designForm;
+        private AntdUI.Label label1;
+        private AntdUI.Input cloudServerUrlInput;
+        private AntdUI.Label deviceTokenLabel;
+        private AntdUI.Input cloudDeviceTokenInput;
+        private AntdUI.Label activationCodeLabel;
+        private AntdUI.Input activationCodeInput;
+        private AntdUI.Label deviceIdLabel;
+        private AntdUI.Input cloudDeviceIdInput;
+        private AntdUI.Label deviceNameLabel;
+        private AntdUI.Input cloudDeviceNameInput;
+        private AntdUI.Checkbox cloudEnabledCheckbox;
+        private AntdUI.Checkbox allowPreviewCheckbox;
+        private AntdUI.Button toggleButton;
+        private AntdUI.Button activateButton;
+        private AntdUI.Button refreshPrintersButton;
+        private AntdUI.Button settingsButton;
+        private AntdUI.Label statusLabel;
+        private AntdUI.Label deviceSummaryLabel;
+        private AntdUI.Label activationSectionLabel;
+        private AntdUI.Label connectionSectionLabel;
+        private AntdUI.Label deviceSectionLabel;
+        private AntdUI.Label printerSectionLabel;
+        private string lastAlertedConnectionError;
 
         public MainForm()
 		{
@@ -85,14 +79,19 @@ namespace GridReportForm
             this.Font = new Font("微软雅黑", 10);
             InitializeComponent();
 
-            this.taskEvent = new AutoResetEvent(true);
-            this.taskDesignEvent = new AutoResetEvent(true);
-            this.printDocument = new PrintDocument();
             this.registryKey = Registry.CurrentUser.CreateSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Run");
+            this.taskExecutor = new ReportTaskExecutor(this, () => ViewModel.AllowPreview);
+            this.cloudTransport = new CloudWebSocketTransport(CreateCloudOptions, taskExecutor.Execute);
+            this.cloudTransport.StatusChanged += CloudTransport_StatusChanged;
             Init();
-            if (ViewModel.StartServerOnLaunch)
+            if (ViewModel.CloudEnabled)
             {
-                StartServer();
+                logger.Info("Cloud mode enabled on startup. DeviceId={DeviceId}, DeviceName={DeviceName}, HasToken={HasToken}, ServerUrl={ServerUrl}", ViewModel.CloudDeviceId, ViewModel.CloudDeviceName, !string.IsNullOrWhiteSpace(ViewModel.CloudDeviceToken), ViewModel.CloudServerUrl);
+                cloudTransport.Start();
+            }
+            else
+            {
+                logger.Info("Cloud mode disabled on startup.");
             }
         }
 
@@ -100,197 +99,59 @@ namespace GridReportForm
         {
             this.WhenActivated(d =>
             {
-                d(this.OneWayBind(ViewModel, vm => vm.Port, v => v.portInput.Value));
-                d(this.OneWayBind(ViewModel, vm => vm.State, v => v.toggleButton.Text, (state) =>
-                {
-                    if (state)
-                    {
-                        return "停止服务";
-                    }
-                    else
-                    {
-                        return "启动服务";
-                    }
-                }));
-                d(this.OneWayBind(ViewModel, vm => vm.CloseMode, v => v.radioTray.Checked, ViewModelCloseModeToViewRadioTrayConverterFunc));
-                d(this.OneWayBind(ViewModel, vm => vm.CloseMode, v => v.radioExit.Checked, ViewModelCloseModeToViewRadioExitConverterFunc));
-                d(this.OneWayBind(ViewModel, vm => vm.AutoStartUp, v => v.autoStartUpCheckbox.Checked));
-                d(this.OneWayBind(ViewModel, vm => vm.NotifyOnConnect, v => v.notifyOnConnectCheckbox.Checked));
-                d(this.OneWayBind(ViewModel, vm => vm.AutoUpdate, v => v.autoUpdateCheckbox.Checked));
-                d(this.OneWayBind(ViewModel, vm => vm.StartServerOnLaunch, v => v.startServerOnLaunchCheckbox.Checked));
                 defaultPrinterSelect.Items.AddRange(MyLocalPrinter.GetLocalPrinters().ToArray<object>());
                 defaultPrinterSelect.SelectedValue = MyLocalPrinter.DefaultPrinter();
-                this.WhenAnyValue(x => x.ViewModel.State).Subscribe(state =>
+            });
+            cloudServerUrlInput.Text = ViewModel.CloudServerUrl;
+            Observable.FromEventPattern(cloudServerUrlInput, nameof(Control.TextChanged)).Subscribe(x =>
+            {
+                ViewModel.CloudServerUrl = cloudServerUrlInput.Text.Trim();
+            });
+            cloudDeviceTokenInput.Text = ViewModel.CloudDeviceToken;
+            Observable.FromEventPattern(cloudDeviceTokenInput, nameof(Control.TextChanged)).Subscribe(x =>
+            {
+                ViewModel.CloudDeviceToken = cloudDeviceTokenInput.Text.Trim();
+            });
+            cloudDeviceIdInput.Text = ViewModel.CloudDeviceId;
+            Observable.FromEventPattern(cloudDeviceIdInput, nameof(Control.TextChanged)).Subscribe(x =>
+            {
+                ViewModel.CloudDeviceId = cloudDeviceIdInput.Text.Trim();
+            });
+            cloudDeviceNameInput.Text = ViewModel.CloudDeviceName;
+            Observable.FromEventPattern(cloudDeviceNameInput, nameof(Control.TextChanged)).Subscribe(x =>
+            {
+                ViewModel.CloudDeviceName = cloudDeviceNameInput.Text.Trim();
+            });
+            cloudEnabledCheckbox.Checked = ViewModel.CloudEnabled;
+            Observable.FromEventPattern(cloudEnabledCheckbox, nameof(AntdUI.Checkbox.CheckedChanged)).Subscribe(x =>
+            {
+                ViewModel.CloudEnabled = cloudEnabledCheckbox.Checked;
+                logger.Info("Cloud enabled changed. Enabled={Enabled}", ViewModel.CloudEnabled);
+                if (ViewModel.CloudEnabled)
                 {
-                    if (state)
-                    {
-                        toggleButton.Type = AntdUI.TTypeMini.Error;
-                        toggleButton.BackHover = Color.FromArgb(0, 192, 57, 43);
-                        alertState.Icon = AntdUI.TType.Success;
-                        alertState.Text = "运行中";
-                    }
-                    else
-                    {
-                        toggleButton.Type = AntdUI.TTypeMini.Primary;
-                        alertState.Icon = AntdUI.TType.Error;
-                        alertState.Text = "已停止";
-                    }
-                });
-                this.WhenAnyValue(x => x.ViewModel.CloseMode).Subscribe(value =>
+                    cloudTransport.Start();
+                }
+                else
                 {
-                    radioTray.Checked = (value == "Tray");
-                });
-                ViewModel.Sockets.CollectionChanged += Sockets_CollectionChanged;
+                    cloudTransport.Stop();
+                }
+            });
+            allowPreviewCheckbox.Checked = ViewModel.AllowPreview;
+            Observable.FromEventPattern(allowPreviewCheckbox, nameof(AntdUI.Checkbox.CheckedChanged)).Subscribe(x =>
+            {
+                ViewModel.AllowPreview = allowPreviewCheckbox.Checked;
+                logger.Info("Allow preview changed. AllowPreview={AllowPreview}", ViewModel.AllowPreview);
             });
             Observable.FromEventPattern(defaultPrinterSelect, nameof(AntdUI.Select.SelectedValueChanged)).Subscribe(x =>
             {
                 var args = x as EventPattern<object>;
                 var e = args.EventArgs as AntdUI.ObjectNEventArgs;
+                logger.Info("Default printer changed from main form. PrinterName={PrinterName}", e.Value);
                 MyLocalPrinter.SetDefaultPrinter(e.Value.ToString());
             });
-            Observable.FromEventPattern(radioTray, nameof(AntdUI.Radio.CheckedChanged)).Subscribe(x =>
-            {
-                ViewModel.CloseMode = (x.Sender as AntdUI.Radio).Checked ? "Tray" : "Exit";
-            });
-            Observable.FromEventPattern(autoStartUpCheckbox, nameof(AntdUI.Checkbox.CheckedChanged)).Subscribe(x =>
-            {
-                ViewModel.AutoStartUp = (x.Sender as AntdUI.Checkbox).Checked;
-            });
-            Observable.FromEventPattern(autoUpdateCheckbox, nameof(AntdUI.Checkbox.CheckedChanged)).Subscribe(x =>
-            {
-                ViewModel.AutoUpdate = (x.Sender as AntdUI.Checkbox).Checked;
-            });
-            Observable.FromEventPattern(startServerOnLaunchCheckbox, nameof(AntdUI.Checkbox.CheckedChanged)).Subscribe(x =>
-            {
-                ViewModel.StartServerOnLaunch = (x.Sender as AntdUI.Checkbox).Checked;
-            });
-            Observable.FromEventPattern(notifyOnConnectCheckbox, nameof(AntdUI.Checkbox.CheckedChanged)).Subscribe(x =>
-            {
-                ViewModel.NotifyOnConnect = (x.Sender as AntdUI.Checkbox).Checked;
-            });
+            autoStartToolStripMenuItem.Checked = ViewModel.AutoStartUp;
+            RefreshCloudStatus();
         }
-
-        private bool ViewModelCloseModeToViewRadioTrayConverterFunc(string value)
-        {
-            return value == "Tray";
-        }
-
-        private bool ViewModelCloseModeToViewRadioExitConverterFunc(string value)
-        {
-            return value == "Exit";
-        }
-
-        private void Sockets_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
-        {
-            socketCountLabel.Text = ViewModel.Sockets.Count.ToString();
-        }
-
-        private void StartServer()
-        {
-            int port = decimal.ToInt32(ViewModel.Port);
-            if (Helper.PortInUse(port))
-            {
-                logger.Error($"端口[{port}]被占用");
-                MessageBox.Show("端口被占用");
-            }
-            else
-            {
-                this.server = new WebSocketServer($"ws://0.0.0.0:{port}");
-                server.RestartAfterListenError = true;
-                server.Start(socket =>
-                {
-                    string origin = this.GetSocketOrigin(socket);
-                    socket.OnOpen = () =>
-                    {
-                        ViewModel.Sockets.Add(socket);
-                        logger.Info($"终端{socket.ConnectionInfo.ClientIpAddress}:{socket.ConnectionInfo.ClientPort}已连接, {{{socket.ConnectionInfo.Id}}}");
-                        if (designForm != null)
-                        {
-                            designForm.Socket = socket;
-                            logger.Info($"重新设置设计窗口Socket {{{socket.ConnectionInfo.Id}}}");
-                        }
-                        if (ViewModel.NotifyOnConnect)
-                        {
-                            mainNotifyIcon.Visible = true;
-                            // timoeout参数已经无效，通知的显示时间基于系统的辅助功能设置
-                            mainNotifyIcon.ShowBalloonTip(0, "连接通知", $"终端{socket.ConnectionInfo.ClientIpAddress}:{socket.ConnectionInfo.ClientPort}已连接", ToolTipIcon.Info);
-                            Helper.Delay(5000);
-                            mainNotifyIcon.Visible = false;
-                        }
-
-                    };
-                    socket.OnClose = () =>
-                    {
-                        try
-                        {
-                            logger.Info($"终端{socket.ConnectionInfo.ClientIpAddress}:{socket.ConnectionInfo.ClientPort}已断开连接, {{{socket.ConnectionInfo.Id}}}");
-                            ViewModel.Sockets.Remove(socket);
-                            if (ViewModel.NotifyOnConnect)
-                            {
-                                if (!mainNotifyIcon.Visible)
-                                {
-                                    mainNotifyIcon.Visible = true;
-                                    // timoeout参数已经无效，通知的显示时间基于系统的辅助功能设置
-                                    mainNotifyIcon.ShowBalloonTip(0, "连接通知", $"终端{socket.ConnectionInfo.ClientIpAddress}:{socket.ConnectionInfo.ClientPort}断开连接", ToolTipIcon.Error);
-                                    Helper.Delay(5000);
-                                    mainNotifyIcon.Visible = false;
-                                }
-           
-                            }
-                        }
-                        catch
-                        {
-
-                        }
-                    };
-                    socket.OnPing = message =>
-                    {
-                    };
-                    socket.OnMessage = message =>
-                    {
-                        if(!string.IsNullOrEmpty(message) && message != "ping")
-                        {
-                            logger.Info($"接收消息 {Regex.Replace(message, @"[\r\n]", "")}");
-                            Thread thread1 = new Thread(() => this.MessageHandle(socket, message));
-                            thread1.SetApartmentState(ApartmentState.STA);
-                            thread1.Start();
-                        }
-                    };
-                });
-                ViewModel.State = true;
-            }
-        }
-
-        private void CloseServer()
-        {
-            this.server.Dispose();
-            ViewModel.Sockets.ForEach(row => row.Close());
-            ViewModel.Sockets.Clear();
-            ViewModel.State = false;
-        }
-
-        private string GetSocketOrigin(IWebSocketConnection socket)
-        {
-            if (string.IsNullOrEmpty(socket.ConnectionInfo.Origin))
-                return "";
-
-            return new UriBuilder(socket.ConnectionInfo.Origin).Host;
-            /*
-            string host = new UriBuilder(socket.ConnectionInfo.Origin).Host;
-            int index = socket.ConnectionInfo.Path.IndexOf("?");
-            if (index >= 0)
-            {
-                string str2 = HttpUtility.ParseQueryString(socket.ConnectionInfo.Path.Substring(index + 1))["origin"];
-                if (str2 != null)
-                {
-                    host = str2;
-                }
-            }
-            return host;
-            */
-        }
-
-
         /// <summary>
         /// 清理所有正在使用的资源。
         /// </summary>
@@ -302,8 +163,9 @@ namespace GridReportForm
 				{
 					components.Dispose();
 				}
-			}
-			base.Dispose( disposing );
+            }
+            base.Dispose( disposing );
+            cloudTransport?.Dispose();
 		}
 
 		#region Windows 窗体设计器生成的代码
@@ -315,49 +177,43 @@ namespace GridReportForm
 		{
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            AntdUI.Tabs.StyleCard styleCard1 = new AntdUI.Tabs.StyleCard();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.mainNotifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.mainContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.autoStartToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.checkUpdateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.appDirectoryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.flowPanel1 = new AntdUI.FlowPanel();
-            this.button1 = new AntdUI.Button();
-            this.toggleButton = new AntdUI.Button();
-            this.portInput = new AntdUI.InputNumber();
-            this.label2 = new AntdUI.Label();
-            this.alertState = new AntdUI.Alert();
-            this.label3 = new AntdUI.Label();
-            this.tabs1 = new AntdUI.Tabs();
-            this.tabPage1 = new AntdUI.TabPage();
-            this.panel2 = new AntdUI.Panel();
-            this.flowPanel2 = new AntdUI.FlowPanel();
-            this.radioExit = new AntdUI.Radio();
-            this.radioTray = new AntdUI.Radio();
-            this.label4 = new AntdUI.Label();
-            this.flowLayoutPanel1 = new AntdUI.In.FlowLayoutPanel();
-            this.autoStartUpCheckbox = new AntdUI.Checkbox();
-            this.autoUpdateCheckbox = new AntdUI.Checkbox();
-            this.startServerOnLaunchCheckbox = new AntdUI.Checkbox();
-            this.notifyOnConnectCheckbox = new AntdUI.Checkbox();
-            this.panel1 = new AntdUI.Panel();
-            this.socketCountLabel = new AntdUI.Label();
             this.label1 = new AntdUI.Label();
-            this.tabPage2 = new AntdUI.TabPage();
+            this.cloudServerUrlInput = new AntdUI.Input();
+            this.deviceTokenLabel = new AntdUI.Label();
+            this.cloudDeviceTokenInput = new AntdUI.Input();
+            this.activationCodeLabel = new AntdUI.Label();
+            this.activationCodeInput = new AntdUI.Input();
+            this.deviceIdLabel = new AntdUI.Label();
+            this.cloudDeviceIdInput = new AntdUI.Input();
+            this.deviceNameLabel = new AntdUI.Label();
+            this.cloudDeviceNameInput = new AntdUI.Input();
+            this.toggleButton = new AntdUI.Button();
+            this.activateButton = new AntdUI.Button();
+            this.cloudEnabledCheckbox = new AntdUI.Checkbox();
+            this.allowPreviewCheckbox = new AntdUI.Checkbox();
+            this.refreshPrintersButton = new AntdUI.Button();
+            this.settingsButton = new AntdUI.Button();
+            this.statusLabel = new AntdUI.Label();
+            this.deviceSummaryLabel = new AntdUI.Label();
+            this.activationSectionLabel = new AntdUI.Label();
+            this.connectionSectionLabel = new AntdUI.Label();
+            this.deviceSectionLabel = new AntdUI.Label();
+            this.printerSectionLabel = new AntdUI.Label();
             this.label5 = new AntdUI.Label();
             this.defaultPrinterSelect = new AntdUI.Select();
             this.mainContextMenuStrip.SuspendLayout();
-            this.flowPanel1.SuspendLayout();
-            this.tabs1.SuspendLayout();
-            this.tabPage1.SuspendLayout();
-            this.panel2.SuspendLayout();
-            this.flowPanel2.SuspendLayout();
-            this.flowLayoutPanel1.SuspendLayout();
-            this.panel1.SuspendLayout();
-            this.tabPage2.SuspendLayout();
             this.SuspendLayout();
             // 
             // imageList1
             // 
+            this.imageList1.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
             this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
             this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
             this.imageList1.Images.SetKeyName(0, "");
@@ -375,290 +231,267 @@ namespace GridReportForm
             // mainContextMenuStrip
             // 
             this.mainContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.autoStartToolStripMenuItem,
+            this.checkUpdateToolStripMenuItem,
+            this.appDirectoryToolStripMenuItem,
             this.exitToolStripMenuItem});
             this.mainContextMenuStrip.Name = "mainContextMenuStrip";
-            this.mainContextMenuStrip.Size = new System.Drawing.Size(101, 26);
+            this.mainContextMenuStrip.Size = new System.Drawing.Size(125, 92);
+            // 
+            // autoStartToolStripMenuItem
+            // 
+            this.autoStartToolStripMenuItem.CheckOnClick = true;
+            this.autoStartToolStripMenuItem.Name = "autoStartToolStripMenuItem";
+            this.autoStartToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
+            this.autoStartToolStripMenuItem.Text = "开机启动";
+            this.autoStartToolStripMenuItem.Click += new System.EventHandler(this.autoStartToolStripMenuItem_Click);
+            // 
+            // checkUpdateToolStripMenuItem
+            // 
+            this.checkUpdateToolStripMenuItem.Name = "checkUpdateToolStripMenuItem";
+            this.checkUpdateToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
+            this.checkUpdateToolStripMenuItem.Text = "检查更新";
+            this.checkUpdateToolStripMenuItem.Click += new System.EventHandler(this.checkUpdateToolStripMenuItem_Click);
+            // 
+            // appDirectoryToolStripMenuItem
+            // 
+            this.appDirectoryToolStripMenuItem.Name = "appDirectoryToolStripMenuItem";
+            this.appDirectoryToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
+            this.appDirectoryToolStripMenuItem.Text = "程序目录";
+            this.appDirectoryToolStripMenuItem.Click += new System.EventHandler(this.appDirectoryToolStripMenuItem_Click);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
             this.exitToolStripMenuItem.Text = "退出";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
-            // flowPanel1
+            // statusLabel
             // 
-            this.flowPanel1.Controls.Add(this.button1);
-            this.flowPanel1.Controls.Add(this.toggleButton);
-            this.flowPanel1.Controls.Add(this.portInput);
-            this.flowPanel1.Controls.Add(this.label2);
-            this.flowPanel1.Controls.Add(this.alertState);
-            this.flowPanel1.Controls.Add(this.label3);
-            this.flowPanel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.flowPanel1.Location = new System.Drawing.Point(0, 213);
-            this.flowPanel1.Margin = new System.Windows.Forms.Padding(0);
-            this.flowPanel1.Name = "flowPanel1";
-            this.flowPanel1.Size = new System.Drawing.Size(494, 33);
-            this.flowPanel1.TabIndex = 27;
-            this.flowPanel1.Text = "flowPanel1";
+            this.statusLabel.Location = new System.Drawing.Point(9, 12);
+            this.statusLabel.Name = "statusLabel";
+            this.statusLabel.Size = new System.Drawing.Size(232, 24);
+            this.statusLabel.TabIndex = 121;
+            this.statusLabel.Text = "云连接：未连接";
             // 
-            // button1
+            // activationSectionLabel
             // 
-            this.button1.BadgeBack = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(90)))), ((int)(((byte)(158)))));
-            this.button1.BorderWidth = 1F;
-            this.button1.Location = new System.Drawing.Point(403, 3);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 4;
-            this.button1.Text = "检查更新";
-            this.button1.Type = AntdUI.TTypeMini.Primary;
-            this.button1.WaveSize = 0;
+            this.activationSectionLabel.Location = new System.Drawing.Point(9, 88);
+            this.activationSectionLabel.Name = "activationSectionLabel";
+            this.activationSectionLabel.Size = new System.Drawing.Size(110, 24);
+            this.activationSectionLabel.TabIndex = 126;
+            this.activationSectionLabel.Text = "设备激活";
             // 
-            // toggleButton
+            // activationCodeLabel
             // 
-            this.toggleButton.BadgeBack = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(90)))), ((int)(((byte)(158)))));
-            this.toggleButton.BorderWidth = 1F;
-            this.toggleButton.Location = new System.Drawing.Point(322, 3);
-            this.toggleButton.Name = "toggleButton";
-            this.toggleButton.Size = new System.Drawing.Size(75, 23);
-            this.toggleButton.TabIndex = 3;
-            this.toggleButton.Text = "启动";
-            this.toggleButton.Type = AntdUI.TTypeMini.Primary;
-            this.toggleButton.WaveSize = 0;
-            this.toggleButton.Click += new System.EventHandler(this.toggleButton_Click);
+            this.activationCodeLabel.Location = new System.Drawing.Point(9, 117);
+            this.activationCodeLabel.Name = "activationCodeLabel";
+            this.activationCodeLabel.Size = new System.Drawing.Size(110, 23);
+            this.activationCodeLabel.TabIndex = 123;
+            this.activationCodeLabel.Text = "激活码";
             // 
-            // portInput
+            // activationCodeInput
             // 
-            this.portInput.BackColor = System.Drawing.Color.Transparent;
-            this.portInput.Location = new System.Drawing.Point(244, 0);
-            this.portInput.Margin = new System.Windows.Forms.Padding(0);
-            this.portInput.Name = "portInput";
-            this.portInput.PlaceholderText = "端口";
-            this.portInput.Radius = 4;
-            this.portInput.ReadOnly = true;
-            this.portInput.SelectionColor = System.Drawing.Color.Empty;
-            this.portInput.ShowControl = false;
-            this.portInput.Size = new System.Drawing.Size(75, 29);
-            this.portInput.TabIndex = 99;
-            this.portInput.TabStop = false;
-            this.portInput.Text = "0";
-            this.portInput.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.activationCodeInput.Location = new System.Drawing.Point(9, 140);
+            this.activationCodeInput.Name = "activationCodeInput";
+            this.activationCodeInput.PlaceholderText = "6 位激活码";
+            this.activationCodeInput.Radius = 4;
+            this.activationCodeInput.Size = new System.Drawing.Size(112, 34);
+            this.activationCodeInput.TabIndex = 124;
             // 
-            // label2
+            // activateButton
             // 
-            this.label2.Location = new System.Drawing.Point(170, 0);
-            this.label2.Margin = new System.Windows.Forms.Padding(5, 0, 0, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(74, 32);
-            this.label2.TabIndex = 1;
-            this.label2.Text = "服务端口：";
+            this.activateButton.BadgeBack = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(90)))), ((int)(((byte)(158)))));
+            this.activateButton.BorderWidth = 1F;
+            this.activateButton.Location = new System.Drawing.Point(129, 140);
+            this.activateButton.Name = "activateButton";
+            this.activateButton.Radius = 4;
+            this.activateButton.Size = new System.Drawing.Size(112, 34);
+            this.activateButton.TabIndex = 125;
+            this.activateButton.Text = "激活设备";
+            this.activateButton.Type = AntdUI.TTypeMini.Primary;
+            this.activateButton.WaveSize = 0;
+            this.activateButton.Click += new System.EventHandler(this.activateButton_Click);
             // 
-            // alertState
+            // connectionSectionLabel
             // 
-            this.alertState.Icon = AntdUI.TType.Success;
-            this.alertState.Location = new System.Drawing.Point(87, 3);
-            this.alertState.Name = "alertState";
-            this.alertState.Size = new System.Drawing.Size(75, 23);
-            this.alertState.TabIndex = 3;
-            this.alertState.Text = "运行中";
-            // 
-            // label3
-            // 
-            this.label3.Location = new System.Drawing.Point(10, 0);
-            this.label3.Margin = new System.Windows.Forms.Padding(10, 0, 0, 0);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(74, 32);
-            this.label3.TabIndex = 2;
-            this.label3.Text = "服务状态：";
-            // 
-            // tabs1
-            // 
-            this.tabs1.Controls.Add(this.tabPage1);
-            this.tabs1.Controls.Add(this.tabPage2);
-            this.tabs1.Cursor = System.Windows.Forms.Cursors.Default;
-            this.tabs1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabs1.Location = new System.Drawing.Point(0, 0);
-            this.tabs1.Name = "tabs1";
-            this.tabs1.Pages.Add(this.tabPage1);
-            this.tabs1.Pages.Add(this.tabPage2);
-            this.tabs1.Size = new System.Drawing.Size(494, 213);
-            styleCard1.BorderActive = System.Drawing.Color.FromArgb(((int)(((byte)(225)))), ((int)(((byte)(223)))), ((int)(((byte)(221)))));
-            styleCard1.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(225)))), ((int)(((byte)(223)))), ((int)(((byte)(221)))));
-            styleCard1.Gap = 4;
-            this.tabs1.Style = styleCard1;
-            this.tabs1.TabIndex = 28;
-            this.tabs1.Text = "tabs1";
-            // 
-            // tabPage1
-            // 
-            this.tabPage1.Controls.Add(this.panel2);
-            this.tabPage1.Controls.Add(this.panel1);
-            this.tabPage1.Location = new System.Drawing.Point(3, 27);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Size = new System.Drawing.Size(488, 183);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "常规设置";
-            // 
-            // panel2
-            // 
-            this.panel2.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(204)))), ((int)(((byte)(204)))));
-            this.panel2.BorderWidth = 1F;
-            this.panel2.Controls.Add(this.flowPanel2);
-            this.panel2.Controls.Add(this.label4);
-            this.panel2.Controls.Add(this.flowLayoutPanel1);
-            this.panel2.Location = new System.Drawing.Point(3, 4);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(373, 153);
-            this.panel2.TabIndex = 7;
-            this.panel2.Text = "panel2";
-            // 
-            // flowPanel2
-            // 
-            this.flowPanel2.Controls.Add(this.radioExit);
-            this.flowPanel2.Controls.Add(this.radioTray);
-            this.flowPanel2.Location = new System.Drawing.Point(0, 86);
-            this.flowPanel2.Name = "flowPanel2";
-            this.flowPanel2.Size = new System.Drawing.Size(248, 23);
-            this.flowPanel2.TabIndex = 8;
-            this.flowPanel2.Text = "flowPanel2";
-            // 
-            // radioExit
-            // 
-            this.radioExit.Location = new System.Drawing.Point(126, 3);
-            this.radioExit.Name = "radioExit";
-            this.radioExit.Size = new System.Drawing.Size(112, 23);
-            this.radioExit.TabIndex = 6;
-            this.radioExit.Text = "退出程序";
-            // 
-            // radioTray
-            // 
-            this.radioTray.Location = new System.Drawing.Point(3, 3);
-            this.radioTray.Name = "radioTray";
-            this.radioTray.Size = new System.Drawing.Size(117, 23);
-            this.radioTray.TabIndex = 7;
-            this.radioTray.Text = "最小化到托盘";
-            // 
-            // label4
-            // 
-            this.label4.Location = new System.Drawing.Point(6, 63);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(110, 23);
-            this.label4.TabIndex = 5;
-            this.label4.Text = "关闭主窗口动作";
-            // 
-            // flowLayoutPanel1
-            // 
-            this.flowLayoutPanel1.Controls.Add(this.autoStartUpCheckbox);
-            this.flowLayoutPanel1.Controls.Add(this.autoUpdateCheckbox);
-            this.flowLayoutPanel1.Controls.Add(this.startServerOnLaunchCheckbox);
-            this.flowLayoutPanel1.Controls.Add(this.notifyOnConnectCheckbox);
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 11);
-            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(366, 50);
-            this.flowLayoutPanel1.TabIndex = 4;
-            // 
-            // autoStartUpCheckbox
-            // 
-            this.autoStartUpCheckbox.Location = new System.Drawing.Point(0, 0);
-            this.autoStartUpCheckbox.Margin = new System.Windows.Forms.Padding(0);
-            this.autoStartUpCheckbox.Name = "autoStartUpCheckbox";
-            this.autoStartUpCheckbox.Size = new System.Drawing.Size(114, 23);
-            this.autoStartUpCheckbox.TabIndex = 1;
-            this.autoStartUpCheckbox.Text = "开机启动";
-            // 
-            // autoUpdateCheckbox
-            // 
-            this.autoUpdateCheckbox.Location = new System.Drawing.Point(114, 0);
-            this.autoUpdateCheckbox.Margin = new System.Windows.Forms.Padding(0);
-            this.autoUpdateCheckbox.Name = "autoUpdateCheckbox";
-            this.autoUpdateCheckbox.Size = new System.Drawing.Size(97, 23);
-            this.autoUpdateCheckbox.TabIndex = 0;
-            this.autoUpdateCheckbox.Text = "自动更新";
-            // 
-            // startServerOnLaunchCheckbox
-            // 
-            this.startServerOnLaunchCheckbox.Location = new System.Drawing.Point(211, 0);
-            this.startServerOnLaunchCheckbox.Margin = new System.Windows.Forms.Padding(0);
-            this.startServerOnLaunchCheckbox.Name = "startServerOnLaunchCheckbox";
-            this.startServerOnLaunchCheckbox.Size = new System.Drawing.Size(135, 23);
-            this.startServerOnLaunchCheckbox.TabIndex = 3;
-            this.startServerOnLaunchCheckbox.Text = "启动后运行服务";
-            // 
-            // notifyOnConnectCheckbox
-            // 
-            this.notifyOnConnectCheckbox.Location = new System.Drawing.Point(0, 23);
-            this.notifyOnConnectCheckbox.Margin = new System.Windows.Forms.Padding(0);
-            this.notifyOnConnectCheckbox.Name = "notifyOnConnectCheckbox";
-            this.notifyOnConnectCheckbox.Size = new System.Drawing.Size(114, 23);
-            this.notifyOnConnectCheckbox.TabIndex = 4;
-            this.notifyOnConnectCheckbox.Text = "连接通知";
-            // 
-            // panel1
-            // 
-            this.panel1.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(69)))), ((int)(((byte)(120)))));
-            this.panel1.BorderWidth = 2F;
-            this.panel1.Controls.Add(this.socketCountLabel);
-            this.panel1.Controls.Add(this.label1);
-            this.panel1.Location = new System.Drawing.Point(382, 4);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(102, 61);
-            this.panel1.TabIndex = 6;
-            this.panel1.Text = "panel1";
-            // 
-            // socketCountLabel
-            // 
-            this.socketCountLabel.BackColor = System.Drawing.Color.Transparent;
-            this.socketCountLabel.Font = new System.Drawing.Font("微软雅黑", 11F);
-            this.socketCountLabel.Location = new System.Drawing.Point(0, 34);
-            this.socketCountLabel.Name = "socketCountLabel";
-            this.socketCountLabel.Size = new System.Drawing.Size(102, 23);
-            this.socketCountLabel.TabIndex = 1;
-            this.socketCountLabel.Text = "0";
-            this.socketCountLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.connectionSectionLabel.Location = new System.Drawing.Point(9, 184);
+            this.connectionSectionLabel.Name = "connectionSectionLabel";
+            this.connectionSectionLabel.Size = new System.Drawing.Size(110, 24);
+            this.connectionSectionLabel.TabIndex = 127;
+            this.connectionSectionLabel.Text = "云连接";
             // 
             // label1
             // 
-            this.label1.BackColor = System.Drawing.Color.Transparent;
-            this.label1.Font = new System.Drawing.Font("微软雅黑", 11F);
-            this.label1.Location = new System.Drawing.Point(0, 11);
+            this.label1.Location = new System.Drawing.Point(9, 209);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(102, 23);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "连接终端";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label1.Size = new System.Drawing.Size(110, 24);
+            this.label1.TabIndex = 111;
+            this.label1.Text = "云服务器地址";
             // 
-            // tabPage2
+            // cloudServerUrlInput
             // 
-            this.tabPage2.Controls.Add(this.label5);
-            this.tabPage2.Controls.Add(this.defaultPrinterSelect);
-            this.tabPage2.Location = new System.Drawing.Point(-488, -183);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Size = new System.Drawing.Size(488, 183);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "打印机设置";
+            this.cloudServerUrlInput.Location = new System.Drawing.Point(9, 232);
+            this.cloudServerUrlInput.Name = "cloudServerUrlInput";
+            this.cloudServerUrlInput.PlaceholderText = "wss://localhost:8087/platform/gridReport/cloud/ws";
+            this.cloudServerUrlInput.Radius = 4;
+            this.cloudServerUrlInput.Size = new System.Drawing.Size(232, 34);
+            this.cloudServerUrlInput.TabIndex = 110;
+            // 
+            // deviceTokenLabel
+            // 
+            this.deviceTokenLabel.Location = new System.Drawing.Point(9, 271);
+            this.deviceTokenLabel.Name = "deviceTokenLabel";
+            this.deviceTokenLabel.Size = new System.Drawing.Size(110, 24);
+            this.deviceTokenLabel.TabIndex = 112;
+            this.deviceTokenLabel.Text = "设备 Token";
+            // 
+            // cloudDeviceTokenInput
+            // 
+            this.cloudDeviceTokenInput.Location = new System.Drawing.Point(9, 294);
+            this.cloudDeviceTokenInput.Name = "cloudDeviceTokenInput";
+            this.cloudDeviceTokenInput.PlaceholderText = "device token";
+            this.cloudDeviceTokenInput.Radius = 4;
+            this.cloudDeviceTokenInput.Size = new System.Drawing.Size(232, 34);
+            this.cloudDeviceTokenInput.TabIndex = 113;
+            // 
+            // cloudEnabledCheckbox
+            // 
+            this.cloudEnabledCheckbox.Location = new System.Drawing.Point(9, 331);
+            this.cloudEnabledCheckbox.Name = "cloudEnabledCheckbox";
+            this.cloudEnabledCheckbox.Size = new System.Drawing.Size(135, 24);
+            this.cloudEnabledCheckbox.TabIndex = 114;
+            this.cloudEnabledCheckbox.Text = "启用云模式";
+            // 
+            // deviceSectionLabel
+            // 
+            this.deviceSectionLabel.Location = new System.Drawing.Point(9, 366);
+            this.deviceSectionLabel.Name = "deviceSectionLabel";
+            this.deviceSectionLabel.Size = new System.Drawing.Size(110, 24);
+            this.deviceSectionLabel.TabIndex = 128;
+            this.deviceSectionLabel.Text = "设备信息";
+            // 
+            // deviceIdLabel
+            // 
+            this.deviceIdLabel.Location = new System.Drawing.Point(9, 391);
+            this.deviceIdLabel.Name = "deviceIdLabel";
+            this.deviceIdLabel.Size = new System.Drawing.Size(110, 23);
+            this.deviceIdLabel.TabIndex = 117;
+            this.deviceIdLabel.Text = "设备 ID";
+            // 
+            // cloudDeviceIdInput
+            // 
+            this.cloudDeviceIdInput.Location = new System.Drawing.Point(9, 414);
+            this.cloudDeviceIdInput.Name = "cloudDeviceIdInput";
+            this.cloudDeviceIdInput.PlaceholderText = "STORE-A-PC-01";
+            this.cloudDeviceIdInput.Radius = 4;
+            this.cloudDeviceIdInput.Size = new System.Drawing.Size(232, 34);
+            this.cloudDeviceIdInput.TabIndex = 118;
+            // 
+            // deviceNameLabel
+            // 
+            this.deviceNameLabel.Location = new System.Drawing.Point(9, 453);
+            this.deviceNameLabel.Name = "deviceNameLabel";
+            this.deviceNameLabel.Size = new System.Drawing.Size(110, 23);
+            this.deviceNameLabel.TabIndex = 119;
+            this.deviceNameLabel.Text = "设备名称";
+            // 
+            // cloudDeviceNameInput
+            // 
+            this.cloudDeviceNameInput.Location = new System.Drawing.Point(9, 476);
+            this.cloudDeviceNameInput.Name = "cloudDeviceNameInput";
+            this.cloudDeviceNameInput.PlaceholderText = "前台收银机01";
+            this.cloudDeviceNameInput.Radius = 4;
+            this.cloudDeviceNameInput.Size = new System.Drawing.Size(232, 34);
+            this.cloudDeviceNameInput.TabIndex = 120;
+            // 
+            // allowPreviewCheckbox
+            // 
+            this.allowPreviewCheckbox.Location = new System.Drawing.Point(9, 513);
+            this.allowPreviewCheckbox.Name = "allowPreviewCheckbox";
+            this.allowPreviewCheckbox.Size = new System.Drawing.Size(135, 24);
+            this.allowPreviewCheckbox.TabIndex = 115;
+            this.allowPreviewCheckbox.Text = "允许云端预览";
+            // 
+            // printerSectionLabel
+            // 
+            this.printerSectionLabel.Location = new System.Drawing.Point(9, 548);
+            this.printerSectionLabel.Name = "printerSectionLabel";
+            this.printerSectionLabel.Size = new System.Drawing.Size(110, 24);
+            this.printerSectionLabel.TabIndex = 129;
+            this.printerSectionLabel.Text = "打印机";
             // 
             // label5
             // 
-            this.label5.Location = new System.Drawing.Point(9, 4);
+            this.label5.Location = new System.Drawing.Point(9, 573);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(75, 23);
+            this.label5.Size = new System.Drawing.Size(110, 23);
             this.label5.TabIndex = 1;
             this.label5.Text = "默认打印机";
             // 
             // defaultPrinterSelect
             // 
-            this.defaultPrinterSelect.Location = new System.Drawing.Point(7, 24);
+            this.defaultPrinterSelect.Location = new System.Drawing.Point(9, 596);
             this.defaultPrinterSelect.Name = "defaultPrinterSelect";
-            this.defaultPrinterSelect.Size = new System.Drawing.Size(468, 38);
+            this.defaultPrinterSelect.Size = new System.Drawing.Size(232, 38);
             this.defaultPrinterSelect.TabIndex = 0;
+            // 
+            // refreshPrintersButton
+            // 
+            this.refreshPrintersButton.BadgeBack = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(90)))), ((int)(((byte)(158)))));
+            this.refreshPrintersButton.BorderWidth = 1F;
+            this.refreshPrintersButton.Location = new System.Drawing.Point(9, 642);
+            this.refreshPrintersButton.Name = "refreshPrintersButton";
+            this.refreshPrintersButton.Radius = 4;
+            this.refreshPrintersButton.Size = new System.Drawing.Size(112, 32);
+            this.refreshPrintersButton.TabIndex = 116;
+            this.refreshPrintersButton.Text = "上报打印机";
+            this.refreshPrintersButton.Type = AntdUI.TTypeMini.Primary;
+            this.refreshPrintersButton.WaveSize = 0;
+            this.refreshPrintersButton.Click += new System.EventHandler(this.refreshPrintersButton_Click);
+            // 
+            // toggleButton
+            // 
+            this.toggleButton.BadgeBack = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(90)))), ((int)(((byte)(158)))));
+            this.toggleButton.BorderWidth = 1F;
+            this.toggleButton.Location = new System.Drawing.Point(129, 642);
+            this.toggleButton.Name = "toggleButton";
+            this.toggleButton.Radius = 4;
+            this.toggleButton.Size = new System.Drawing.Size(112, 32);
+            this.toggleButton.TabIndex = 104;
+            this.toggleButton.Text = "重连云端";
+            this.toggleButton.Type = AntdUI.TTypeMini.Primary;
+            this.toggleButton.WaveSize = 0;
+            this.toggleButton.Click += new System.EventHandler(this.toggleButton_Click);
             // 
             // MainForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(494, 246);
-            this.Controls.Add(this.tabs1);
-            this.Controls.Add(this.flowPanel1);
+            this.ClientSize = new System.Drawing.Size(260, 688);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.cloudServerUrlInput);
+            this.Controls.Add(this.deviceTokenLabel);
+            this.Controls.Add(this.cloudDeviceTokenInput);
+            this.Controls.Add(this.activationCodeLabel);
+            this.Controls.Add(this.activationCodeInput);
+            this.Controls.Add(this.deviceIdLabel);
+            this.Controls.Add(this.cloudDeviceIdInput);
+            this.Controls.Add(this.deviceNameLabel);
+            this.Controls.Add(this.cloudDeviceNameInput);
+            this.Controls.Add(this.toggleButton);
+            this.Controls.Add(this.activateButton);
+            this.Controls.Add(this.cloudEnabledCheckbox);
+            this.Controls.Add(this.allowPreviewCheckbox);
+            this.Controls.Add(this.refreshPrintersButton);
+            this.Controls.Add(this.statusLabel);
+            this.Controls.Add(this.activationSectionLabel);
+            this.Controls.Add(this.connectionSectionLabel);
+            this.Controls.Add(this.deviceSectionLabel);
+            this.Controls.Add(this.printerSectionLabel);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.defaultPrinterSelect);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
@@ -667,19 +500,58 @@ namespace GridReportForm
             this.Text = "报表助手";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.Load += new System.EventHandler(this.MainForm_Load);
+            this.Resize += new System.EventHandler(this.MainForm_Resize);
+            this.ApplyCompactLayout();
             this.mainContextMenuStrip.ResumeLayout(false);
-            this.flowPanel1.ResumeLayout(false);
-            this.tabs1.ResumeLayout(false);
-            this.tabPage1.ResumeLayout(false);
-            this.panel2.ResumeLayout(false);
-            this.flowPanel2.ResumeLayout(false);
-            this.flowLayoutPanel1.ResumeLayout(false);
-            this.panel1.ResumeLayout(false);
-            this.tabPage2.ResumeLayout(false);
             this.ResumeLayout(false);
 
 		}
 		#endregion
+
+        private void ApplyCompactLayout()
+        {
+            this.ClientSize = new System.Drawing.Size(360, 226);
+
+            statusLabel.Location = new System.Drawing.Point(16, 16);
+            statusLabel.Size = new System.Drawing.Size(328, 26);
+            statusLabel.Font = new Font("微软雅黑", 11, FontStyle.Bold);
+
+            deviceSummaryLabel.Location = new System.Drawing.Point(16, 50);
+            deviceSummaryLabel.Size = new System.Drawing.Size(328, 48);
+
+            activateButton.Location = new System.Drawing.Point(16, 114);
+            activateButton.Size = new System.Drawing.Size(158, 34);
+            activateButton.Text = "激活设备";
+
+            toggleButton.Location = new System.Drawing.Point(186, 114);
+            toggleButton.Size = new System.Drawing.Size(158, 34);
+            toggleButton.Radius = 4;
+            toggleButton.BorderWidth = 1F;
+            toggleButton.Text = "连接云端";
+
+            settingsButton.Location = new System.Drawing.Point(16, 164);
+            settingsButton.Size = new System.Drawing.Size(158, 34);
+            settingsButton.Radius = 4;
+            settingsButton.BorderWidth = 1F;
+            settingsButton.Type = AntdUI.TTypeMini.Default;
+            settingsButton.WaveSize = 0;
+            settingsButton.Text = "连接设置";
+            settingsButton.Click += new System.EventHandler(this.settingsButton_Click);
+
+            refreshPrintersButton.Location = new System.Drawing.Point(186, 164);
+            refreshPrintersButton.Size = new System.Drawing.Size(158, 34);
+            refreshPrintersButton.Text = "打印机管理";
+
+            this.Controls.Clear();
+            this.Controls.Add(statusLabel);
+            this.Controls.Add(deviceSummaryLabel);
+            this.Controls.Add(activateButton);
+            this.Controls.Add(toggleButton);
+            this.Controls.Add(settingsButton);
+            this.Controls.Add(refreshPrintersButton);
+
+            this.ClientSize = new System.Drawing.Size(360, 226);
+        }
 
 		private void btnExit_Click(object sender, System.EventArgs e)
 		{
@@ -775,10 +647,15 @@ namespace GridReportForm
             }
         }
 
+        private void MainForm_Resize(object sender, EventArgs e)
+        {
+        }
+
         private void mainNotifyIcon_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             try
             {
+                logger.Debug("Notify icon double clicked. WindowState={WindowState}", WindowState);
                 if (this.WindowState == FormWindowState.Normal)
                 {
                     this.WindowState = FormWindowState.Minimized;
@@ -793,6 +670,7 @@ namespace GridReportForm
             }
             catch (Exception objException)
             {
+                logger.Error(objException, "Notify icon double click handling failed.");
                 throw new Exception(objException.Message);
             }
         }
@@ -803,6 +681,7 @@ namespace GridReportForm
             {
                 if (MessageBox.Show("你确定要退出程序吗？", "提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.OK)
                 {
+                    logger.Info("Application exit confirmed from tray menu.");
                     this.mainNotifyIcon.Visible = false;
                     this.mainNotifyIcon.Dispose();
                     this.Dispose();
@@ -811,34 +690,39 @@ namespace GridReportForm
             }
             catch (Exception objException)
             {
+                logger.Error(objException, "Application exit from tray menu failed.");
                 MessageBox.Show(objException.Message);
             }
         }
 
+        private void autoStartToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ViewModel.AutoStartUp = autoStartToolStripMenuItem.Checked;
+            logger.Info("Auto startup changed. AutoStartUp={AutoStartUp}", ViewModel.AutoStartUp);
+        }
+
+        private async void checkUpdateToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            await CheckForApplicationUpdateAsync(true);
+        }
+
+        private void appDirectoryToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            logger.Info("Opening application directory. Directory={Directory}", AppDomain.CurrentDomain.BaseDirectory);
+            Process.Start("explorer.exe", AppDomain.CurrentDomain.BaseDirectory);
+        }
+
         private void MainForm_Load(object sender, EventArgs e)
         {
+            logger.Info("Main form loaded.");
             if (Helper.AlreadyRun())
             {
+                logger.Warn("Another GridReportForm instance is already running. Exiting current process.");
                 MessageBox.Show("打印助手已运行");
                 this.ExitApp();
+                return;
             }
-            else
-            {
-                string[] commandLineArgs = Environment.GetCommandLineArgs();
-                if (commandLineArgs.Length == 2)
-                {
-                    if (commandLineArgs[1].Contains("run"))
-                    {
-                        this.StartServer();
-                    }
-                    if (commandLineArgs[1].Contains("serve"))
-                    {
-                        this.StartServer();
-                        return;
-                    }
-
-                }
-            }
+            StartAutoUpdateCheck();
         }
 
 
@@ -850,250 +734,454 @@ namespace GridReportForm
             }
             catch (Exception)
             {
+                logger.Warn("Application.Exit failed. Forcing process exit.");
                 Environment.Exit(0);
             }
         }
 
-        private void SocketSendMessage(string socketId, object obj)
+        private void StartAutoUpdateCheck()
         {
-            IWebSocketConnection socket = ViewModel.Sockets.FirstOrDefault(row => row.ConnectionInfo.Id.ToString() == socketId);
-            if (socket != null)
+            if (!ViewModel.AutoUpdate)
             {
-                if (obj is string str)
-                {
-                    socket.Send(str);
-                }
-                else
-                {
-                    socket.Send(JObject.FromObject(obj).ToString(0, Array.Empty<JsonConverter>()));
-                }
+                logger.Info("Auto update check skipped because AutoUpdate is disabled.");
+                return;
             }
+
+            Timer timer = new Timer
+            {
+                Interval = 5000
+            };
+            timer.Tick += async (sender, args) =>
+            {
+                timer.Stop();
+                timer.Dispose();
+                await CheckForApplicationUpdateAsync(false);
+            };
+            timer.Start();
+            logger.Info("Auto update check scheduled.");
         }
 
-
-        private void MessageHandle(IWebSocketConnection socket, string message)
+        private async Task CheckForApplicationUpdateAsync(bool manual)
         {
+            if (updateCheckRunning)
+            {
+                logger.Debug("Application update check ignored because another check is running. Manual={Manual}", manual);
+                return;
+            }
+
+            updateCheckRunning = true;
+            checkUpdateToolStripMenuItem.Enabled = false;
+            string originalText = checkUpdateToolStripMenuItem.Text;
+            checkUpdateToolStripMenuItem.Text = manual ? "检查中..." : originalText;
+
             try
             {
-                if (message == "ping")
+                logger.Info("Application update check started. Manual={Manual}", manual);
+                ApplicationUpdateCheckResult result = await updateService.CheckLatestAsync();
+                if (result.Status == ApplicationUpdateStatus.NoUpdate)
                 {
-                    SocketSendMessage(socket.ConnectionInfo.Id.ToString(), "pong");
-                    taskEvent.Set();
+                    if (manual)
+                    {
+                        MessageBox.Show("当前已是最新版本", "检查更新", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
                     return;
                 }
-                string socketOrigin = this.GetSocketOrigin(socket);
-                if (!this.taskEvent.WaitOne(0x7530))
+                if (result.Status == ApplicationUpdateStatus.Unavailable)
                 {
-                    throw new Exception("任务超时已取消");
+                    logger.Warn("Application update unavailable. Manual={Manual}, Message={Message}", manual, result.Message);
+                    if (manual)
+                    {
+                        MessageBox.Show(result.Message ?? "当前版本无法自动更新", "检查更新", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                    return;
                 }
-                JObject jsonData = JObject.Parse(message);
-                //指令
-                string cmd = jsonData.Value<string>("cmd");
-                //数据源
-                string source = jsonData.Value<string>("source");
-                //模板数据
-                string template = jsonData.Value<string>("template");
-                //扩展数据
-                JObject extInfo = jsonData.Value<JObject>("extInfo");
-                if (string.IsNullOrEmpty(cmd))
-                {
-                    throw new MessageHandleException("指令未传输");
-                }
-                switch(cmd)
-                {
-                    case "get-printers":
-                    {
-                        TaskItem item = new TaskItem();
-                        item.TaskName = cmd;
-                        item.SocketId = socket.ConnectionInfo.Id.ToString();
-                        item.ThreadId = Thread.CurrentThread.ManagedThreadId.ToString();
-                        item.Template = template;
-                        item.Source = source;
-                        ViewModel.Tasks.Add(item);
-                        List<string> printers = MyLocalPrinter.GetLocalPrinters();
-                        string defaultPrinter = MyLocalPrinter.DefaultPrinter();
-                        object obj = new
-                        {
-                            //保证消息的唯一性
-                            ticketId = Guid.NewGuid().ToString(),
-                            success = true,
-                            type = cmd,
-                            code = 200,
-                            state = "success",
-                            data = new
-                            {
-                                defaultPrinter,
-                                printers
-                            }
-                        };
-                        socket.Send(JObject.FromObject(obj).ToString(0, Array.Empty<JsonConverter>()));
-                        ViewModel.Tasks.Add(item);
-                        this.taskEvent.Set();
-                        break;
-                    }
-                    case "print":
-                    {
-                        if (string.IsNullOrEmpty(template))
-                        {
-                            throw new MessageHandleException("模板信息未传输");
-                        }
-                        TaskItem item = new TaskItem();
-                        item.TaskName = cmd;
-                        item.SocketId = socket.ConnectionInfo.Id.ToString();
-                        item.ThreadId = Thread.CurrentThread.ManagedThreadId.ToString();
-                        item.Template = template;
-                        item.Source = source;
-                        ViewModel.Tasks.Add(item);
-                        this.Print(template, source, extInfo);
-                        ViewModel.Tasks.Add(item);
-                        break;
-                    }
-                    case "preview":
-                    {
-                        if (string.IsNullOrEmpty(template))
-                        {
-                            throw new MessageHandleException("模板信息未传输");
-                        }
-                        TaskItem item = new TaskItem();
-                        item.TaskName = cmd;
-                        item.SocketId = socket.ConnectionInfo.Id.ToString();
-                        item.ThreadId = Thread.CurrentThread.ManagedThreadId.ToString();
-                        item.Template = template;
-                        item.Source = source;
-                        ViewModel.Tasks.Add(item);
-                        this.Preview(template, source, extInfo);
-                        break;
-                    }
-                    case "document":
-                    {
-                        TaskItem item = new TaskItem();
-                        item.TaskName = cmd;
-                        item.SocketId = socket.ConnectionInfo.Id.ToString();
-                        item.ThreadId = Thread.CurrentThread.ManagedThreadId.ToString();
-                        ViewModel.Tasks.Add(item);
-                        break;
-                    }
-                    case "design":
-                    {
-                        TaskItem item = new TaskItem();
-                        item.TaskName = cmd;
-                        item.SocketId = socket.ConnectionInfo.Id.ToString();
-                        item.ThreadId = Thread.CurrentThread.ManagedThreadId.ToString();
-                        item.Template = template;
-                        item.Source = source;
-                        ViewModel.Tasks.Add(item);
-                        this.Design(socket, template, source, extInfo);
-                        break;
-                    }
-                    default:
-                    {
-                        break;
-                    }
-                }
+
+                await PromptInstallUpdateAsync(result.Update);
             }
             catch (Exception exception)
             {
-                logger.Error(exception);
-                this.taskEvent.Set();
-                object obj = new
+                logger.Error(exception, "Application update check failed. Manual={Manual}", manual);
+                if (manual)
                 {
-                    //保证消息的唯一性
-                    ticketId = Guid.NewGuid().ToString(),
-                    success = false,
-                    code = 500,
-                    state = "error",
-                    message = exception.Message.ToString()
-                };
-                socket.Send(JObject.FromObject(obj).ToString(0, Array.Empty<JsonConverter>()));
-                TaskItem item = ViewModel.Tasks.Find(row => (row.ThreadId == Thread.CurrentThread.ManagedThreadId.ToString()));
-                if (item != null)
-                {
-                    ViewModel.Tasks.Remove(item);
+                    MessageBox.Show(exception.Message, "检查更新失败", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
+            }
+            finally
+            {
+                checkUpdateToolStripMenuItem.Text = originalText;
+                checkUpdateToolStripMenuItem.Enabled = true;
+                updateCheckRunning = false;
             }
         }
 
-        private void Design(IWebSocketConnection socket, string template, string source, JObject extInfo)
+        private async Task PromptInstallUpdateAsync(ApplicationUpdateInfo update)
         {
-            lock (lockDesignForm)
+            DialogResult confirm = MessageBox.Show(
+                $"发现新版本 {ApplicationUpdateService.FormatVersion(update.LatestVersion)}\r\n\r\n当前版本：{ApplicationUpdateService.FormatVersion(update.CurrentVersion)}\r\n是否立即下载并安装？",
+                "发现新版本",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Information,
+                MessageBoxDefaultButton.Button1);
+            if (confirm != DialogResult.Yes)
             {
-                if (designOpened && designForm != null)
+                logger.Info("Application update declined by user. LatestVersion={LatestVersion}", update.LatestVersion);
+                return;
+            }
+
+            try
+            {
+                checkUpdateToolStripMenuItem.Text = "下载中...";
+                logger.Info("Application update accepted by user. LatestVersion={LatestVersion}", update.LatestVersion);
+                string installerPath = await updateService.DownloadInstallerAsync(update);
+                MessageBox.Show("更新安装包已下载，即将退出并启动安装程序。", "准备安装更新", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                logger.Info("Starting update installer. InstallerPath={InstallerPath}", installerPath);
+                cloudTransport.Stop();
+                Process.Start(new ProcessStartInfo(installerPath)
                 {
-                    /*
-                    this.Invoke((MethodInvoker)delegate
-                    {
-                        designForm.TopMost = true;
-                        designForm.Activate();
-                        designForm.TopMost = false;
-                    });
-                    */
-                    throw new MessageHandleException("设计器繁忙");
-                }
-                //taskDesignEvent.WaitOne();
-                // 使用 Invoke 来确保UI操作在UI线程上执行
-                this.Invoke((MethodInvoker)delegate
-                {
-                    TaskItem item = ViewModel.Tasks.Find(row => row.ThreadId == Thread.CurrentThread.ManagedThreadId.ToString());
-                    designForm = new DesignForm(socket, template, source, extInfo);
-                    designForm.FormClosed += (o, e) =>
-                    {
-                        //taskDesignEvent.Set();
-                        designOpened = false;
-                        designForm = null;
-                    };
-                    designForm.Show();
-                    designForm.TopMost = true;
-                    designForm.Activate();
-                    designForm.TopMost = false;
-                    designOpened = true;
-                    taskEvent.Set();
-                    ViewModel.Tasks.Remove(item);
+                    UseShellExecute = true
                 });
+                mainNotifyIcon.Visible = false;
+                Application.Exit();
             }
-        }
-
-        private void Preview(string template, string source, JObject extInfo)
-        {
-            // 使用 Invoke 来确保UI操作在UI线程上执行
-            this.Invoke((MethodInvoker)delegate
+            catch (Exception exception)
             {
-                TaskItem item = ViewModel.Tasks.Find(row => row.ThreadId == Thread.CurrentThread.ManagedThreadId.ToString());
-                Form form = new PreviewForm(template, source, extInfo);
-                form.Show();
-                form.TopMost = true;
-                form.Activate();
-                form.TopMost = false;
-                ViewModel.Tasks.Remove(item);
-                taskEvent.Set();
-            });
-        }
-
-        private void Print(string template, string source, JObject extInfo)
-        {
-            // 使用 Invoke 来确保UI操作在UI线程上执行
-            this.Invoke((MethodInvoker)delegate
-            {
-                TaskItem item = ViewModel.Tasks.Find(row => row.ThreadId == Thread.CurrentThread.ManagedThreadId.ToString());
-                Form form = new PrintForm(template, source, extInfo);
-                form.Show();
-                form.TopMost = true;
-                form.Activate();
-                form.TopMost = false;
-                ViewModel.Tasks.Remove(item);
-                taskEvent.Set();
-            });
+                logger.Error(exception, "Application update install preparation failed. LatestVersion={LatestVersion}", update.LatestVersion);
+                MessageBox.Show(exception.Message, "更新失败", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
 
         private void toggleButton_Click(object sender, EventArgs e)
         {
-            if (!ViewModel.State)
+            logger.Info("Connect cloud button clicked. CloudEnabled={CloudEnabled}, Status={Status}", ViewModel.CloudEnabled, cloudTransport.Status);
+            cloudTransport.Stop();
+            if (ViewModel.CloudEnabled)
             {
-                StartServer();
-            }
-            else
-            {
-                CloseServer();
+                cloudTransport.Start();
             }
         }
+
+        private void activateButton_Click(object sender, EventArgs e)
+        {
+            logger.Info("Activation button clicked. HasToken={HasToken}, DeviceId={DeviceId}", !string.IsNullOrWhiteSpace(ViewModel.CloudDeviceToken), ViewModel.CloudDeviceId);
+            ShowActivationDialog();
+        }
+
+        private void settingsButton_Click(object sender, EventArgs e)
+        {
+            logger.Info("Settings button clicked.");
+            ShowSettingsDialog();
+        }
+
+        private void ShowActivationDialog()
+        {
+            bool activated = !string.IsNullOrWhiteSpace(ViewModel.CloudDeviceToken);
+            logger.Info("Opening activation dialog. Reactivation={Reactivation}, DeviceId={DeviceId}, DeviceName={DeviceName}", activated, ViewModel.CloudDeviceId, ViewModel.CloudDeviceName);
+            Form form = CreateDialog(activated ? "重新激活设备" : "激活设备", 330, 310);
+            AntdUI.Label serverLabel = CreateDialogLabel("云服务器地址", 16, 16);
+            AntdUI.Input serverInput = CreateDialogInput(ViewModel.CloudServerUrl, "wss://example.com/admin/platform/gridReport/cloud/ws", 16, 42);
+            AntdUI.Label nameLabel = CreateDialogLabel("设备名称", 16, 86);
+            AntdUI.Input nameInput = CreateDialogInput(ViewModel.CloudDeviceName, "前台收银机01", 16, 112);
+            AntdUI.Label codeLabel = CreateDialogLabel("激活码", 16, 156);
+            AntdUI.Input codeInput = CreateDialogInput("", "后台生成的 6 位激活码", 16, 182);
+            AntdUI.Checkbox previewCheckbox = new AntdUI.Checkbox
+            {
+                Location = new Point(16, 224),
+                Size = new Size(160, 24),
+                Text = "允许云端预览",
+                Checked = ViewModel.AllowPreview
+            };
+            AntdUI.Button activate = CreateDialogButton(activated ? "重新激活" : "激活", 176, 242, AntdUI.TTypeMini.Primary);
+            activate.Click += (o, args) =>
+            {
+                try
+                {
+                    logger.Info("Submitting activation dialog. ServerUrl={ServerUrl}, DeviceName={DeviceName}, AllowPreview={AllowPreview}, HasActivationCode={HasActivationCode}", serverInput.Text.Trim(), nameInput.Text.Trim(), previewCheckbox.Checked, !string.IsNullOrWhiteSpace(codeInput.Text));
+                    ActivateDevice(serverInput.Text.Trim(), nameInput.Text.Trim(), codeInput.Text.Trim(), previewCheckbox.Checked);
+                    form.DialogResult = DialogResult.OK;
+                    form.Close();
+                }
+                catch (Exception exception)
+                {
+                    logger.Error(exception, "Device activation dialog submission failed.");
+                    MessageBox.Show(exception.Message, "设备激活失败", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            };
+
+            form.Controls.Add(serverLabel);
+            form.Controls.Add(serverInput);
+            form.Controls.Add(nameLabel);
+            form.Controls.Add(nameInput);
+            form.Controls.Add(codeLabel);
+            form.Controls.Add(codeInput);
+            form.Controls.Add(previewCheckbox);
+            form.Controls.Add(activate);
+            form.ShowDialog(this);
+        }
+
+        private void ActivateDevice(string serverUrl, string deviceName, string activationCode, bool allowPreview)
+        {
+            try
+            {
+                logger.Info("Activating device from main form. ServerUrl={ServerUrl}, DeviceId={DeviceId}, DeviceName={DeviceName}, AllowPreview={AllowPreview}, HasActivationCode={HasActivationCode}", serverUrl, ViewModel.CloudDeviceId, deviceName, allowPreview, !string.IsNullOrWhiteSpace(activationCode));
+                ViewModel.CloudServerUrl = serverUrl;
+                ViewModel.CloudDeviceName = deviceName;
+                ViewModel.AllowPreview = allowPreview;
+
+                CloudActivationResult result = CloudActivationClient.Activate(new CloudActivationRequest
+                {
+                    ServerUrl = serverUrl,
+                    ActivationCode = activationCode,
+                    DeviceId = ViewModel.CloudDeviceId,
+                    DeviceName = deviceName,
+                    AllowPreview = allowPreview,
+                    DefaultPrinter = MyLocalPrinter.DefaultPrinter(),
+                    Printers = MyLocalPrinter.GetLocalPrinters()
+                });
+
+                if (!string.IsNullOrWhiteSpace(result.DeviceId))
+                {
+                    ViewModel.CloudDeviceId = result.DeviceId;
+                }
+                if (!string.IsNullOrWhiteSpace(result.DeviceName))
+                {
+                    ViewModel.CloudDeviceName = result.DeviceName;
+                }
+                ViewModel.CloudDeviceToken = result.Token;
+                logger.Info("Device activation saved. DeviceId={DeviceId}, DeviceName={DeviceName}, HasToken={HasToken}", ViewModel.CloudDeviceId, ViewModel.CloudDeviceName, !string.IsNullOrWhiteSpace(ViewModel.CloudDeviceToken));
+                MessageBox.Show("设备激活成功");
+
+                cloudTransport.Stop();
+                if (ViewModel.CloudEnabled)
+                {
+                    cloudTransport.Start();
+                }
+                RefreshCloudStatus();
+            }
+            catch (Exception exception)
+            {
+                logger.Error(exception, "Device activation failed before completion.");
+                throw;
+            }
+        }
+
+        private void ShowSettingsDialog()
+        {
+            logger.Info("Opening settings dialog. DeviceId={DeviceId}, DeviceName={DeviceName}, CloudEnabled={CloudEnabled}, AllowPreview={AllowPreview}", ViewModel.CloudDeviceId, ViewModel.CloudDeviceName, ViewModel.CloudEnabled, ViewModel.AllowPreview);
+            Form form = CreateDialog("连接与设备设置", 330, 410);
+            AntdUI.Label serverLabel = CreateDialogLabel("云服务器地址", 16, 16);
+            AntdUI.Input serverInput = CreateDialogInput(ViewModel.CloudServerUrl, "wss://example.com/admin/platform/gridReport/cloud/ws", 16, 42);
+            AntdUI.Label tokenLabel = CreateDialogLabel("设备 Token", 16, 86);
+            AntdUI.Input tokenInput = CreateDialogInput(ViewModel.CloudDeviceToken, "激活后自动写入", 16, 112);
+            AntdUI.Label idLabel = CreateDialogLabel("设备 ID", 16, 156);
+            AntdUI.Input idInput = CreateDialogInput(ViewModel.CloudDeviceId, "device id", 16, 182);
+            AntdUI.Label nameLabel = CreateDialogLabel("设备名称", 16, 226);
+            AntdUI.Input nameInput = CreateDialogInput(ViewModel.CloudDeviceName, "前台收银机01", 16, 252);
+            AntdUI.Checkbox cloudCheckbox = new AntdUI.Checkbox
+            {
+                Location = new Point(16, 294),
+                Size = new Size(120, 24),
+                Text = "启用云模式",
+                Checked = ViewModel.CloudEnabled
+            };
+            AntdUI.Checkbox previewCheckbox = new AntdUI.Checkbox
+            {
+                Location = new Point(150, 294),
+                Size = new Size(150, 24),
+                Text = "允许云端预览",
+                Checked = ViewModel.AllowPreview
+            };
+            AntdUI.Button save = CreateDialogButton("保存", 176, 342, AntdUI.TTypeMini.Primary);
+            save.Click += (o, args) =>
+            {
+                logger.Info("Saving settings dialog. ServerUrl={ServerUrl}, DeviceId={DeviceId}, DeviceName={DeviceName}, CloudEnabled={CloudEnabled}, AllowPreview={AllowPreview}, HasToken={HasToken}", serverInput.Text.Trim(), idInput.Text.Trim(), nameInput.Text.Trim(), cloudCheckbox.Checked, previewCheckbox.Checked, !string.IsNullOrWhiteSpace(tokenInput.Text));
+                ViewModel.CloudServerUrl = serverInput.Text.Trim();
+                ViewModel.CloudDeviceToken = tokenInput.Text.Trim();
+                ViewModel.CloudDeviceId = idInput.Text.Trim();
+                ViewModel.CloudDeviceName = nameInput.Text.Trim();
+                ViewModel.CloudEnabled = cloudCheckbox.Checked;
+                ViewModel.AllowPreview = previewCheckbox.Checked;
+                cloudTransport.Stop();
+                if (ViewModel.CloudEnabled)
+                {
+                    cloudTransport.Start();
+                }
+                RefreshCloudStatus();
+                MessageBox.Show("设置已保存", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                form.Close();
+            };
+
+            form.Controls.Add(serverLabel);
+            form.Controls.Add(serverInput);
+            form.Controls.Add(tokenLabel);
+            form.Controls.Add(tokenInput);
+            form.Controls.Add(idLabel);
+            form.Controls.Add(idInput);
+            form.Controls.Add(nameLabel);
+            form.Controls.Add(nameInput);
+            form.Controls.Add(cloudCheckbox);
+            form.Controls.Add(previewCheckbox);
+            form.Controls.Add(save);
+            form.ShowDialog(this);
+        }
+
+        private Form CreateDialog(string title, int width, int height)
+        {
+            return new Form
+            {
+                Text = title,
+                Font = new Font("微软雅黑", 10),
+                BackColor = Color.White,
+                FormBorderStyle = FormBorderStyle.FixedDialog,
+                MaximizeBox = false,
+                MinimizeBox = false,
+                StartPosition = FormStartPosition.CenterParent,
+                ClientSize = new Size(width, height)
+            };
+        }
+
+        private AntdUI.Label CreateDialogLabel(string text, int x, int y)
+        {
+            return new AntdUI.Label
+            {
+                Text = text,
+                Location = new Point(x, y),
+                Size = new Size(180, 22)
+            };
+        }
+
+        private AntdUI.Input CreateDialogInput(string text, string placeholder, int x, int y)
+        {
+            return new AntdUI.Input
+            {
+                Text = text,
+                PlaceholderText = placeholder,
+                Location = new Point(x, y),
+                Size = new Size(292, 34),
+                Radius = 4
+            };
+        }
+
+        private AntdUI.Button CreateDialogButton(string text, int x, int y, AntdUI.TTypeMini type)
+        {
+            return new AntdUI.Button
+            {
+                Text = text,
+                Location = new Point(x, y),
+                Size = new Size(132, 34),
+                Radius = 4,
+                BorderWidth = 1F,
+                Type = type,
+                WaveSize = 0
+            };
+        }
+
+        private void refreshPrintersButton_Click(object sender, EventArgs e)
+        {
+            logger.Info("Printer management button clicked.");
+            ShowPrinterDialog();
+        }
+
+        private void ShowPrinterDialog()
+        {
+            logger.Info("Opening printer dialog. DefaultPrinter={DefaultPrinter}", MyLocalPrinter.DefaultPrinter());
+            Form form = CreateDialog("打印机管理", 330, 235);
+            AntdUI.Label printerLabel = CreateDialogLabel("默认打印机", 16, 16);
+            AntdUI.Select printerSelect = new AntdUI.Select
+            {
+                Location = new Point(16, 42),
+                Size = new Size(292, 38)
+            };
+            printerSelect.Items.AddRange(MyLocalPrinter.GetLocalPrinters().ToArray<object>());
+            printerSelect.SelectedValue = MyLocalPrinter.DefaultPrinter();
+            Observable.FromEventPattern(printerSelect, nameof(AntdUI.Select.SelectedValueChanged)).Subscribe(x =>
+            {
+                var args = x as EventPattern<object>;
+                var eventArgs = args.EventArgs as AntdUI.ObjectNEventArgs;
+                logger.Info("Default printer changed from printer dialog. PrinterName={PrinterName}", eventArgs.Value);
+                MyLocalPrinter.SetDefaultPrinter(eventArgs.Value.ToString());
+            });
+
+            AntdUI.Label noteLabel = new AntdUI.Label
+            {
+                Location = new Point(16, 96),
+                Size = new Size(292, 46),
+                Text = "上报后，云端会更新此设备可用打印机列表。"
+            };
+            AntdUI.Button reportButton = CreateDialogButton("上报打印机", 176, 160, AntdUI.TTypeMini.Primary);
+            reportButton.Click += (o, args) =>
+            {
+                logger.Info("Printer report submitted from printer dialog. DefaultPrinter={DefaultPrinter}", MyLocalPrinter.DefaultPrinter());
+                cloudTransport.ReportPrintersNow();
+                MessageBox.Show("已提交打印机上报请求");
+                form.Close();
+            };
+
+            form.Controls.Add(printerLabel);
+            form.Controls.Add(printerSelect);
+            form.Controls.Add(noteLabel);
+            form.Controls.Add(reportButton);
+            form.ShowDialog(this);
+        }
+
+        private CloudConnectionOptions CreateCloudOptions()
+        {
+            return new CloudConnectionOptions
+            {
+                ServerUrl = ViewModel.CloudServerUrl,
+                DeviceToken = ViewModel.CloudDeviceToken,
+                DeviceId = ViewModel.CloudDeviceId,
+                DeviceName = ViewModel.CloudDeviceName,
+                AllowPreview = ViewModel.AllowPreview
+            };
+        }
+
+        private void CloudTransport_StatusChanged(string status)
+        {
+            logger.Debug("Cloud transport status changed event received. Status={Status}", status);
+            if (IsDisposed)
+            {
+                return;
+            }
+            BeginInvoke((MethodInvoker)RefreshCloudStatus);
+        }
+
+        private void RefreshCloudStatus()
+        {
+            if (statusLabel == null)
+            {
+                return;
+            }
+
+            bool activated = !string.IsNullOrWhiteSpace(ViewModel.CloudDeviceToken);
+            string status = activated ? cloudTransport.Status : "设备未激活";
+            statusLabel.Text = "状态：" + status;
+            activateButton.Visible = true;
+            activateButton.Text = activated ? "重新激活" : "激活设备";
+            toggleButton.Enabled = activated;
+            toggleButton.Text = "连接云端";
+            deviceSummaryLabel.Text = activated
+                ? $"设备：{ViewModel.CloudDeviceName}\r\n编号：{ViewModel.CloudDeviceId}"
+                : "设备尚未绑定，请点击右侧按钮完成激活。";
+
+            bool failed = status == "设备未激活" || status == "连接失败" || status == "未配置云服务器";
+            statusLabel.ForeColor = status == "已连接"
+                ? Color.ForestGreen
+                : status == "连接中" ? Color.RoyalBlue
+                : failed ? Color.Firebrick : Color.FromArgb(30, 30, 30);
+            if (!failed)
+            {
+                lastAlertedConnectionError = null;
+                return;
+            }
+
+            string error = cloudTransport.LastError;
+            if (!string.IsNullOrWhiteSpace(error) && error != lastAlertedConnectionError)
+            {
+                lastAlertedConnectionError = error;
+                logger.Warn("Showing cloud connection failure message. Status={Status}, Error={Error}", status, error);
+                MessageBox.Show(error, "云连接失败", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
     }
 }

@@ -13,7 +13,6 @@ namespace GridReportForm
         public string Template { get; set; }
         public string Source { get; set; }
         public string BizId { get; set; }
-        public string SocketId { get; set; }
         public string ThreadId { get; set; }
     }
 }

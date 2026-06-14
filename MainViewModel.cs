@@ -1,80 +1,63 @@
-using DynamicData;
-using DynamicData.Binding;
-using Fleck;
 using IniParser;
 using IniParser.Model;
 using ReactiveUI;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.IO;
-using System.Linq;
-using System.Reactive.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GridReportForm
 {
     public class MainViewModel : ReactiveObject
     {
-        private static readonly log4net.ILog logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
 
-        private decimal _port;
-        private bool _state;
-        private ObservableCollection<IWebSocketConnection> _sockets;
         private IniData _config;
         private string _ip;
         private bool _autoUpdate;
         private bool _autoStartUp;
-        private bool _notifyOnConnect;
-        private bool _startServerOnLaunch;
         private string _closeMode;
+        private bool _cloudEnabled;
+        private string _cloudServerUrl;
+        private string _cloudDeviceToken;
+        private string _cloudDeviceId;
+        private string _cloudDeviceName;
+        private bool _allowPreview;
         private FileIniDataParser parser = new FileIniDataParser();
         private string configFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "config.ini");
 
 
         public MainViewModel()
         {
+            logger.Info("Loading application config. ConfigFile={ConfigFile}", configFilePath);
             Config = parser.ReadFile(configFilePath);
-            Port = int.Parse(Config["App"]["Port"]);
             LocalIp = Helper.GetLocalIP();
-            NotifyOnConnect = bool.Parse(Config["App"]["NotifyOnConnect"]);
             AutoStartUp = bool.Parse(Config["App"]["AutoStartUp"]);
             AutoUpdate = bool.Parse(Config["App"]["AutoUpdate"]);
-            StartServerOnLaunch = bool.Parse(Config["App"]["StartServerOnLaunch"]);
             CloseMode = Config["App"]["CloseMode"];
-            Sockets = new ObservableCollection<IWebSocketConnection>();
+            CloudEnabled = ReadBool("CloudEnabled", true);
+            CloudServerUrl = ReadString("CloudServerUrl", "");
+            CloudDeviceToken = ReadString("CloudDeviceToken", ReadOptionalString("CloudToken", ReadOptionalString("CloudApiKey", "")));
+            CloudDeviceId = ReadString("CloudDeviceId", "");
+            if (string.IsNullOrWhiteSpace(CloudDeviceId))
+            {
+                CloudDeviceId = Guid.NewGuid().ToString("N");
+                logger.Info("Generated new cloud device id. DeviceId={DeviceId}", CloudDeviceId);
+            }
+            else if (CloudDeviceId.StartsWith("device-", StringComparison.OrdinalIgnoreCase))
+            {
+                CloudDeviceId = CloudDeviceId.Substring("device-".Length);
+                logger.Info("Migrated cloud device id by removing legacy prefix. DeviceId={DeviceId}", CloudDeviceId);
+            }
+            CloudDeviceName = ReadString("CloudDeviceName", Environment.MachineName);
+            if (string.IsNullOrWhiteSpace(CloudDeviceName))
+            {
+                CloudDeviceName = Environment.MachineName;
+            }
+            AllowPreview = ReadBool("AllowPreview", false);
+            logger.Info("Application config loaded. CloudEnabled={CloudEnabled}, ServerUrl={ServerUrl}, DeviceId={DeviceId}, DeviceName={DeviceName}, HasToken={HasToken}, AllowPreview={AllowPreview}", CloudEnabled, CloudServerUrl, CloudDeviceId, CloudDeviceName, !string.IsNullOrWhiteSpace(CloudDeviceToken), AllowPreview);
         }
 
         public List<TaskItem> Tasks { get; } = new List<TaskItem>();
-
-        public bool StartServerOnLaunch
-        {
-            get => _startServerOnLaunch;
-            set
-            {
-                this.RaiseAndSetIfChanged(ref _startServerOnLaunch, value);
-                if (value.ToString() != Config["App"]["StartServerOnLaunch"])
-                {
-                    Config["App"]["StartServerOnLaunch"] = value.ToString();
-                    parser.WriteFile(configFilePath, Config);
-                }
-            }
-        }
-
-        public bool NotifyOnConnect
-        {
-            get => _notifyOnConnect;
-            set
-            {
-                this.RaiseAndSetIfChanged(ref _notifyOnConnect, value);
-                if (value.ToString() != Config["App"]["NotifyOnConnect"])
-                {
-                    Config["App"]["NotifyOnConnect"] = value.ToString();
-                    parser.WriteFile(configFilePath, Config);
-                }
-            }
-        }
 
         public bool AutoUpdate
         {
@@ -135,31 +118,99 @@ namespace GridReportForm
             }
         }
 
-        public decimal Port
+        public bool CloudEnabled
         {
-            get => _port;
+            get => _cloudEnabled;
             set
             {
-                this.RaiseAndSetIfChanged(ref _port, value);
-                if (value.ToString() != Config["App"]["Port"])
-                {
-                    Config["App"]["Port"] = value.ToString();
-                    parser.WriteFile(configFilePath, Config);
-                }
+                this.RaiseAndSetIfChanged(ref _cloudEnabled, value);
+                WriteString("CloudEnabled", value.ToString());
             }
         }
 
-        public bool State
+        public string CloudServerUrl
         {
-            get => _state;
-            set => this.RaiseAndSetIfChanged(ref _state, value);
+            get => _cloudServerUrl;
+            set
+            {
+                this.RaiseAndSetIfChanged(ref _cloudServerUrl, value);
+                WriteString("CloudServerUrl", value ?? "");
+            }
         }
 
-
-        public ObservableCollection<IWebSocketConnection> Sockets
+        public string CloudDeviceToken
         {
-            get => _sockets;
-            set => this.RaiseAndSetIfChanged(ref _sockets, value);
+            get => _cloudDeviceToken;
+            set
+            {
+                this.RaiseAndSetIfChanged(ref _cloudDeviceToken, value);
+                WriteString("CloudDeviceToken", value ?? "");
+            }
+        }
+
+        public string CloudDeviceId
+        {
+            get => _cloudDeviceId;
+            set
+            {
+                this.RaiseAndSetIfChanged(ref _cloudDeviceId, value);
+                WriteString("CloudDeviceId", value ?? "");
+            }
+        }
+
+        public string CloudDeviceName
+        {
+            get => _cloudDeviceName;
+            set
+            {
+                this.RaiseAndSetIfChanged(ref _cloudDeviceName, value);
+                WriteString("CloudDeviceName", value ?? "");
+            }
+        }
+
+        public bool AllowPreview
+        {
+            get => _allowPreview;
+            set
+            {
+                this.RaiseAndSetIfChanged(ref _allowPreview, value);
+                WriteString("AllowPreview", value.ToString());
+            }
+        }
+
+        private string ReadString(string key, string defaultValue)
+        {
+            if (!Config["App"].ContainsKey(key))
+            {
+                logger.Info("Config key missing. Writing default value. Key={Key}", key);
+                WriteString(key, defaultValue);
+            }
+            return Config["App"][key];
+        }
+
+        private string ReadOptionalString(string key, string defaultValue)
+        {
+            return Config["App"].ContainsKey(key) ? Config["App"][key] : defaultValue;
+        }
+
+        private bool ReadBool(string key, bool defaultValue)
+        {
+            return bool.Parse(ReadString(key, defaultValue.ToString()));
+        }
+
+        private void WriteString(string key, string value)
+        {
+            if (Config["App"][key] != value)
+            {
+                logger.Debug("Writing config value. Key={Key}, Value={Value}", key, IsSensitiveKey(key) ? "***" : value);
+                Config["App"][key] = value;
+                parser.WriteFile(configFilePath, Config);
+            }
+        }
+
+        private static bool IsSensitiveKey(string key)
+        {
+            return key != null && key.IndexOf("Token", StringComparison.OrdinalIgnoreCase) >= 0;
         }
     }
 }

@@ -14,7 +14,7 @@ namespace GridReportForm
 	/// </summary>
 	public class PreviewForm : System.Windows.Forms.Form, IGridForm
     {
-        private static readonly log4net.ILog logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
         private Axgregn6Lib.AxGRPrintViewer axGRPrintViewer;
 		/// <summary>
 		/// 必需的设计器变量。
@@ -44,8 +44,10 @@ namespace GridReportForm
             // Windows 窗体设计器支持所必需的
             //
             InitializeComponent();
+            logger.Info("Creating preview form. Template={Template}, HasSource={HasSource}", template, !string.IsNullOrWhiteSpace(source));
             if (string.IsNullOrEmpty(template))
             {
+                logger.Warn("Preview failed because template is empty.");
                 MessageBox.Show("预览失败，打印格式不存在", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 this.Close();
             } 
@@ -119,7 +121,7 @@ namespace GridReportForm
                 }
                 catch (Exception e)
                 {
-
+                    logger.Warn(e, "Deleting preview source temp file failed. Source={Source}", source);
                 }
             }
         }
@@ -170,17 +172,20 @@ namespace GridReportForm
 			axGRPrintViewer.Report = Report;
 		}
 
-		private void PreviewForm_Load(object sender, System.EventArgs e)
+        private void PreviewForm_Load(object sender, System.EventArgs e)
 		{
+            logger.Info("Preview form loaded. Template={Template}, HasSource={HasSource}", template, !string.IsNullOrWhiteSpace(source));
             if (!string.IsNullOrEmpty(template))
             {
                 if (template.StartsWith("http"))
                 {
                     Uri uri = new Uri(template);
                     string fileName = System.IO.Path.GetFileName(uri.LocalPath);
+                    logger.Info("Downloading preview template. Url={Url}, FileName={FileName}", template, fileName);
                     HttpClientUtils.DownloadFile(template, fileName);
                     template = fileName;
                 }
+                logger.Debug("Loading preview template. Template={Template}", template);
                 Report.LoadFromFile(template);
                 if (!string.IsNullOrEmpty(source))
                 {
@@ -188,21 +193,25 @@ namespace GridReportForm
                     if (source.StartsWith("http"))
                     {
                         Report.QuerySQL = "";
+                        logger.Debug("Loading preview data from url. DataUrl={DataUrl}", source);
                         Report.LoadDataFromURL(source);
                     }
                     else
                     {
                         //生成临时的json文件
+                        logger.Debug("Creating preview data temp file.");
                         Report.QuerySQL = CreateDataFile(source);
                     }
                 }
                 AttachReport(Report);
             }
+            logger.Debug("Starting preview viewer.");
             axGRPrintViewer.Start();
 		}
 
 		private void PreviewForm_Closed(object sender, System.EventArgs e)
 		{
+            logger.Debug("Preview form closed. Stopping viewer.");
 			axGRPrintViewer.Stop();
 		}
 	}

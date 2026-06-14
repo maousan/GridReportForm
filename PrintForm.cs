@@ -14,7 +14,7 @@ namespace GridReportForm
 	/// </summary>
 	public class PrintForm : System.Windows.Forms.Form
 	{
-        private static readonly log4net.ILog logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
         private System.ComponentModel.IContainer components;
         private string template;
         private string source;
@@ -40,8 +40,10 @@ namespace GridReportForm
             this.template = template;
             this.source = source;
             this.extInfo = extInfo;
+            logger.Info("Creating print form. Template={Template}, HasSource={HasSource}, PrinterName={PrinterName}", template, !string.IsNullOrWhiteSpace(source), extInfo?.Value<string>("printerName"));
             if (string.IsNullOrEmpty(template))
             {
+                logger.Warn("Print failed because template is empty.");
                 MessageBox.Show("打印失败，打印格式不存在", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else
@@ -50,9 +52,11 @@ namespace GridReportForm
                 {
                     Uri uri = new Uri(template);
                     string fileName = System.IO.Path.GetFileName(uri.LocalPath);
+                    logger.Info("Downloading print template. Url={Url}, FileName={FileName}", template, fileName);
                     HttpClientUtils.DownloadFile(template, fileName);
                     template = fileName;
                 }
+                logger.Debug("Loading print template. Template={Template}", template);
                 Report.LoadFromFile(template);
                 //设置与数据源的连接串，因为在设计时指定的数据库路径是绝对路径。
                 if (!string.IsNullOrEmpty(source))
@@ -61,16 +65,19 @@ namespace GridReportForm
                     if (source.StartsWith("http"))
                     {
                         Report.QuerySQL = "";
+                        logger.Debug("Loading print data from url. DataUrl={DataUrl}", source);
                         Report.LoadDataFromURL(source);
                     }
                     else
                     {
                         //生成临时的json文件
+                        logger.Debug("Creating print data temp file.");
                         Report.QuerySQL = CreateDataFile(source);
                     }
                 }
                 Report.Printer.PrinterName = extInfo.Value<string>("printerName");
                 bool showPrintDialog = extInfo.Value<bool>("showPrintDialog");
+                logger.Info("Submitting report print. PrinterName={PrinterName}, ShowPrintDialog={ShowPrintDialog}", Report.Printer.PrinterName, showPrintDialog);
                 Report.Print(showPrintDialog);
             }
             this.Close();
@@ -138,7 +145,7 @@ namespace GridReportForm
                 }
                 catch (Exception e)
                 {
-
+                    logger.Warn(e, "Deleting print source temp file failed. Source={Source}", source);
                 }
             }
         }
@@ -181,7 +188,7 @@ namespace GridReportForm
             }
             catch (Exception err)
             {
-                logger.Error(err);
+                logger.Error(err, "Print form SetVisibleCore failed.");
             }
 
         }

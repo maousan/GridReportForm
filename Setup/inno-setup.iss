@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "报表助手"
-#define MyAppVersion "1.0.0.0"
+#define MyAppVersion "1.0.0"
 #define MyAppPublisher "广州市每一角落连锁经营管理有限公司"
 #define MyAppExeName "GridReportForm.exe"
 #define MyAppAssocName MyAppName + ""
@@ -37,7 +37,7 @@ ChangesAssociations=yes
 DisableProgramGroupPage=no
 ; Uncomment the following line to run in non administrative install mode (install for current user only.)
 PrivilegesRequired=admin
-OutputBaseFilename={#MyAppSetupName}
+OutputBaseFilename={#MyAppSetupName}-{#MyAppVersion}
 OutputDir=./{#MyAppVersion}
 ;安装图标
 SetupIconFile={#MyAppDir}\favicon.ico
@@ -52,11 +52,11 @@ WizardStyle=modern
 VersionInfoVersion={#MyAppVersion}
 VersionInfoCopyright=Copyright © 2025 每一角落
 
-SignTool=sha1
-SignedUninstaller=yes
+; SignTool=sha1
+; SignedUninstaller=yes
 
 [Languages]
-Name: "chinesesimplified"; MessagesFile: "compiler:Languages\ChineseSimplified.isl"
+Name: "chinesesimplified"; MessagesFile: "ChineseSimplified.isl"
 
 [Tasks]
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: checkablealone

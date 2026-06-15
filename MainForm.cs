@@ -938,7 +938,7 @@ namespace GridReportForm
             logger.Info("Opening activation dialog. Reactivation={Reactivation}, DeviceId={DeviceId}, DeviceName={DeviceName}", activated, ViewModel.CloudDeviceId, ViewModel.CloudDeviceName);
             Form form = CreateDialog(activated ? "重新激活设备" : "激活设备", 330, 310);
             AntdUI.Label serverLabel = CreateDialogLabel("云服务器地址", 16, 16);
-            AntdUI.Input serverInput = CreateDialogInput(ViewModel.CloudServerUrl, "wss://example.com/admin/platform/gridReport/cloud/ws", 16, 42);
+            AntdUI.Input serverInput = CreateDialogInput(ViewModel.CloudServerUrl, "ws://127.0.0.1:8087/platform/gridReport/cloud/ws", 16, 42);
             AntdUI.Label nameLabel = CreateDialogLabel("设备名称", 16, 86);
             AntdUI.Input nameInput = CreateDialogInput(ViewModel.CloudDeviceName, "前台收银机01", 16, 112);
             AntdUI.Label codeLabel = CreateDialogLabel("激活码", 16, 156);
